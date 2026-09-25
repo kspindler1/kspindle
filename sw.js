@@ -5,7 +5,7 @@
    local Kloud Genie connector at localhost:8787), so that feature's "offline"
    behavior is unaffected. Registration silently no-ops on file:// (service workers
    require http/https), which is expected and not an error. */
-const CACHE_NAME = 'kloud-app-shell-v1';
+const CACHE_NAME = 'kloud-app-shell-v2';
 const APP_SHELL = [
   './Kloud_Shark_Tank_Full_Experience.html',
   './manifest.webmanifest',
@@ -35,16 +35,16 @@ self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   const url = new URL(event.request.url);
   if (url.origin !== self.location.origin) return; // never cache/proxy cross-origin (e.g. the Genie connector)
+  /* Network-first: always try the live network copy first so edits/updates show up
+     immediately on the next reload. Cache is only ever used as an offline fallback
+     when the network request fails — never used to silently mask a fresh update. */
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      const network = fetch(event.request).then((res) => {
-        if (res && res.ok) {
-          const copy = res.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
-        }
-        return res;
-      }).catch(() => cached);
-      return cached || network;
-    })
+    fetch(event.request).then((res) => {
+      if (res && res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+      }
+      return res;
+    }).catch(() => caches.match(event.request))
   );
 });

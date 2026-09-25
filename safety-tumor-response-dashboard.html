@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en"><head><script nonce="423703c9-4af3-4006-b1a9-4de757cba171">(function(){var ph="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAYAAACohjseAAACTklEQVRoge2azVXCQBRGLx4LoATsAFds04GUEDvACggVoBVgB5QgS2ZlC5RAB7oYIYTMTN78KBlP7jkuJEzIZWbe+wKM9vv9F/+Yu1tfwG8zCObOveGx0Z9fRQSz2azxv1KqUVP+/QwOgrkzCObOIJg7g2DupBScA5/AOOE5o0klOAE2wBRYJzpnElIJbqhnrgQWic4bTQrBCiiuHlujZ/PmxAoWwNJy7IMe7McYwTF6abqObyPOn4QYwQ26uLgouHHRCRVcoNtC6udeU6JbTzAhglPs+87GqYX4UF6MqzzHnvEVPO073+LhO66kub+XBFZlX8HgF0IeAkrMxSvkjfUSnBPfwMuOc5TYK3PI1hALThwv7IsrBHTN8IJ2qHAiFQxaHg5sIeAt9bVIBCs83zUBthDwChw7xk7wWE1dggUB615IQXtJHpHN4hxhb3UJdkWxFCzQheWSCjgIxoqWqktQEsVSYCo6K8E4Uda1CcbEK19MIeAd2SwWSiln6zIJBvWbSKa0t8OzcOxSKTWxHTQJpm4JUq6DxO7nrwvnUrXN4K1Y02xJkr0IMFVKVaYDox5+R38EHqj74RZ5PXjk6vaqj5+LjtFJ58SLx9hWW+ujIDTvPA7oqiod16CvgtAMASu6I5yRPgtCHQIOyCJci74LXoYASRBv0XdBqEOANIg3yEEQ6hBQIYtwZ3IRhDoESJs/kJcg6Ka/w2MWcxM85U5x889NEHTReUIWxLMUBB0ADpIn5ioIurJ29kXTrw1zQXTPmvMMihgEc2cQzJ1vY2dnFCtjvvYAAAAASUVORK5CYII=";var mark="data-ka-img-fallback";function onErr(e){var t=e&&e.target;if(!t||t.tagName!=="IMG"||t.getAttribute(mark))return;t.setAttribute(mark,"1");if(t.getAttribute("src")!==ph){t.setAttribute("src",ph);}}window.addEventListener("error",onErr,true);})();</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>2012-0001 | Safety &amp; Tumor Response Dashboard</title>
+<style>
+:root{--navy:#0c3048;--ink:#082a45;--muted:#5e738a;--line:#d8e2eb;--bg:#f3f6f9;--blue:#176ff2;--green:#16865e;--amber:#de8100;--red:#c9453d;--purple:#7448ea}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.45 "Segoe UI",Inter,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+button,select,input{font:inherit}
+.app{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}
+aside{background:var(--navy);color:#dbeaf5;padding:18px 14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;gap:10px;align-items:center;margin-bottom:22px}
+.mark{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#18b9d2,#2863e8);font-weight:900;color:#fff}
+.brand b{display:block;font-size:15px}.brand small{color:#83c3df;font-size:9px;letter-spacing:.12em}
+aside h6{margin:18px 6px 6px;color:#76abc7;letter-spacing:.12em;font-size:9px}
+.nav button{display:block;width:100%;text-align:left;padding:10px 11px;margin-bottom:3px;border:0;border-radius:8px;background:transparent;color:#d9ebf5;cursor:pointer}
+.nav button.active{background:#294d65;color:#fff;border-left:3px solid #18c2d9}
+aside select{width:100%;padding:8px;border-radius:8px;border:1px solid #3c6077;background:#173d56;color:#fff;margin-top:5px}
+.legendbox{margin-top:18px;font-size:10px;color:#9fc9de;border-top:1px solid #2c5570;padding-top:12px}
+.legendbox i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px}
+.legendbox div{margin:4px 0}
+main{padding:20px 24px 60px;min-width:0}
+.hero{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue);border-radius:12px;padding:16px 18px;margin-bottom:12px}
+.hero h1{margin:6px 0 4px;font-size:26px}
+.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#fff0cf;color:#935a00;font-size:10px;font-weight:800}
+.muted{color:var(--muted);margin:0}
+.warn{background:#fff6e1;border:1px solid #f0cc7d;border-radius:9px;padding:11px 14px;font-size:12px;color:#654600;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:#fff;border:1px solid var(--line);border-left:3px solid var(--blue);border-radius:10px;padding:12px;cursor:pointer}
+.kpi:hover{box-shadow:0 4px 14px #12354e1f}
+.kpi span{display:block;font-size:9px;font-weight:800;color:#5f738a;letter-spacing:.04em}
+.kpi strong{font-size:24px}.kpi small{display:block;font-size:9px;color:#68809a}
+.panel{display:none}.panel.active{display:block}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px;min-width:0}
+.card h2{font-size:16px;margin:0 0 2px}
+.card h3{font-size:14px;margin:0 0 2px}
+.cardhead{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.facet{border:1px solid var(--line);border-radius:10px;padding:12px;margin-bottom:12px;min-width:0}
+.facet .fh{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px}
+.facet .fh b{font-size:13px}.facet .fh small{color:var(--muted);font-size:10px}
+.chartbox{width:100%;overflow-x:auto}
+svg{display:block;max-width:100%}
+svg text{font-family:"Segoe UI",Inter,Arial,sans-serif}
+.hit{cursor:pointer}.hit:hover{opacity:.78}
+.seg{display:inline-flex;flex-wrap:wrap;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.seg button{border:0;border-right:1px solid var(--line);padding:8px 11px;background:#fff;cursor:pointer;font-size:12px}
+.seg button.active{background:#eaf3ff;color:#075fc9;font-weight:800}
+.openbtn{border:1px solid var(--line);background:#eaf3ff;color:#075fc9;font-weight:700;border-radius:8px;padding:8px 12px;cursor:pointer;white-space:nowrap}
+.openbtn:hover{background:#d9ecff}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th{position:sticky;top:0;background:#edf3f8;text-align:left;color:#557087;font-size:10px;padding:8px;border-bottom:1px solid var(--line);z-index:1}
+td{padding:8px;border-bottom:1px solid #e9eef3;vertical-align:top}
+tbody tr.clickable{cursor:pointer}tbody tr.clickable:hover td{background:#f2f8ff}
+.tablewrap{overflow:auto;max-height:430px}
+.tag{display:inline-block;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:800;background:#e5f1ff;color:#075fc9;white-space:nowrap}
+.tag.green{background:#e1f7ec;color:#08734f}.tag.red{background:#ffe9e6;color:#a72d26}
+.tip{position:fixed;display:none;z-index:60;background:#092d45;color:#fff;padding:7px 9px;border-radius:6px;font-size:11px;pointer-events:none;max-width:290px;line-height:1.5}
+.scrim{position:fixed;inset:0;background:#082a4566;display:none;z-index:70}
+.scrim.open{display:block}
+.drawer{position:fixed;top:0;right:0;width:min(660px,100%);height:100%;background:#fff;z-index:80;transform:translateX(100%);transition:transform .18s ease;display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.drawer header{padding:16px 18px;border-bottom:1px solid var(--line);position:relative}
+.drawer header b{font-size:16px;display:block}
+.drawer header small{color:var(--muted)}
+.drawer .body{padding:16px 18px;overflow:auto;flex:1}
+.drawer .close{position:absolute;top:13px;right:14px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:5px 10px;cursor:pointer}
+.evidence{background:#f5f9fd;border:1px solid #dbe7f1;border-radius:9px;padding:11px;font-size:11px;margin-bottom:12px;line-height:1.6}
+.evidence b{display:block;margin-bottom:4px;letter-spacing:.04em;color:#41607a}
+.evidence code{background:#e6eff7;padding:1px 5px;border-radius:4px}
+.hint{font-size:11px;color:#0783a2;font-weight:700}
+.footer{font-size:10px;color:#73879a;padding-top:10px}
+@media(max-width:1180px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.app{display:block}aside{position:relative;height:auto}.nav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px}.grid2{grid-template-columns:1fr}main{padding:14px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+<div class="brand"><div class="mark">PP</div><div><b>Patient Profile</b><small>STUDY SAFETY INTELLIGENCE</small></div></div>
+<h6>DASHBOARD</h6>
+<div class="nav">
+<button class="active" data-p="overview">Executive overview</button>
+<button data-p="alldata">All-data overview</button>
+<button data-p="ae">AE safety detail</button>
+<button data-p="swimmer">Swimmer detail</button>
+<button data-p="spider">Spider detail</button>
+<button data-p="mapping">SDTM mapping</button>
+</div>
+<h6>FILTERS</h6>
+<label style="font-size:9px;color:#9fc9de">DOSE LEVEL</label>
+<select id="fDose"><option>All dose levels</option></select>
+<label style="font-size:9px;color:#9fc9de;display:block;margin-top:10px">TUMOR TYPE</label>
+<select id="fType"><option>All tumor types</option></select>
+<button id="reset" style="margin-top:12px;width:100%;padding:9px;border-radius:8px;border:1px solid #3c6077;background:#173d56;color:#fff;cursor:pointer">Reset filters</button>
+<div class="legendbox"><b style="color:#fff;font-size:10px">DOSE LEVEL COLOR</b><div id="doseLegend"></div></div>
+</aside>
+<main>
+<section class="hero">
+<span class="pill">SYNTHETIC DEMO</span>
+<h1>2012-0001 Safety and tumor response</h1>
+<p class="muted">Tumor-type stratified, dose-aware, subject-level safety and oncology response. <span class="hint">Every chart element is clickable and opens the underlying records with SDTM evidence.</span></p>
+</section>
+<div class="warn"><b>Prototype mode — synthetic data only.</b> Values demonstrate dashboard behaviour and are not study results.</div>
+<div class="kpis" id="kpis"></div>
+<section class="panel" id="alldata">
+<div class="card"><div class="cardhead"><div><h2>All-data overview</h2><small class="muted">Every subject, trajectory and AE in one place. <b>Dose = color</b>; <b>indication = shade</b> (swimmer bars) and <b>line pattern</b> (spider lines), so individual lanes and trajectories stay distinguishable. Click any element for its source record, or use the section links to jump into the detailed tab. Respects the sidebar dose/tumor filters.</small></div></div></div>
+<div class="card"><div class="cardhead"><div><h3>Cumulative swimmer — all subjects</h3><small class="muted">Lanes coloured by dose and shaded by indication; efficacy markers overlaid at each assessment.</small></div><button class="openbtn" data-go="swimmer">Open Swimmer detail &rarr;</button></div><div id="combinedSwim"></div></div>
+<div class="card"><div class="cardhead"><div><h3>Cumulative spider — all trajectories</h3><small class="muted">Subject sum-of-diameters. Colour = dose, line pattern = indication.</small></div><button class="openbtn" data-go="spider">Open Spider detail &rarr;</button></div><div id="combinedSpider"></div></div>
+<div class="card"><div class="cardhead"><div><h3>Cumulative adverse events</h3><small class="muted">Distinct subjects by dose and the leading preferred terms across all indications.</small></div><button class="openbtn" data-go="ae">Open AE detail &rarr;</button></div><div id="combinedAe"></div></div>
+</section>
+<section class="panel active" id="overview">
+<div class="grid2">
+<div class="card">
+<div class="cardhead"><div><h3>Disposition</h3><small class="muted">DM + DS · click a segment</small></div></div>
+<div class="chartbox" id="donut"></div>
+</div>
+<div class="card">
+<div class="cardhead"><div><h3>Discontinuation reason</h3><small class="muted">DS.DSTERM · click a bar</small></div></div>
+<div class="chartbox" id="reasons"></div>
+</div>
+</div>
+<div class="card">
+<div class="cardhead"><div><h3>Safety burden by dose level</h3><small class="muted">Distinct subjects per category · click any bar</small></div></div>
+<div class="chartbox" id="burden"></div>
+</div>
+<div class="grid2">
+<div class="card">
+<div class="cardhead"><div><h3>Swimmer overview</h3><small class="muted">Click a bar for the subject record</small></div></div>
+<div id="swimSmall"></div>
+</div>
+<div class="card">
+<div class="cardhead"><div><h3>Spider overview</h3><small class="muted">Click a point for lesion evidence</small></div></div>
+<div id="spiderSmall"></div>
+</div>
+</div>
+<div class="card">
+<div class="cardhead"><div><h3>Top adverse events by Preferred Term and dose level</h3><small class="muted">Distinct subjects · click a row</small></div></div>
+<div class="tablewrap"><table><thead><tr><th>Preferred Term</th><th>Dose level</th><th>Subjects</th><th>Within-dose %</th><th>Subject IDs</th></tr></thead><tbody id="topAeRows"></tbody></table></div>
+</div>
+</section>
+<section class="panel" id="ae">
+<div class="card">
+<div class="cardhead">
+<div><h2>Adverse events by Preferred Term and subject dose level</h2><small class="muted">Subjects counted once per term and dose.</small></div>
+<div class="seg" id="aeSeg"></div>
+</div>
+<div class="chartbox" id="aeDoseChart"></div>
+</div>
+<div class="card">
+<div class="cardhead"><div><h3 id="aeTitle"></h3><small class="muted">Click any row to view the source AE records</small></div></div>
+<div class="tablewrap"><table><thead><tr><th>Preferred Term</th><th>Dose level</th><th>Subjects n</th><th>Within-dose %</th><th>Events</th><th>Subject IDs</th></tr></thead><tbody id="aeRows"></tbody></table></div>
+</div>
+</section>
+<section class="panel" id="swimmer">
+<div class="card">
+<div class="cardhead"><div><h2>Swimmer plot by tumor type and dose level</h2><small class="muted">One panel per tumor type; all protocol dose levels retained.</small></div></div>
+<div id="swimFull"></div>
+</div>
+</section>
+<section class="panel" id="spider">
+<div class="card">
+<div class="cardhead">
+<div><h2>Spider plot — % tumor change from screening</h2><small class="muted">One panel per tumor type; axis scales to the filtered data.</small></div>
+<div class="seg" id="spiderSeg">
+<button class="active" data-mode="sum">Subject-level sum of diameters</button>
+<button data-mode="lesion">Individual tumor location</button>
+</div>
+</div>
+<div id="spiderFull"></div>
+</div>
+</section>
+<section class="panel" id="mapping">
+<div class="card">
+<div class="cardhead"><div><h2>Requirement to SDTM field mapping</h2><small class="muted">Implementation contract for the R/Shiny build</small></div></div>
+<div class="tablewrap"><table><thead><tr><th>Requirement</th><th>Domain</th><th>Fields</th><th>Derivation</th></tr></thead><tbody id="mapRows"></tbody></table></div>
+</div>
+</section>
+<div class="footer">Interactive prototype for study 2012-0001 · Synthetic demonstration data · No patient data embedded.</div>
+</main>
+</div>
+<div class="tip" id="tip"></div>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer">
+<header><b id="dTitle">Detail</b><small id="dSub"></small><button class="close" id="dClose">Close</button></header>
+<div class="body" id="dBody"></div>
+</aside>
+<script nonce="423703c9-4af3-4006-b1a9-4de757cba171">
+var DOSES=['10 mg QD','30 mg QD','60 mg QD','90 mg QD'];
+var TYPES=['NSCLC','CRC','Melanoma','Pancreatic','Other'];
+var DCOL={'10 mg QD':'#176ff2','30 mg QD':'#16865e','60 mg QD':'#de8100','90 mg QD':'#7448ea'};
+var LOCS=['Liver','Lung','Lymph node'];
+var PTS=['Nausea','Fatigue','Anaemia','Diarrhoea','Vomiting','Neutropenia','Pyrexia','AST increased','Rash','Thrombocytopenia'];
+var REASONS=['Adverse event','Progressive disease','Withdrawal by subject','Physician decision'];
+var seed=120001;
+function rnd(){seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;}
+function pick(a){return a[Math.floor(rnd()*a.length)];}
+function d2s(d){var t=new Date(2026,0,6);t.setDate(t.getDate()+d);return t.toISOString().slice(0,10);}
+
+var SUBJ=[],AE=[],TR=[];
+for(var i=0;i<42;i++){
+  var st=rnd()<.34?'Discontinued':(rnd()<.5?'Completed':'Ongoing');
+  var dur=[84,126,168,126][i%4];
+  SUBJ.push({id:'2012-0001-'+String(i+1).padStart(3,'0'),sex:rnd()<.52?'F':'M',age:28+Math.floor(rnd()*52),
+    dose:DOSES[i%4],type:TYPES[i%5],status:st,reason:st==='Discontinued'?pick(REASONS):'',
+    start:d2s(0),dur:dur,lastDate:d2s(dur)});
+}
+SUBJ.forEach(function(s){
+  var n=2+Math.floor(rnd()*4);
+  for(var k=0;k<n;k++){
+    var act=pick(['NONE','NONE','DRUG INTERRUPTED','DOSE REDUCED','DRUG WITHDRAWN']);
+    AE.push({id:s.id,dose:s.dose,type:s.type,pt:pick(PTS),grade:1+Math.floor(rnd()*4),
+      ser:rnd()<.17,dlt:rnd()<.12,aesi:rnd()<.10,act:act,fatal:rnd()<.03,
+      start:d2s(Math.floor(rnd()*s.dur)),out:rnd()<.8?'RECOVERED/RESOLVED':'NOT RECOVERED'});
+  }
+});
+SUBJ.forEach(function(s,si){
+  var nles=1+(si%2);
+  for(var l=0;l<=nles;l++){
+    var base=18+Math.round(rnd()*42), trend=-98+rnd()*156, loc=LOCS[(si+l)%LOCS.length];
+    var pts=Math.floor(s.dur/42)+1;
+    for(var j=0;j<pts;j++){
+      var day=j*42, pctTrend=trend*j/Math.max(1,pts-1)+(rnd()-.5)*8;
+      var val=Math.max(1,+(base*(1+(j===0?0:pctTrend)/100)).toFixed(1));
+      TR.push({id:s.id,dose:s.dose,type:s.type,loc:loc,lesion:'TL0'+(l+1),day:day,date:d2s(day),
+        base:base,val:val,pct:+(((val-base)/base)*100).toFixed(1),
+        visit:j===0?'Screening':'Post-screening C'+j});
+    }
+  }
+});
+/* lock the screening lesion set per subject (audit fix) */
+var BASESET={};
+TR.filter(function(x){return x.day===0;}).forEach(function(x){(BASESET[x.id]=BASESET[x.id]||{})[x.loc+'|'+x.lesion]=x.base;});
+
+/* ---- Overall response (RS) derived from the sum of target-lesion diameters (RECIST-style) ---- */
+var RESP=[];
+var RCOL={CR:'#0a6b3d',PR:'#16865e',SD:'#8a6d00',PD:'#c9453d'};
+var RNAME={CR:'Complete response',PR:'Partial response',SD:'Stable disease',PD:'Progressive disease'};
+(function(){
+  var agg={};
+  TR.forEach(function(x){var k=x.id+'|'+x.day;
+    if(!agg[k])agg[k]={id:x.id,dose:x.dose,type:x.type,day:x.day,date:x.date,visit:x.visit,val:0,base:0,n:0};
+    agg[k].val+=x.val;agg[k].base+=x.base;agg[k].n++;});
+  var byId={};
+  Object.keys(agg).forEach(function(k){var o=agg[k];(byId[o.id]=byId[o.id]||[]).push(o);});
+  Object.keys(byId).forEach(function(id){
+    var arr=byId[id].sort(function(a,b){return a.day-b.day;});
+    var expect=Object.keys(BASESET[id]||{}).length,nadir=Infinity;
+    arr.forEach(function(o){
+      if(o.day===0){nadir=o.val;return;}                 /* screening baseline: no response */
+      if(!o.base||o.n!==expect)return;                    /* incomplete lesion set: excluded */
+      var pct=((o.val-o.base)/o.base)*100;
+      var fromNadir=nadir>0?((o.val-nadir)/nadir)*100:0;
+      var resp;
+      if(o.val<=8||pct<=-75)resp='CR';
+      else if(pct<=-30)resp='PR';
+      else if(fromNadir>=20&&(o.val-nadir)>=5)resp='PD';
+      else resp='SD';
+      if(o.val<nadir)nadir=o.val;
+      RESP.push({id:id,dose:o.dose,type:o.type,day:o.day,date:o.date,visit:o.visit,resp:resp,pct:+pct.toFixed(1),sum:+o.val.toFixed(1)});
+    });
+  });
+})();
+function respById(idMap){var m={};RESP.forEach(function(r){if(!idMap||idMap[r.id])(m[r.id]=m[r.id]||[]).push(r);});return m;}
+/* efficacy marker glyphs: SD circle · PR triangle · CR star · PD diamond */
+function respShape(cx,cy,resp,r){cx=+cx;cy=+cy;r=+r;
+  if(resp==='PR')return '<path d="M'+cx+' '+(cy-r)+' L'+(cx+r)+' '+(cy+r*0.82)+' L'+(cx-r)+' '+(cy+r*0.82)+' Z"';
+  if(resp==='PD')return '<path d="M'+cx+' '+(cy-r)+' L'+(cx+r)+' '+cy+' L'+cx+' '+(cy+r)+' L'+(cx-r)+' '+cy+' Z"';
+  if(resp==='CR'){var pts=[];for(var i=0;i<10;i++){var ang=-Math.PI/2+i*Math.PI/5,rr=i%2?r*0.44:r;pts.push((cx+rr*Math.cos(ang)).toFixed(1)+' '+(cy+rr*Math.sin(ang)).toFixed(1));}return '<path d="M'+pts.join(' L')+' Z"';}
+  return '<circle cx="'+cx+'" cy="'+cy+'" r="'+r+'"';/* SD */
+}
+function respMarker(cx,cy,r,rec){
+  var tip=rec.id+'<br>'+RNAME[rec.resp]+' ('+rec.resp+')<br>'+rec.visit+' &middot; '+rec.date+'<br>Sum of diameters '+rec.sum+' mm ('+rec.pct+'% from baseline)';
+  return respShape(cx,cy,rec.resp,r)+' fill="'+RCOL[rec.resp]+'" stroke="#fff" stroke-width="1" data-tip="'+tip+'" data-drill=\''+JSON.stringify({k:'subject',id:rec.id})+'\'/>';
+}
+function respLegend(){
+  return '<div style="display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:#526b81;margin:2px 0 10px">'+
+    '<b style="color:#41607a">Overall response (site-reported):</b>'+
+    ['CR','PR','SD','PD'].map(function(k){
+      return '<span style="display:inline-flex;align-items:center;gap:5px"><svg width="14" height="14" viewBox="0 0 14 14">'+respShape(7,7,k,5.5)+' fill="'+RCOL[k]+'" stroke="#fff" stroke-width="1"/></svg>'+RNAME[k]+' ('+k+')</span>';
+    }).join('')+'</div>';
+}
+/* indication encoding for the cumulative overview: shade (bars) + dash pattern (lines) */
+function mixHex(hex,amt){var n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255,t=amt<0?0:255,p=Math.abs(amt);
+  r=Math.round(r+(t-r)*p);g=Math.round(g+(t-g)*p);b=Math.round(b+(t-b)*p);
+  return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
+var TSHADE={NSCLC:0,CRC:-0.30,Melanoma:0.26,Pancreatic:-0.52,Other:0.50};
+var TDASH={NSCLC:'',CRC:'7 4',Melanoma:'2 3',Pancreatic:'9 3 2 3',Other:'1 4'};
+function typeFill(dose,type){return mixHex(DCOL[dose],TSHADE[type]||0);}
+
+var $=function(s){return document.querySelector(s);};
+var mode='sum', aeKind='ALL';
+var KINDS=[['ALL','All TEAEs'],['GR3','Grade 3+'],['SAE','SAEs'],['DLT','DLTs'],['AESI','AESIs'],['DEATH','Leading to death'],['DISC','Leading to discontinuation'],['MOD','Dose modification']];
+var RULES={ALL:'All AE records',GR3:'AE.AETOXGR &gt;= 3',SAE:"AE.AESER = 'Y'",DLT:"sponsor DLTFL = 'Y'",AESI:"sponsor AESIFL = 'Y'",
+  DEATH:"AE.AEOUT = 'FATAL'",DISC:"AE.AEACN = 'DRUG WITHDRAWN'",MOD:"AE.AEACN in ('DOSE REDUCED','DRUG INTERRUPTED')"};
+function kindLabel(k){for(var i=0;i<KINDS.length;i++){if(KINDS[i][0]===k)return KINDS[i][1];}return k;}
+
+function fSubj(){var d=$('#fDose').value,t=$('#fType').value;
+  return SUBJ.filter(function(s){return (d==='All dose levels'||s.dose===d)&&(t==='All tumor types'||s.type===t);});}
+function fIds(){var m={};fSubj().forEach(function(s){m[s.id]=1;});return m;}
+function matchAE(a,kind){return kind==='ALL'||(kind==='GR3'&&a.grade>=3)||(kind==='SAE'&&a.ser)||(kind==='DLT'&&a.dlt)||
+  (kind==='AESI'&&a.aesi)||(kind==='DEATH'&&a.fatal)||(kind==='DISC'&&a.act==='DRUG WITHDRAWN')||
+  (kind==='MOD'&&(a.act==='DOSE REDUCED'||a.act==='DRUG INTERRUPTED'));}
+function fAE(kind){var m=fIds();return AE.filter(function(a){return m[a.id]&&matchAE(a,kind);});}
+function fTR(){var m=fIds();return TR.filter(function(x){return m[x.id];});}
+function svg(w,h,b){return '<svg viewBox="0 0 '+w+' '+h+'" width="100%" height="'+h+'" preserveAspectRatio="xMidYMid meet">'+b+'</svg>';}
+function nice(v,up){var s=up?Math.ceil(v/10)*10:Math.floor(v/10)*10;return s;}
+
+function wire(root){
+  root.querySelectorAll('[data-tip]').forEach(function(el){
+    el.addEventListener('mousemove',function(e){var t=$('#tip');t.innerHTML=el.getAttribute('data-tip');t.style.display='block';
+      t.style.left=Math.min(e.clientX+14,window.innerWidth-300)+'px';t.style.top=(e.clientY+14)+'px';});
+    el.addEventListener('mouseleave',function(){$('#tip').style.display='none';});
+  });
+  root.querySelectorAll('[data-drill]').forEach(function(el){
+    el.classList.add('hit');
+    el.addEventListener('click',function(){$('#tip').style.display='none';drill(JSON.parse(el.getAttribute('data-drill')));});
+  });
+}
+function openDrawer(t,s,h){$('#dTitle').textContent=t;$('#dSub').textContent=s;$('#dBody').innerHTML=h;
+  $('#drawer').classList.add('open');$('#scrim').classList.add('open');}
+function closeDrawer(){$('#drawer').classList.remove('open');$('#scrim').classList.remove('open');}
+$('#dClose').onclick=closeDrawer;$('#scrim').onclick=closeDrawer;
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+
+function tbl(cols,rows){
+  if(!rows.length)return '<p class="muted">No contributing records for the current filters.</p>';
+  return '<div class="tablewrap"><table><thead><tr>'+cols.map(function(c){return '<th>'+c+'</th>';}).join('')+
+  '</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div>';
+}
+function ev(label,src,rule){return '<div class="evidence"><b>SOURCE EVIDENCE — '+label+'</b>Domains and variables: <code>'+src+'</code><br>Derivation: '+rule+'</div>';}
+
+function drill(q){
+  if(q.k==='status'){
+    var rows=fSubj().filter(function(s){return s.status===q.v;});
+    openDrawer(q.v+' subjects','DM + DS · '+rows.length+' distinct subjects',
+      ev('Disposition','DM.USUBJID, DS.DSCAT, DS.DSDECOD, DS.DSTERM','Latest disposition event per subject sets status; reason from DS.DSTERM then DS.DSDECOD.')+
+      tbl(['USUBJID','Sex','Age','Dose level','Tumor type','Reason'],rows.map(function(s){return [s.id,s.sex,s.age,'<span class="tag">'+s.dose+'</span>',s.type,s.reason||'—'];})));
+  } else if(q.k==='reason'){
+    var rows=fSubj().filter(function(s){return s.reason===q.v;});
+    openDrawer('Discontinued: '+q.v,'DS.DSTERM · '+rows.length+' subjects',
+      ev('Discontinuation reason','DS.DSTERM, DS.DSDECOD, DS.DSSTDTC','Distinct subjects whose disposition reason matches the selected term.')+
+      tbl(['USUBJID','Dose level','Tumor type','Last assessment'],rows.map(function(s){return [s.id,'<span class="tag">'+s.dose+'</span>',s.type,s.lastDate];})));
+  } else if(q.k==='burden'){
+    var recs=fAE(q.kind).filter(function(a){return a.dose===q.v;});
+    var subs={};recs.forEach(function(a){subs[a.id]=1;});
+    openDrawer(kindLabel(q.kind)+' · '+q.v,Object.keys(subs).length+' distinct subjects · '+recs.length+' events',
+      ev('AE criterion','AE.AEDECOD, AE.AETOXGR, AE.AESER, AE.AEACN, AE.AEOUT, EX dose','Criterion: '+RULES[q.kind]+'. Subjects counted once per dose level.')+
+      tbl(['USUBJID','Preferred Term','Grade','Serious','DLT','AESI','Action','Outcome','Start'],
+        recs.map(function(a){return [a.id,a.pt,a.grade,a.ser?'Y':'N',a.dlt?'Y':'N',a.aesi?'Y':'N',a.act,a.out,a.start];})));
+  } else if(q.k==='ae'){
+    var recs=fAE(q.kind).filter(function(a){return a.pt===q.pt&&a.dose===q.dose;});
+    var subs={};recs.forEach(function(a){subs[a.id]=1;});
+    openDrawer(q.pt+' · '+q.dose,Object.keys(subs).length+' distinct subjects · '+recs.length+' events',
+      ev('Preferred Term incidence','AE.AEDECOD + EX.EXDOSE','Criterion: '+RULES[q.kind]+'. Denominator is all subjects at '+q.dose+' in the current filter.')+
+      tbl(['USUBJID','Grade','Serious','DLT','AESI','Action taken','Outcome','Start date'],
+        recs.map(function(a){return [a.id,a.grade,a.ser?'Y':'N',a.dlt?'Y':'N',a.aesi?'Y':'N',a.act,a.out,a.start];})));
+  } else if(q.k==='subject'){
+    var s=SUBJ.filter(function(x){return x.id===q.id;})[0];
+    var ae=AE.filter(function(a){return a.id===q.id;});
+    var tr=TR.filter(function(x){return x.id===q.id;}).sort(function(a,b){return a.loc.localeCompare(b.loc)||a.day-b.day;});
+    openDrawer(s.id,s.type+' · '+s.dose+' · '+s.status,
+      ev('Subject timeline','DM, DS, EX, TU, TR, RS','Bar spans first dose (EX.EXSTDTC) to the latest tumor assessment or disposition date.')+
+      '<p style="font-size:12px"><b>Start</b> '+s.start+' · <b>Latest assessment</b> '+s.lastDate+' (day '+s.dur+') · <b>Reason</b> '+(s.reason||'—')+'</p>'+
+      '<h3 style="font-size:13px;margin:14px 0 6px">Adverse events ('+ae.length+')</h3>'+
+      tbl(['Preferred Term','Grade','Serious','DLT','AESI','Action','Start'],ae.map(function(a){return [a.pt,a.grade,a.ser?'Y':'N',a.dlt?'Y':'N',a.aesi?'Y':'N',a.act,a.start];}))+
+      '<h3 style="font-size:13px;margin:14px 0 6px">Tumor assessments ('+tr.length+')</h3>'+
+      tbl(['Visit','Tumor location','Lesion','Date','Measurement','Baseline','% change'],
+        tr.map(function(x){return [x.visit,x.loc,x.lesion,x.date,x.val,x.base,x.pct+'%'];}))+
+      (function(){var rs=RESP.filter(function(r){return r.id===q.id;}).sort(function(a,b){return a.day-b.day;});
+        return '<h3 style="font-size:13px;margin:14px 0 6px">Overall response — RS ('+rs.length+')</h3>'+
+        ev('Overall response','RS.RSORRES, RS.RSTESTCD (\'OVRLRESP\'), RS.RSDTC','Site-reported overall response per assessment; derived here from the sum of target-lesion diameters (RECIST-style: CR/PR/SD/PD).')+
+        tbl(['Visit','Assessment date','Overall response','Sum of diameters','% change from baseline'],
+          rs.map(function(x){return [x.visit,x.date,'<span class="tag" style="background:'+RCOL[x.resp]+'22;color:'+RCOL[x.resp]+'">'+RNAME[x.resp]+' ('+x.resp+')</span>',x.sum+' mm',x.pct+'%'];}));})());
+  } else if(q.k==='lesion'){
+    var recs=TR.filter(function(x){return x.id===q.id&&(q.loc?x.loc===q.loc:true);})
+      .sort(function(a,b){return a.loc.localeCompare(b.loc)||a.day-b.day;});
+    var s=SUBJ.filter(function(x){return x.id===q.id;})[0];
+    openDrawer(q.id+(q.loc?' · '+q.loc:' · all target lesions'),s.type+' · '+s.dose,
+      ev('Tumor measurement','TU.TULOC, TU.TULNKID, TR.TRORRES, TR.TRSTRESN, TR.TRDTC, RS.RSORRES','Percent change = (post-screening − screening) ÷ screening × 100. The denominator is locked to the screening lesion set; visits with an incomplete lesion set are excluded.')+
+      tbl(['Visit','Tumor location','Lesion','Assessment date','Measurement','Screening baseline','% change'],
+        recs.map(function(x){return [x.visit,x.loc,x.lesion,x.date,x.val,x.base,x.pct+'%'];})));
+  }
+}
+
+function donut(){
+  var s=fSubj(),cnt={},cols={Ongoing:'#16865e',Completed:'#176ff2',Discontinued:'#de8100'};
+  s.forEach(function(x){cnt[x.status]=(cnt[x.status]||0)+1;});
+  var tot=s.length,r=70,C=2*Math.PI*r,off=0,b='',y=48;
+  ['Ongoing','Completed','Discontinued'].forEach(function(k){
+    var v=cnt[k]||0;if(!v)return;var len=C*v/tot;
+    b+='<circle data-tip="'+k+': '+v+' subjects" data-drill=\''+JSON.stringify({k:'status',v:k})+'\' cx="130" cy="130" r="'+r+'" fill="none" stroke="'+cols[k]+'" stroke-width="32" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-off)+'" transform="rotate(-90 130 130)"/>';
+    off+=len;});
+  b+='<text x="130" y="126" text-anchor="middle" font-size="27" font-weight="800">'+tot+'</text><text x="130" y="146" text-anchor="middle" font-size="10" fill="#637c90">SUBJECTS</text>';
+  ['Ongoing','Completed','Discontinued'].forEach(function(k){
+    b+='<rect x="250" y="'+y+'" width="10" height="10" rx="2" fill="'+cols[k]+'"/><text x="268" y="'+(y+9)+'" font-size="12">'+k+'</text><text x="430" y="'+(y+9)+'" text-anchor="end" font-size="12" font-weight="800">'+(cnt[k]||0)+'</text>';y+=30;});
+  $('#donut').innerHTML=svg(440,262,b);wire($('#donut'));
+}
+function reasons(){
+  var d=fSubj().filter(function(x){return x.status==='Discontinued';}),cnt={};
+  d.forEach(function(x){cnt[x.reason]=(cnt[x.reason]||0)+1;});
+  var e=Object.keys(cnt).map(function(k){return [k,cnt[k]];}).sort(function(a,b){return b[1]-a[1];});
+  if(!e.length){$('#reasons').innerHTML='<p class="muted">No discontinuations for the current filters.</p>';return;}
+  var W=440,H=262,L=150,R=40,T=14,bh=(H-T-20)/e.length,max=Math.max.apply(null,e.map(function(x){return x[1];})),b='';
+  e.forEach(function(p,i){var y=T+i*bh,w=(W-L-R)*p[1]/max;
+    b+='<text x="'+(L-8)+'" y="'+(y+bh*0.6)+'" text-anchor="end" font-size="11" fill="#526b81">'+p[0]+'</text>'+
+    '<rect data-tip="'+p[0]+': '+p[1]+' subjects" data-drill=\''+JSON.stringify({k:'reason',v:p[0]})+'\' x="'+L+'" y="'+y+'" width="'+w+'" height="'+Math.max(10,bh-10)+'" rx="3" fill="#de8100"/>'+
+    '<text x="'+(L+w+6)+'" y="'+(y+bh*0.6)+'" font-size="11">'+p[1]+'</text>';});
+  $('#reasons').innerHTML=svg(W,H,b);wire($('#reasons'));
+}
+function burden(){
+  var W=980,H=300,L=60,R=20,T=24,B=64,gw=(W-L-R)/KINDS.length,b='',max=1,data={};
+  KINDS.forEach(function(kd){data[kd[0]]={};DOSES.forEach(function(d){
+    var m={};fAE(kd[0]).forEach(function(a){if(a.dose===d)m[a.id]=1;});
+    var n=Object.keys(m).length;data[kd[0]][d]=n;if(n>max)max=n;});});
+  KINDS.forEach(function(kd,gi){
+    var x0=L+gi*gw, bw=(gw-14)/DOSES.length;
+    DOSES.forEach(function(d,di){
+      var v=data[kd[0]][d],h=(H-T-B)*v/max,x=x0+7+di*bw,y=H-B-h;
+      b+='<rect data-tip="'+kd[1]+'<br>'+d+': '+v+' subjects" data-drill=\''+JSON.stringify({k:'burden',kind:kd[0],v:d})+'\' x="'+x+'" y="'+y+'" width="'+(bw-3)+'" height="'+Math.max(h,1)+'" rx="2" fill="'+DCOL[d]+'"/>';
+      if(v)b+='<text x="'+(x+(bw-3)/2)+'" y="'+(y-3)+'" text-anchor="middle" font-size="9" fill="#526b81">'+v+'</text>';});
+    var w1=kd[1].split(' ')[0], w2=kd[1].split(' ').slice(1).join(' ');
+    b+='<text x="'+(x0+gw/2)+'" y="'+(H-B+16)+'" text-anchor="middle" font-size="10" fill="#41607a">'+w1+'</text>'+
+       '<text x="'+(x0+gw/2)+'" y="'+(H-B+29)+'" text-anchor="middle" font-size="9" fill="#7b8fa2">'+(w2||'&#160;')+'</text>';});
+  b+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<text x="'+L+'" y="14" font-size="10" fill="#7b8fa2">Distinct subjects</text>';
+  $('#burden').innerHTML=svg(W,H,b);wire($('#burden'));
+}
+
+function swimPanels(target,types,compact){
+  var subs=fSubj(),html='';
+  var maxDur=Math.max.apply(null,SUBJ.map(function(s){return s.dur;}));
+  types.forEach(function(t){
+    var rows=subs.filter(function(s){return s.type===t;}).sort(function(a,b){
+      return DOSES.indexOf(a.dose)-DOSES.indexOf(b.dose)||a.dur-b.dur||a.id.localeCompare(b.id);});
+    var W=940,L=200,R=60,T=26,rowH=compact?17:22,H=T+Math.max(rows.length,1)*rowH+46,b='';
+    function X(d){return L+(W-L-R)*d/maxDur;}
+    [0,42,84,126,168].forEach(function(v){if(v>maxDur)return;
+      b+='<line x1="'+X(v)+'" y1="'+T+'" x2="'+X(v)+'" y2="'+(H-38)+'" stroke="#e7edf3"/>'+
+         '<text x="'+X(v)+'" y="'+(H-20)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">'+v+'</text>';});
+    b+='<line x1="'+L+'" y1="'+(H-38)+'" x2="'+(W-R)+'" y2="'+(H-38)+'" stroke="#879bad"/>'+
+       '<text x="'+((L+W-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">Study day from first dose</text>';
+    var present={};rows.forEach(function(r){present[r.dose]=1;});
+    var missing=DOSES.filter(function(d){return !present[d];});
+    var RB=respById(fIds());
+    rows.forEach(function(r,i){
+      var y=T+i*rowH, bh=rowH-7, w=X(r.dur)-L;
+      var mark=r.status==='Ongoing'?'\u25B6':(r.status==='Completed'?'\u25C6':'\u2715');
+      var tipTxt=r.id+'<br>'+r.type+' · '+r.dose+'<br>Start '+r.start+'<br>Latest assessment '+r.lastDate+' (day '+r.dur+')<br>Status: '+r.status+(r.reason?'<br>Reason: '+r.reason:'');
+      b+='<text x="'+(L-10)+'" y="'+(y+bh-1)+'" text-anchor="end" font-size="10" fill="#41607a">'+r.id+'</text>'+
+         '<text x="'+(L-104)+'" y="'+(y+bh-1)+'" text-anchor="end" font-size="9" fill="'+DCOL[r.dose]+'">'+r.dose+'</text>'+
+         '<rect data-tip="'+tipTxt+'" data-drill=\''+JSON.stringify({k:'subject',id:r.id})+'\' x="'+L+'" y="'+y+'" width="'+Math.max(w,3)+'" height="'+bh+'" rx="3" fill="'+DCOL[r.dose]+'"/>'+
+         '<text x="'+(L+w+8)+'" y="'+(y+bh-1)+'" font-size="10" fill="#41607a">'+mark+'</text>';
+      (RB[r.id]||[]).forEach(function(rc){if(rc.day>r.dur)return;b+=respMarker(X(rc.day),y+bh/2,Math.min(bh*0.46,compact?4.4:5.4),rc);});});
+    if(!rows.length)b+='<text x="'+L+'" y="'+(T+18)+'" font-size="11" fill="#8a9aaa">No subjects for the current filters.</text>';
+    html+='<div class="facet"><div class="fh"><b>'+t+'</b><small>'+rows.length+' subjects · '+
+      (missing.length?'no subjects at '+missing.join(', '):'all dose levels populated')+'</small></div>'+
+      '<div class="chartbox">'+svg(W,H,b)+'</div></div>';});
+  if(!compact)html=respLegend()+html;
+  target.innerHTML=html;wire(target);
+}
+
+function spiderPanels(target,types,compact){
+  var data=fTR(),html='';
+  var maxDay=Math.max.apply(null,data.map(function(x){return x.day;}))||168;
+  /* build all series first so the Y domain fits the filtered data (audit fix) */
+  var allPct=[],packs={};
+  types.forEach(function(t){
+    var recs=data.filter(function(x){return x.type===t;}),series={},excluded=0;
+    if(mode==='sum'){
+      var agg={};
+      recs.forEach(function(x){var k=x.id+'|'+x.day;
+        if(!agg[k])agg[k]={id:x.id,dose:x.dose,type:x.type,loc:'Sum of target lesions',day:x.day,date:x.date,visit:x.visit,val:0,base:0,n:0};
+        agg[k].val+=x.val;agg[k].base+=x.base;agg[k].n++;});
+      Object.keys(agg).forEach(function(k){var o=agg[k],expect=Object.keys(BASESET[o.id]||{}).length;
+        if(!o.base||o.n!==expect){excluded++;return;}
+        o.pct=+(((o.val-o.base)/o.base)*100).toFixed(1);(series[o.id]=series[o.id]||[]).push(o);});
+    }else{
+      recs.forEach(function(x){if(!x.base){excluded++;return;}
+        var k=x.id+'|'+x.loc+'|'+x.lesion;(series[k]=series[k]||[]).push(x);});
+    }
+    Object.keys(series).forEach(function(k){series[k].forEach(function(p){allPct.push(p.pct);});});
+    packs[t]={series:series,excluded:excluded};
+  });
+  var lo=allPct.length?Math.min.apply(null,allPct):-100, hi=allPct.length?Math.max.apply(null,allPct):50;
+  var ymin=Math.min(nice(lo-8,false),-40), ymax=Math.max(nice(hi+8,true),30);
+  var ticks=[];for(var v=ymin;v<=ymax;v+=(ymax-ymin)>140?25:20)ticks.push(v);
+  if(ticks.indexOf(-30)<0&&-30>=ymin&&-30<=ymax)ticks.push(-30);
+  if(ticks.indexOf(20)<0&&20>=ymin&&20<=ymax)ticks.push(20);
+  ticks.sort(function(a,b){return a-b;});
+
+  types.forEach(function(t){
+    var pack=packs[t],series=pack.series;
+    var W=940,H=compact?260:350,L=70,R=30,T=20,B=46,b='';
+    function X(d){return L+(W-L-R)*d/maxDay;}
+    function Y(p){return H-B-(H-T-B)*(p-ymin)/(ymax-ymin);}
+    ticks.forEach(function(v){
+      var col=v===-30?'#16865e':(v===20?'#c9453d':'#e7edf3');
+      b+='<line x1="'+L+'" y1="'+Y(v)+'" x2="'+(W-R)+'" y2="'+Y(v)+'" stroke="'+col+'"'+((v===-30||v===20)?' stroke-dasharray="6 5"':'')+'/>'+
+         '<text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="10" fill="#7b8fa2">'+v+'%</text>';});
+    [0,42,84,126,168].forEach(function(v){if(v>maxDay)return;
+      b+='<text x="'+X(v)+'" y="'+(H-22)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">'+v+'</text>';});
+    b+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+       '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+       '<text x="'+((L+W-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">Study day of assessment</text>';
+    var keys=Object.keys(series).sort(function(a,b2){
+      var A=series[a],B3=series[b2];
+      var la=A[A.length-1],lb=B3[B3.length-1];
+      return A[0].loc.localeCompare(B3[0].loc)||la.day-lb.day||DOSES.indexOf(A[0].dose)-DOSES.indexOf(B3[0].dose)||A[0].id.localeCompare(B3[0].id);});
+    keys.forEach(function(k){
+      var q=series[k].sort(function(a,b2){return a.day-b2.day;}),col=DCOL[q[0].dose];
+      var p=q.map(function(x,i){return (i?'L':'M')+X(x.day).toFixed(1)+' '+Y(x.pct).toFixed(1);}).join(' ');
+      b+='<path d="'+p+'" fill="none" stroke="'+col+'" stroke-width="1.6" opacity=".75"/>';
+      q.forEach(function(x){
+        b+='<circle data-tip="'+x.id+'<br>'+x.type+' · '+x.loc+'<br>'+x.dose+'<br>'+x.visit+' · '+x.date+
+        '<br>Measurement '+x.val.toFixed(1)+' mm (baseline '+x.base+' mm)<br>Change '+x.pct+'%" data-drill=\''+
+        JSON.stringify({k:'lesion',id:x.id,loc:mode==='sum'?'':x.loc})+'\' cx="'+X(x.day).toFixed(1)+'" cy="'+Y(x.pct).toFixed(1)+'" r="'+(compact?2.8:3.6)+'" fill="'+col+'" stroke="#fff" stroke-width="1"/>';});});
+    if(!keys.length)b+='<text x="'+L+'" y="'+(T+20)+'" font-size="11" fill="#8a9aaa">No tumor assessments for the current filters.</text>';
+    html+='<div class="facet"><div class="fh"><b>'+t+'</b><small>'+keys.length+(mode==='sum'?' subject trajectories':' lesion trajectories')+
+      (pack.excluded?' · '+pack.excluded+' excluded (incomplete baseline)':'')+'</small></div>'+
+      '<div class="chartbox">'+svg(W,H,b)+'</div></div>';});
+  target.innerHTML=html;wire(target);
+}
+
+function aeAgg(kind){
+  var recs=fAE(kind),g={};
+  recs.forEach(function(a){var k=a.pt+'|'+a.dose;(g[k]=g[k]||{pt:a.pt,dose:a.dose,subs:{},ev:0});g[k].subs[a.id]=1;g[k].ev++;});
+  var subs=fSubj();
+  return Object.keys(g).map(function(k){var o=g[k],den=subs.filter(function(s){return s.dose===o.dose;}).length;
+    var ids=Object.keys(o.subs);
+    return {pt:o.pt,dose:o.dose,n:ids.length,pct:den?(100*ids.length/den).toFixed(1):'0.0',ev:o.ev,ids:ids};});
+}
+function aeRows(){
+  var rows=aeAgg(aeKind),totals={};
+  rows.forEach(function(r){totals[r.pt]=(totals[r.pt]||0)+r.n;});
+  rows.sort(function(a,b){return totals[b.pt]-totals[a.pt]||a.pt.localeCompare(b.pt)||DOSES.indexOf(a.dose)-DOSES.indexOf(b.dose);});
+  $('#aeTitle').textContent=kindLabel(aeKind)+' — '+rows.length+' term/dose combinations';
+  $('#aeRows').innerHTML=rows.length?rows.map(function(r){
+    return '<tr class="clickable" data-drill=\''+JSON.stringify({k:'ae',kind:aeKind,pt:r.pt,dose:r.dose})+'\'><td><b>'+r.pt+'</b></td><td><span class="tag" style="background:'+DCOL[r.dose]+'22;color:'+DCOL[r.dose]+'">'+r.dose+'</span></td><td>'+r.n+'</td><td>'+r.pct+'%</td><td>'+r.ev+'</td><td style="font-size:11px">'+r.ids.join(', ')+'</td></tr>';
+  }).join(''):'<tr><td colspan="6" class="muted">No preferred terms meet this criterion for the current filters.</td></tr>';
+  wire($('#aeRows'));
+  $('#topAeRows').innerHTML=rows.slice(0,12).map(function(r){
+    return '<tr class="clickable" data-drill=\''+JSON.stringify({k:'ae',kind:aeKind,pt:r.pt,dose:r.dose})+'\'><td><b>'+r.pt+'</b></td><td><span class="tag">'+r.dose+'</span></td><td>'+r.n+'</td><td>'+r.pct+'%</td><td style="font-size:11px">'+r.ids.join(', ')+'</td></tr>';}).join('');
+  wire($('#topAeRows'));
+  var byDose={};DOSES.forEach(function(d){byDose[d]={};});
+  fAE(aeKind).forEach(function(a){byDose[a.dose][a.id]=1;});
+  var W=940,H=230,L=60,R=20,T=20,B=48,bw=(W-L-R)/DOSES.length,b='',max=1;
+  DOSES.forEach(function(d){var n=Object.keys(byDose[d]).length;if(n>max)max=n;});
+  DOSES.forEach(function(d,i){var n=Object.keys(byDose[d]).length,h=(H-T-B)*n/max,x=L+i*bw+bw*0.2,y=H-B-h;
+    b+='<rect data-tip="'+d+': '+n+' distinct subjects" data-drill=\''+JSON.stringify({k:'burden',kind:aeKind,v:d})+'\' x="'+x+'" y="'+y+'" width="'+bw*0.6+'" height="'+Math.max(h,1)+'" rx="3" fill="'+DCOL[d]+'"/>'+
+    '<text x="'+(x+bw*0.3)+'" y="'+(y-5)+'" text-anchor="middle" font-size="11">'+n+'</text>'+
+    '<text x="'+(x+bw*0.3)+'" y="'+(H-B+18)+'" text-anchor="middle" font-size="10" fill="#526b81">'+d+'</text>';});
+  b+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<text x="'+L+'" y="12" font-size="10" fill="#7b8fa2">Distinct subjects with at least one qualifying event</text>';
+  $('#aeDoseChart').innerHTML=svg(W,H,b);wire($('#aeDoseChart'));
+}
+
+function kpis(){
+  var s=fSubj(),m=fIds();
+  function ds(kind){var o={};AE.forEach(function(a){if(m[a.id]&&matchAE(a,kind))o[a.id]=1;});return Object.keys(o).length;}
+  var v=[['Total subjects',s.length,'DM population',''],
+    ['Discontinued',s.filter(function(x){return x.status==='Discontinued';}).length,'DS disposition','ST:Discontinued'],
+    ['DLT subjects',ds('DLT'),'sponsor DLTFL','K:DLT'],
+    ['SAE subjects',ds('SAE'),'AE.AESER','K:SAE'],
+    ['AESI subjects',ds('AESI'),'sponsor AESIFL','K:AESI'],
+    ['Grade 3+ subjects',ds('GR3'),'AE.AETOXGR','K:GR3']];
+  $('#kpis').innerHTML=v.map(function(x){
+    return '<div class="kpi"'+(x[3]?' data-act="'+x[3]+'"':'')+'><span>'+x[0]+'</span><strong>'+x[1]+'</strong><small>'+x[2]+'</small></div>';}).join('');
+  $('#kpis').querySelectorAll('[data-act]').forEach(function(el){
+    el.onclick=function(){var a=el.getAttribute('data-act');
+      if(a.indexOf('ST:')===0){drill({k:'status',v:a.slice(3)});return;}
+      aeKind=a.slice(2);
+      document.querySelectorAll('#aeSeg button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-k')===aeKind);});
+      aeRows();go('ae');};});
+}
+
+var MAPS=[
+ ['Tumor-type panels','DM + tumor enrichment','Study tumor type per subject','Swimmer and spider render one panel per tumor type; All shows every panel.'],
+ ['Subject dose level','EX','EX.EXDOSE, EX.EXDOSU, EX.EXDOSFRQ','Protocol-ordered dose per subject drives color, grouping and AE denominators.'],
+ ['AE preferred term','AE','AE.AEDECOD','Primary row of every AE table.'],
+ ['AE criteria','AE','AETOXGR, AESER, DLTFL, AESIFL, AEOUT, AEACN','Grade 3+, SAE, DLT, AESI, fatal, withdrawal and dose-modification tables.'],
+ ['Subject incidence','AE + DM','AE.USUBJID, DM.USUBJID','Distinct subjects per preferred term and dose; events retained in the drill-down.'],
+ ['Swimmer duration','EX + TU/TR/RS + DS','EXSTDTC, TRDTC, RSDTC, DSSTDTC','First dose to latest assessment or disposition; end marker encodes status.'],
+ ['Tumor location','TU','TULOC, TUDESC, TULNKID, TUSPID','Preserved on every plotted record; drives the lesion trajectory sort.'],
+ ['Percent change','TR','TRORRES, TRSTRESN, TRDTC','(post-screening − screening) ÷ screening × 100; denominator locked to the screening lesion set.'],
+ ['Response overlay','RS','RSORRES, RSDTC','Response aligned to assessment date and shown in drill-down evidence.']
+];
+$('#mapRows').innerHTML=MAPS.map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td><code style="font-size:11px">'+r[2]+'</code></td><td>'+r[3]+'</td></tr>';}).join('');
+
+function combinedLegend(kind){
+  var dose='<b style="color:#41607a">Dose level (colour):</b> '+DOSES.map(function(d){
+    return '<span style="display:inline-flex;align-items:center;gap:4px;margin-right:12px"><i style="display:inline-block;width:11px;height:11px;border-radius:2px;background:'+DCOL[d]+'"></i>'+d+'</span>';}).join('');
+  var ind;
+  if(kind==='swim'){
+    ind='<b style="color:#41607a">Indication (shade):</b> '+TYPES.map(function(t){
+      return '<span style="display:inline-flex;align-items:center;gap:4px;margin-right:12px"><i style="display:inline-block;width:11px;height:11px;border-radius:2px;background:'+typeFill('60 mg QD',t)+'"></i>'+t+'</span>';}).join('');
+  }else{
+    ind='<b style="color:#41607a">Indication (line pattern):</b> '+TYPES.map(function(t){
+      return '<span style="display:inline-flex;align-items:center;gap:5px;margin-right:12px"><svg width="28" height="8"><line x1="0" y1="4" x2="28" y2="4" stroke="#41607a" stroke-width="1.8"'+(TDASH[t]?' stroke-dasharray="'+TDASH[t]+'"':'')+'/></svg>'+t+'</span>';}).join('');
+  }
+  return '<div style="font-size:10px;color:#526b81;margin-bottom:8px;line-height:2">'+dose+'<br>'+ind+'</div>';
+}
+function combinedSwimmer(){
+  var subs=fSubj().slice().sort(function(a,b){return TYPES.indexOf(a.type)-TYPES.indexOf(b.type)||DOSES.indexOf(a.dose)-DOSES.indexOf(b.dose)||a.id.localeCompare(b.id);});
+  var RB=respById(fIds());
+  var maxDur=Math.max.apply(null,SUBJ.map(function(s){return s.dur;}));
+  var W=940,L=214,R=60,T=26,rowH=16,H=T+Math.max(subs.length,1)*rowH+46,b='';
+  function X(d){return L+(W-L-R)*d/maxDur;}
+  [0,42,84,126,168].forEach(function(v){if(v>maxDur)return;
+    b+='<line x1="'+X(v)+'" y1="'+T+'" x2="'+X(v)+'" y2="'+(H-38)+'" stroke="#e7edf3"/>'+
+       '<text x="'+X(v)+'" y="'+(H-20)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">'+v+'</text>';});
+  b+='<line x1="'+L+'" y1="'+(H-38)+'" x2="'+(W-R)+'" y2="'+(H-38)+'" stroke="#879bad"/>'+
+     '<text x="'+((L+W-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">Study day from first dose</text>';
+  var lastType=null;
+  subs.forEach(function(r,i){
+    var y=T+i*rowH,bh=rowH-6,w=X(r.dur)-L,fill=typeFill(r.dose,r.type);
+    var mark=r.status==='Ongoing'?'\u25B6':(r.status==='Completed'?'\u25C6':'\u2715');
+    var tip=r.id+'<br>'+r.type+' &middot; '+r.dose+'<br>Status: '+r.status+(r.reason?'<br>'+r.reason:'');
+    b+='<text x="'+(L-10)+'" y="'+(y+bh-1)+'" text-anchor="end" font-size="9" fill="#41607a">'+r.id+'</text>'+
+       '<text x="'+(L-92)+'" y="'+(y+bh-1)+'" text-anchor="end" font-size="8.5" fill="'+fill+'">'+r.type+' &middot; '+r.dose.replace(' QD','')+'</text>'+
+       '<rect data-tip="'+tip+'" data-drill=\''+JSON.stringify({k:'subject',id:r.id})+'\' x="'+L+'" y="'+y+'" width="'+Math.max(w,3)+'" height="'+bh+'" rx="2.5" fill="'+fill+'"/>'+
+       '<text x="'+(L+w+7)+'" y="'+(y+bh-1)+'" font-size="9" fill="#41607a">'+mark+'</text>';
+    (RB[r.id]||[]).forEach(function(rc){if(rc.day>r.dur)return;b+=respMarker(X(rc.day),y+bh/2,4.4,rc);});
+  });
+  if(!subs.length)b+='<text x="'+L+'" y="'+(T+18)+'" font-size="11" fill="#8a9aaa">No subjects for the current filters.</text>';
+  $('#combinedSwim').innerHTML=combinedLegend('swim')+respLegend()+'<div class="chartbox">'+svg(W,H,b)+'</div>';
+  wire($('#combinedSwim'));
+}
+function combinedSpider(){
+  var data=fTR();
+  var maxDay=Math.max.apply(null,data.map(function(x){return x.day;}))||168;
+  var series={},allPct=[],excluded=0,agg={};
+  data.forEach(function(x){var k=x.id+'|'+x.day;
+    if(!agg[k])agg[k]={id:x.id,dose:x.dose,type:x.type,day:x.day,date:x.date,visit:x.visit,val:0,base:0,n:0};
+    agg[k].val+=x.val;agg[k].base+=x.base;agg[k].n++;});
+  Object.keys(agg).forEach(function(k){var o=agg[k],expect=Object.keys(BASESET[o.id]||{}).length;
+    if(!o.base||o.n!==expect){excluded++;return;}
+    o.pct=+(((o.val-o.base)/o.base)*100).toFixed(1);(series[o.id]=series[o.id]||[]).push(o);});
+  Object.keys(series).forEach(function(k){series[k].forEach(function(p){allPct.push(p.pct);});});
+  var lo=allPct.length?Math.min.apply(null,allPct):-100,hi=allPct.length?Math.max.apply(null,allPct):50;
+  var ymin=Math.min(nice(lo-8,false),-40),ymax=Math.max(nice(hi+8,true),30);
+  var W=940,H=400,L=70,R=30,T=20,B=46,b='';
+  function X(d){return L+(W-L-R)*d/maxDay;}
+  function Y(p){return H-B-(H-T-B)*(p-ymin)/(ymax-ymin);}
+  var ticks=[];for(var v=ymin;v<=ymax;v+=(ymax-ymin)>140?25:20)ticks.push(v);
+  ticks.forEach(function(v){var col=v===-30?'#16865e':(v===20?'#c9453d':'#e7edf3');
+    b+='<line x1="'+L+'" y1="'+Y(v)+'" x2="'+(W-R)+'" y2="'+Y(v)+'" stroke="'+col+'"'+((v===-30||v===20)?' stroke-dasharray="6 5"':'')+'/>'+
+       '<text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end" font-size="10" fill="#7b8fa2">'+v+'%</text>';});
+  [0,42,84,126,168].forEach(function(v){if(v>maxDay)return;b+='<text x="'+X(v)+'" y="'+(H-22)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">'+v+'</text>';});
+  b+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#879bad"/>'+
+     '<text x="'+((L+W-R)/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#7b8fa2">Study day of assessment</text>';
+  Object.keys(series).forEach(function(id){
+    var q=series[id].sort(function(a,c){return a.day-c.day;}),col=DCOL[q[0].dose],dash=TDASH[q[0].type];
+    var p=q.map(function(x,i){return (i?'L':'M')+X(x.day).toFixed(1)+' '+Y(x.pct).toFixed(1);}).join(' ');
+    b+='<path d="'+p+'" fill="none" stroke="'+col+'" stroke-width="1.7" opacity=".85"'+(dash?' stroke-dasharray="'+dash+'"':'')+'/>';
+    q.forEach(function(x){b+='<circle data-tip="'+x.id+'<br>'+x.type+' &middot; '+x.dose+'<br>'+x.visit+' &middot; '+x.date+'<br>Change '+x.pct+'%" data-drill=\''+JSON.stringify({k:'lesion',id:x.id,loc:''})+'\' cx="'+X(x.day).toFixed(1)+'" cy="'+Y(x.pct).toFixed(1)+'" r="3" fill="'+col+'" stroke="#fff" stroke-width="1"/>';});
+  });
+  if(!Object.keys(series).length)b+='<text x="'+L+'" y="'+(T+20)+'" font-size="11" fill="#8a9aaa">No tumor assessments for the current filters.</text>';
+  $('#combinedSpider').innerHTML=combinedLegend('spider')+'<div class="chartbox">'+svg(W,H,b)+'</div>'+
+    (excluded?'<small class="muted" style="font-size:10px">'+excluded+' subject-visits excluded (incomplete baseline lesion set).</small>':'');
+  wire($('#combinedSpider'));
+}
+function combinedAe(){
+  var byDose={};DOSES.forEach(function(d){byDose[d]={};});
+  fAE('ALL').forEach(function(a){byDose[a.dose][a.id]=1;});
+  var W=940,H=210,L=60,R=20,T=20,B=48,bw=(W-L-R)/DOSES.length,b='',max=1;
+  DOSES.forEach(function(d){var n=Object.keys(byDose[d]).length;if(n>max)max=n;});
+  DOSES.forEach(function(d,i){var n=Object.keys(byDose[d]).length,h=(H-T-B)*n/max,x=L+i*bw+bw*0.2,y=H-B-h;
+    b+='<rect data-tip="'+d+': '+n+' distinct subjects" data-drill=\''+JSON.stringify({k:'burden',kind:'ALL',v:d})+'\' x="'+x+'" y="'+y+'" width="'+bw*0.6+'" height="'+Math.max(h,1)+'" rx="3" fill="'+DCOL[d]+'"/>'+
+    '<text x="'+(x+bw*0.3)+'" y="'+(y-5)+'" text-anchor="middle" font-size="11">'+n+'</text>'+
+    '<text x="'+(x+bw*0.3)+'" y="'+(H-B+18)+'" text-anchor="middle" font-size="10" fill="#526b81">'+d+'</text>';});
+  b+='<line x1="'+L+'" y1="'+(H-B)+'" x2="'+(W-R)+'" y2="'+(H-B)+'" stroke="#879bad"/><line x1="'+L+'" y1="'+T+'" x2="'+L+'" y2="'+(H-B)+'" stroke="#879bad"/><text x="'+L+'" y="12" font-size="10" fill="#7b8fa2">Distinct subjects with at least one TEAE</text>';
+  var rows=aeAgg('ALL'),totals={};rows.forEach(function(r){totals[r.pt]=(totals[r.pt]||0)+r.n;});
+  rows.sort(function(a,c){return totals[c.pt]-totals[a.pt]||a.pt.localeCompare(c.pt)||DOSES.indexOf(a.dose)-DOSES.indexOf(c.dose);});
+  var body=rows.slice(0,12).map(function(r){return '<tr class="clickable" data-drill=\''+JSON.stringify({k:'ae',kind:'ALL',pt:r.pt,dose:r.dose})+'\'><td><b>'+r.pt+'</b></td><td><span class="tag">'+r.dose+'</span></td><td>'+r.n+'</td><td>'+r.pct+'%</td><td style="font-size:11px">'+r.ids.join(', ')+'</td></tr>';}).join('');
+  $('#combinedAe').innerHTML='<div class="chartbox">'+svg(W,H,b)+'</div>'+
+    '<div class="tablewrap" style="margin-top:10px"><table><thead><tr><th>Preferred Term</th><th>Dose level</th><th>Subjects</th><th>Within-dose %</th><th>Subject IDs</th></tr></thead><tbody>'+
+    (body||'<tr><td colspan="5" class="muted">No adverse events for the current filters.</td></tr>')+'</tbody></table></div>';
+  wire($('#combinedAe'));
+}
+function go(p){document.querySelectorAll('.nav button').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-p')===p);});
+  document.querySelectorAll('.panel').forEach(function(s){s.classList.toggle('active',s.id===p);});window.scrollTo(0,0);}
+document.querySelectorAll('.nav button').forEach(function(b){b.onclick=function(){go(b.getAttribute('data-p'));};});
+document.querySelectorAll('.openbtn').forEach(function(b){b.onclick=function(){go(b.getAttribute('data-go'));};});
+DOSES.forEach(function(d){$('#fDose').add(new Option(d,d));});
+TYPES.forEach(function(t){$('#fType').add(new Option(t,t));});
+$('#doseLegend').innerHTML=DOSES.map(function(d){return '<div><i style="background:'+DCOL[d]+'"></i>'+d+'</div>';}).join('');
+$('#aeSeg').innerHTML=KINDS.map(function(k){return '<button data-k="'+k[0]+'"'+(k[0]==='ALL'?' class="active"':'')+'>'+k[1]+'</button>';}).join('');
+document.querySelectorAll('#aeSeg button').forEach(function(b){b.onclick=function(){
+  document.querySelectorAll('#aeSeg button').forEach(function(x){x.classList.remove('active');});
+  b.classList.add('active');aeKind=b.getAttribute('data-k');aeRows();};});
+document.querySelectorAll('#spiderSeg button').forEach(function(b){b.onclick=function(){
+  document.querySelectorAll('#spiderSeg button').forEach(function(x){x.classList.remove('active');});
+  b.classList.add('active');mode=b.getAttribute('data-mode');renderSpider();};});
+$('#reset').onclick=function(){$('#fDose').selectedIndex=0;$('#fType').selectedIndex=0;render();};
+$('#fDose').onchange=$('#fType').onchange=render;
+
+function types(){return $('#fType').value==='All tumor types'?TYPES:[$('#fType').value];}
+function renderSpider(){spiderPanels($('#spiderFull'),types(),false);spiderPanels($('#spiderSmall'),types(),true);}
+function render(){kpis();donut();reasons();burden();aeRows();
+  swimPanels($('#swimFull'),types(),false);swimPanels($('#swimSmall'),types(),true);renderSpider();
+  combinedSwimmer();combinedSpider();combinedAe();}
+render();
+</script>
+</body></html>
