@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Kloud icon</title>
+  <desc id="desc">A cloud icon for the Kloud app.</desc>
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#5fd3d6"/>
+      <stop offset="50%" stop-color="#69b9f2"/>
+      <stop offset="100%" stop-color="#b9afff"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="120" fill="#03111f"/>
+  <g transform="translate(50 90)">
+    <path d="M120 300c-54 0-98-44-98-99s44-99 98-99c17 0 33 4 47 12 23-43 70-73 123-73 78 0 141 63 141 141 0 7-1 14-2 20 24 11 42 34 42 61 0 40-32 72-72 72H120z" fill="url(#g1)" opacity="0.95"/>
+    <circle cx="146" cy="186" r="34" fill="#ffffff" opacity="0.9"/>
+    <circle cx="217" cy="152" r="40" fill="#ffffff" opacity="0.8"/>
+    <circle cx="286" cy="182" r="38" fill="#ffffff" opacity="0.8"/>
+  </g>
+</svg>
