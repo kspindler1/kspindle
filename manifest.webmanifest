@@ -1,0 +1,18 @@
+{
+  "name": "Kloud — because the sky's the limit",
+  "short_name": "Kloud",
+  "description": "Kloud: a trusted, agent-powered backbone connecting clinical trial consistency, rule building, CQL harmonization, test data generation and more — for faster, safer treatment decisions.",
+  "start_url": "./Kloud_Shark_Tank_Full_Experience.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#03111f",
+  "theme_color": "#0c3d78",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
