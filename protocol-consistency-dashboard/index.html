@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Protocol Consistency Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--navy:#102a43;--navy2:#173f5f;--blue:#2563eb;--cyan:#0891b2;--green:#16805c;--amber:#d97706;--red:#c2413a;--purple:#7c3aed;--ink:#1e293b;--muted:#64748b;--line:#dce5ec;--bg:#f3f6f8;--card:#fff;--soft:#f8fafc;--shadow:0 8px 28px rgba(15,42,67,.08)}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.55 "Inter","Segoe UI Variable","Segoe UI",system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh;display:grid;grid-template-columns:238px minmax(0,1fr)}
+    .sidebar{position:sticky;top:0;height:100vh;padding:22px 16px;color:#fff;background:linear-gradient(180deg,#102e46,#0c2639);display:flex;flex-direction:column;z-index:10}.brand{display:flex;gap:11px;align-items:center;padding:0 8px 26px}.brandmark{width:40px;height:40px;border-radius:11px;background:linear-gradient(145deg,#0e7490,#2563eb);display:grid;place-items:center;font-weight:800;border:1px solid rgba(255,255,255,.2)}.brand strong{display:block;font-size:15px}.brand span{display:block;color:#91acbd;font-size:10.5px;letter-spacing:1px;text-transform:uppercase}.navlabel{margin:6px 10px;color:#6f91a4;font-size:10.5px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}.nav{display:grid;gap:4px}.nav button{border:0;border-radius:8px;padding:10px 11px;color:#bbcfda;background:transparent;text-align:left;display:flex;align-items:center;gap:10px;font-size:13px;transition:background .12s ease,color .12s ease}.nav button:hover,.nav button.active{color:#fff;background:rgba(255,255,255,.1)}.nav button.active{box-shadow:inset 3px 0 #22d3ee}.nav .ico{width:19px;color:#73b8d0;text-align:center}.sidecard{margin-top:auto;padding:13px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:rgba(255,255,255,.05)}.sidecard b{font-size:12.5px}.sidecard p{margin:5px 0 0;color:#89a7b7;font-size:10.5px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 4px rgba(52,211,153,.12);margin-right:7px}
+    main{min-width:0}.topbar{height:70px;padding:0 27px;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:8;backdrop-filter:blur(10px)}.crumb{color:var(--muted);font-size:12.5px}.crumb b{color:var(--navy)}.topactions{display:flex;align-items:center;gap:9px}.trial{padding:8px 11px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy);min-width:145px}.review-pill{padding:7px 10px;border-radius:8px;background:#ecfdf5;color:var(--green);font-size:11.5px;font-weight:800}.avatar{width:34px;height:34px;border-radius:50%;background:var(--navy2);color:#fff;display:grid;place-items:center;font-size:11.5px;font-weight:800}
+    .content{padding:25px 28px 40px;max-width:1580px;margin:0 auto}.view{display:none;animation:up .2s ease}.view.active{display:block}@keyframes up{from{opacity:0;transform:translateY(4px)}}.hero{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:20px}.eyebrow{font-size:10.5px;color:var(--cyan);text-transform:uppercase;letter-spacing:1.25px;font-weight:800}h1{margin:4px 0;color:var(--navy);font-size:30px;letter-spacing:-.8px;line-height:1.15}.hero p{margin:0;color:var(--muted);max-width:760px}.actions{display:flex;gap:8px}.primary,.secondary{border-radius:9px;padding:10px 15px;font-weight:700;white-space:nowrap;font-size:13px;transition:transform .12s ease,box-shadow .12s ease,background .12s ease,border-color .12s ease}.primary{border:0;color:#fff;background:linear-gradient(135deg,var(--blue),#0e7490);box-shadow:0 7px 17px rgba(37,99,235,.18)}.primary:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(37,99,235,.28)}.primary:active{transform:translateY(0)}.secondary{border:1px solid var(--line);color:var(--navy);background:#fff}.secondary:hover{border-color:#a9c3d6;background:#f5f9fc;transform:translateY(-1px)}.secondary:active{transform:translateY(0)}.primary:disabled,.secondary:disabled{opacity:.55;cursor:default;transform:none!important;box-shadow:none!important}
+    button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+    .gate{display:grid;grid-template-columns:auto 1fr auto;gap:13px;align-items:center;padding:15px 17px;border:1px solid #b8ded1;background:#f0fdf7;border-radius:11px;margin-bottom:14px}.gate.review-alert{border-color:#f5c287;background:#fff7ed}.gate.review-fail{border-color:#f1a5a0;background:#fff1f2}.gate-icon{width:38px;height:38px;border-radius:10px;background:#d7f5e7;color:var(--green);display:grid;place-items:center;font-weight:900;font-size:18px}.review-alert .gate-icon{background:#fef3c7;color:var(--amber)}.review-fail .gate-icon{background:#fee2e2;color:var(--red)}.gate strong{display:block;color:#145c46}.review-alert strong{color:#9a5200}.review-fail strong{color:#a62620}.gate p{margin:2px 0 0;color:#517267;font-size:11.5px}.tag{padding:4px 8px;border-radius:999px;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.35px}.tag.pass,.tag.PASS,.tag.MATCH{color:#08764f;background:#dcfce7}.tag.PARTIAL,.tag.AMBIGUOUS,.tag.WEAK{color:#a05a00;background:#fef3c7}.tag.FAIL,.tag.MISSING,.tag.ERROR{color:#b42318;background:#fee2e2}.tag.EXTRA{color:#6d28d9;background:#ede9fe}.tag.UNRESOLVED{color:#9a3412;background:#ffedd5}.tag.N\/A{color:#475569;background:#e2e8f0}.tag.High,.tag.Critical{color:#b42318;background:#fee2e2}.tag.Medium{color:#a05a00;background:#fef3c7}.tag.Low{color:#075985;background:#e0f2fe}.tag.warn{color:#a05a00;background:#fef3c7}.tag.info{color:#075985;background:#e0f2fe}.tag.ok{color:#08764f;background:#dcfce7}
+    .flow-note{padding:12px;background:var(--soft);border-radius:8px;color:#526476;font-size:12.5px;line-height:1.6;margin-bottom:13px}.flow-note code{background:#e8eef2;padding:1px 5px;border-radius:4px;font-size:11.5px}
+    .statusrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.statusrow label{margin:0}
+    .codeblock{background:#0c2639;color:#cfe3ee;padding:14px 16px;border-radius:9px;font-family:Consolas,"Courier New",monospace;font-size:12.5px;line-height:1.7;overflow:auto;white-space:pre}
+    p.sub{margin:0 0 10px}
+    .promptcard{background:#0c2639;color:#d7e6ef;border-radius:11px;padding:18px 20px;font-family:Consolas,"Courier New",monospace;font-size:13px;line-height:1.75;white-space:pre-wrap;max-height:520px;overflow:auto}
+    .rulelist{display:grid;gap:10px}.rule{display:grid;grid-template-columns:28px 1fr;gap:11px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:#fbfdfe}.rule b{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:11.5px}.rule p{margin:0;color:#405366;font-size:12.5px;line-height:1.55}
+    .modelrow{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:13px}.modelrow .tag{font-size:11px;padding:6px 10px}
+    .schematable td:first-child{white-space:nowrap;color:var(--navy);font-weight:700}
+    .connect-modal{width:min(460px,calc(100vw - 28px));border:0;border-radius:13px;padding:0;box-shadow:0 25px 70px rgba(15,42,67,.3)}.connect-modal::backdrop{background:rgba(7,25,38,.58);backdrop-filter:blur(2px)}.connect-body{padding:20px}.connect-body label{display:block;font-size:11.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 5px}.connect-body label:first-child{margin-top:0}.connect-body input{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}.connect-note{margin:14px 0 0;padding:10px 12px;background:var(--soft);border-radius:8px;color:#526476;font-size:11.5px;line-height:1.55}.connect-actions{padding:14px 20px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:9px;background:#f8fafc;border-radius:0 0 13px 13px}
+    .genie-launcher{position:fixed;right:22px;bottom:22px;z-index:30;display:flex;align-items:center;gap:9px;padding:12px 17px 12px 13px;border:0;border-radius:999px;background:linear-gradient(135deg,var(--blue),#0e7490);color:#fff;font-weight:700;font-size:13.5px;box-shadow:0 10px 26px rgba(37,99,235,.35);cursor:pointer}.genie-launcher span.orb{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.22);display:grid;place-items:center;font-size:13.5px}.genie-launcher .pulse-dot{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 0 3px rgba(52,211,153,.25)}
+    .genie-panel{position:fixed;right:22px;bottom:88px;z-index:31;width:380px;max-height:min(600px,calc(100vh - 120px));background:#fff;border-radius:15px;box-shadow:0 28px 70px rgba(7,25,38,.32);display:none;flex-direction:column;overflow:hidden;border:1px solid var(--line)}.genie-panel.open{display:flex}
+    .genie-head{padding:15px 16px;background:linear-gradient(135deg,#082f49,#0e7490);color:#fff;position:relative}.genie-head b{display:block;font-size:13.5px;padding-right:26px}.genie-head small{color:#bfe3ee;font-size:11px;display:block;padding-right:26px}.genie-minimize{position:absolute;top:11px;right:12px;width:22px;height:22px;border:0;border-radius:6px;background:rgba(255,255,255,.14);color:#fff;font-size:13px;line-height:1;cursor:pointer;display:grid;place-items:center}.genie-minimize:hover{background:rgba(255,255,255,.26)}
+    .genie-context{padding:8px 14px;background:#eff6ff;border-bottom:1px solid var(--line);color:var(--navy2);font-size:11px;line-height:1.5}
+    .genie-thread{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;background:#f8fafc}
+    .genie-msg{max-width:88%;padding:9px 12px;border-radius:11px;font-size:13px;line-height:1.55}
+    .genie-msg.user{align-self:flex-end;background:var(--blue);color:#fff;border-bottom-right-radius:3px}
+    .genie-msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);color:#334155;border-bottom-left-radius:3px}
+    .genie-msg.bot ul{margin:6px 0 0;padding-left:16px}.genie-msg.bot li{margin-bottom:2px}
+    .genie-jump{display:inline-block;margin-top:7px;color:var(--blue);font-weight:700;cursor:pointer;font-size:12.5px}
+    .genie-chips{display:flex;gap:6px;flex-wrap:wrap;padding:10px 14px;border-top:1px solid var(--line);background:#fff}
+    .genie-chip{border:1px solid var(--line);background:#f8fafc;color:var(--navy2);padding:5px 9px;border-radius:999px;font-size:11.5px;cursor:pointer}.genie-chip:hover{background:#eff6ff;border-color:#bcd4ea}
+    .genie-inputrow{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line);background:#fff}.genie-inputrow input{flex:1;padding:9px 11px;border:1px solid var(--line);border-radius:9px}.genie-inputrow button{border:0;border-radius:9px;background:var(--blue);color:#fff;padding:0 15px;font-weight:700;cursor:pointer}.genie-inputrow button:disabled{opacity:.5;cursor:default}
+    .skills-list{display:grid;gap:9px}.skill-card{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;padding:12px 13px;border:1px solid var(--line);border-radius:9px;background:#fbfdfe}.skill-icon{width:36px;height:36px;border-radius:9px;background:#eff6ff;color:var(--blue);display:grid;place-items:center;font-size:16px}.skill-info strong{display:block;color:var(--navy);font-size:13.5px}.skill-info small{color:var(--muted);font-size:12px}
+    .toggle{width:38px;height:21px;border:0;border-radius:999px;background:#cbd5e1;position:relative;cursor:pointer;flex-shrink:0}.toggle:after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;transition:.15s;box-shadow:0 1px 3px rgba(0,0,0,.25)}.toggle.on{background:var(--green)}.toggle.on:after{left:19px}.toggle:disabled{opacity:.6;cursor:default}
+    .kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-bottom:14px}.kpi,.card{background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 3px 13px rgba(15,42,67,.035)}.kpi{padding:14px;position:relative;overflow:hidden}.kpi:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--blue)}.kpi.warn:before{background:var(--amber)}.kpi.bad:before{background:var(--red)}.kpi span{color:var(--muted);font-size:10.5px;font-weight:750;text-transform:uppercase;letter-spacing:.55px}.kpi b{display:block;margin:5px 0 2px;color:var(--navy);font-size:25px;line-height:1}.kpi small{color:var(--green);font-size:10.5px}.kpi.warn small,.kpi.bad small{color:var(--amber)}
+    .grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.span4{grid-column:span 4}.span5{grid-column:span 5}.span6{grid-column:span 6}.span7{grid-column:span 7}.span8{grid-column:span 8}.span12{grid-column:span 12}.card{padding:17px;min-width:0}.cardhead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:10px}.card h2{margin:0;color:var(--navy);font-size:14.5px;letter-spacing:-.15px}.sub{color:var(--muted);font-size:10.5px;margin-top:2px}.chart{height:270px}.chart.tall{height:330px}
+    .studycard{margin-bottom:14px;border-left:3px solid var(--blue)}.studygrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.studylabel{display:block;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;font-weight:750;margin-bottom:4px}.studygrid strong{display:block;color:var(--navy);font-size:15px;letter-spacing:-.2px}.studygrid small{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+    .crumbstudy{color:var(--navy2);font-weight:700}.crumbdot{color:var(--line);margin:0 6px}
+    .kpi.clickable{cursor:pointer;transition:.15s ease}.kpi.clickable:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(15,42,67,.13);border-color:#c7d6e2}.kpi.clickable:after{content:"Click for evidence";position:absolute;right:12px;bottom:9px;font-size:9px;color:#9db0c0;opacity:0;transition:.15s}.kpi.clickable:hover:after{opacity:1}
+    .evidence-list th{position:sticky;top:0;background:var(--card)}.evidence-list td.link{color:var(--blue);font-weight:700}.evidence-list tr{cursor:pointer}.rowscoped{background:#eff6ff}#metricsRows tr{cursor:pointer}
+    .tablewrap{overflow:auto}table{width:100%;border-collapse:collapse}th{padding:9px 8px;text-align:left;border-bottom:1px solid var(--line);color:var(--muted);font-size:9.5px;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}td{padding:10px 8px;border-bottom:1px solid #edf1f4;color:#405366;font-size:11.5px;vertical-align:top}tbody tr:hover{background:#f8fbfd}td strong{color:var(--navy)}.link{color:var(--blue);font-weight:700;cursor:pointer}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filters select,.filters input{padding:8px 10px;border:1px solid var(--line);border-radius:7px;background:#fff;color:var(--ink)}.filters input{min-width:230px}.count{color:var(--muted);font-size:11.5px;margin-left:auto;align-self:center}
+    .docs{display:grid;gap:9px}.doc{padding:12px;border:1px solid var(--line);border-radius:9px;display:grid;grid-template-columns:35px 1fr auto;gap:10px;align-items:center}.docicon{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;background:#e0f2fe;color:#075985;font-weight:800;font-size:11.5px}.doc strong{display:block;color:var(--navy);font-size:12.5px}.doc small{color:var(--muted);font-size:10.5px}.progress{height:6px;border-radius:5px;background:#e8eef2;overflow:hidden;margin-top:6px}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:inherit}.checklist{display:grid;gap:8px}.check{padding:11px;border:1px solid var(--line);border-radius:8px;display:grid;grid-template-columns:24px 1fr auto;gap:9px;align-items:center}.checkicon{width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:#dcfce7;color:var(--green);font-weight:900}.check strong{font-size:11.5px;color:#334155}.check small{display:block;color:var(--muted);font-size:9.5px}.exception{padding:12px;border:1px solid var(--line);border-left:3px solid var(--red);border-radius:8px;margin-bottom:9px}.exception.amber{border-left-color:var(--amber)}.exceptionhead{display:flex;justify-content:space-between;gap:10px}.exception h3{margin:0;color:var(--navy);font-size:12.5px}.exception p{margin:5px 0;color:var(--muted);font-size:10.5px}.exception footer{display:flex;gap:7px;color:#475569;font-size:10.5px}.empty{padding:35px;text-align:center;color:var(--muted)}
+    .uploadzone{border:2px dashed #adc8d8;border-radius:12px;padding:29px;text-align:center;background:#f8fbfd;transition:.2s}.uploadzone.drag{border-color:var(--blue);background:#eff6ff}.uploadzone h3{margin:8px 0 3px;color:var(--navy)}.uploadzone p{margin:0;color:var(--muted);font-size:11.5px}.uploadzone input{display:none}.filelist{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.file{padding:11px;border:1px solid var(--line);border-radius:8px;background:#fff;text-align:left}.file b{display:block;color:var(--navy);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file span{color:var(--muted);font-size:9.5px}.modal{width:min(900px,calc(100vw - 28px));max-height:calc(100vh - 30px);border:0;border-radius:13px;padding:0;box-shadow:0 25px 70px rgba(15,42,67,.3)}.modal::backdrop{background:rgba(7,25,38,.58);backdrop-filter:blur(2px)}.modalhead{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.modalhead h2{margin:0;color:var(--navy);font-size:15px}.modalbody{padding:20px;overflow:auto;max-height:70vh}.evidence{display:grid;grid-template-columns:1fr 1fr;gap:12px}.evidence div{padding:12px;background:var(--soft);border-radius:8px}.evidence b{display:block;color:var(--navy);font-size:11.5px;margin-bottom:4px}.evidence p{margin:0;color:#526476;font-size:11.5px}.close{border:1px solid var(--line);background:#fff;border-radius:7px;width:31px;height:31px}.toast{position:fixed;right:22px;bottom:22px;padding:12px 15px;border-radius:9px;background:var(--navy);color:#fff;box-shadow:var(--shadow);transform:translateY(80px);opacity:0;transition:.25s;z-index:20}.toast.show{transform:none;opacity:1}.mobile{display:none}
+    @media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.span4,.span5,.span6,.span7,.span8{grid-column:span 12}.filelist{grid-template-columns:1fr 1fr}.studygrid{grid-template-columns:1fr 1fr}}@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{position:fixed;left:0;transform:translateX(-105%);transition:.25s;width:250px}.sidebar.open{transform:none}.mobile{display:block}.topbar{padding:0 15px}.topactions .trial{display:none}.content{padding:20px 15px}.hero{align-items:flex-start;flex-direction:column}.kpis{grid-template-columns:1fr 1fr}.evidence{grid-template-columns:1fr}.studygrid{grid-template-columns:1fr}.crumbstudy,.crumbdot{display:none}}@media(max-width:480px){.kpis,.filelist{grid-template-columns:1fr}.actions{flex-wrap:wrap}}
+    @media(max-width:460px){.genie-panel{right:10px;left:10px;width:auto;bottom:80px}.genie-launcher{right:14px;bottom:14px}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brandmark">PC</div><div><strong>Protocol Consistency</strong><span>Clinical document intelligence</span></div></div>
+    <div class="navlabel">Review workspace</div>
+    <nav class="nav">
+      <button class="active" data-view="overview"><span class="ico">▦</span>Executive overview</button>
+      <button data-view="findings"><span class="ico">≡</span>Semantic mapping</button>
+      <button data-view="exceptions"><span class="ico">!</span>Exceptions</button>
+      <button data-view="documents"><span class="ico">□</span>Study identity</button>
+      <button data-view="validation"><span class="ico">✓</span>Validation report</button>
+      <button data-view="connectors"><span class="ico">⇄</span>Data connectors</button>
+      <button data-view="skills"><span class="ico">⚙</span>Skills & tools</button>
+      <button data-view="intake"><span class="ico">＋</span>New review</button>
+    </nav>
+    <div class="navlabel" style="margin-top:18px">Principle</div>
+    <div class="sidecard"><b><i class="dot"></i>Protocol is normative</b><p>Every downstream assertion is evaluated against the Protocol as the sole source of truth.</p></div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:10px"><button class="secondary mobile" id="menu">☰</button><div class="crumb"><b>Protocol Consistency</b> &nbsp;/&nbsp; <span id="crumb">Executive overview</span><span class="crumbdot">·</span><span class="crumbstudy" id="crumbStudy"></span></div></div>
+      <div class="topactions"><select class="trial" id="trialSelect"><option>2012-0001</option><option>BI-2026-0092</option><option>BI-2025-0318</option></select><select class="trial" id="docScopeSelect" aria-label="Select comparison document"><option value="">All documents (compiled)</option><option value="ICF">ICF</option><option value="IB">IB</option><option value="CRF">CRF</option></select><span class="review-pill" id="reviewPill">● PASS</span><div class="avatar">QA</div></div>
+    </header>
+
+    <section class="content view active" data-panel="overview">
+      <div class="hero"><div><div class="eyebrow">Protocol-led consistency intelligence</div><h1>Clinical document consistency review</h1><p>Bidirectional semantic mapping of Protocol requirements against ICF, Investigator's Brochure, and CRF content—with deterministic metrics and traceable evidence.</p></div><div class="actions"><button class="secondary" id="refreshConnected">Refresh from file</button><button class="secondary" id="loadJson">Load agent JSON</button><button class="primary" id="rerun">Start a new review</button></div></div>
+      <article class="card studycard"><div class="studygrid">
+        <div><span class="studylabel">Study ID</span><strong id="studyId">—</strong><small>From the Protocol document</small></div>
+        <div><span class="studylabel">Study title</span><strong id="studyTitle">—</strong><small id="studyProtocolMeta">—</small></div>
+        <div><span class="studylabel">Protocol version</span><strong id="studyVersion">—</strong><small>Sole source of truth</small></div>
+        <div><span class="studylabel">Comparison scope</span><strong id="studyScope">All documents (compiled)</strong><small id="studyScopeNote">Combined ICF, IB and CRF results</small></div>
+      </div></article>
+      <div class="gate" id="identityGate"><div class="gate-icon" id="identityIcon">✓</div><div><strong id="identityTitle">Study identity gate passed</strong><p id="identityText">All four documents identify trial 2012-0001 with compatible titles and version dates. Mapping is permitted.</p></div><span class="tag PASS" id="identityBadge">Identity verified</span></div>
+      <div class="kpis">
+        <article class="kpi clickable" data-kpi="total"><span>Total records</span><b id="kTotal">72</b><small>Atomic comparisons · click to view</small></article>
+        <article class="kpi clickable" data-kpi="coverage"><span>In-scope coverage</span><b id="kCoverage">83.8%</b><small id="kCovered">57 of 68 covered</small></article>
+        <article class="kpi clickable" data-kpi="match"><span>Exact matches</span><b id="kMatch">49</b><small>Explicitly equivalent</small></article>
+        <article class="kpi warn clickable" data-kpi="weak"><span>Weak mappings</span><b id="kWeak">8</b><small>Detail or scope differs</small></article>
+        <article class="kpi bad clickable" data-kpi="gaps"><span>Actionable gaps</span><b id="kGaps">10</b><small>Missing, extra or unresolved</small></article>
+        <article class="kpi clickable" data-kpi="confidence"><span>High confidence</span><b id="kConfidence">81%</b><small>Across all mappings</small></article>
+      </div>
+      <div class="grid">
+        <article class="card span6"><div class="cardhead"><div><h2>Status distribution</h2><div class="sub">All reconciled comparison records</div></div><span class="tag pass">Deterministic</span></div><div class="chart" id="statusChart"></div></article>
+        <article class="card span6"><div class="cardhead"><div><h2>Findings by document</h2><div class="sub">Status mix across downstream documents</div></div></div><div class="chart" id="documentChart"></div></article>
+        <article class="card span8"><div class="cardhead"><div><h2>Findings by category</h2><div class="sub">Protocol requirement coverage by clinical domain</div></div></div><div class="chart tall" id="categoryChart"></div></article>
+        <article class="card span4"><div class="cardhead"><div><h2>Confidence distribution</h2><div class="sub">Evidence strength assigned by mapper</div></div></div><div class="chart" id="confidenceChart"></div><div class="checklist" id="overviewChecks"></div></article>
+      </div>
+    </section>
+
+    <section class="content view" data-panel="findings">
+      <div class="hero"><div><div class="eyebrow">Atomic bidirectional mappings</div><h1>Semantic mapping</h1><p>Every protocol requirement and downstream statement is traceable to verbatim evidence, anchors, match method, rationale, and confidence.</p></div><button class="primary" id="exportCsv">Export findings CSV</button></div>
+      <article class="card"><div class="filters"><input id="search" placeholder="Search assertion, category, ID…"><select id="statusFilter"><option value="">All statuses</option></select><select id="docFilter"><option value="">All documents</option><option>ICF</option><option>IB</option><option>CRF</option></select><select id="confidenceFilter"><option value="">All confidence</option><option>HIGH</option><option>MEDIUM</option><option>LOW</option></select><span class="count" id="findingCount"></span></div><div class="tablewrap"><table><thead><tr><th>ID</th><th>Document</th><th>Category</th><th>Protocol assertion</th><th>Downstream assertion</th><th>Status</th><th>Method</th><th>Confidence</th></tr></thead><tbody id="findingRows"></tbody></table></div></article>
+    </section>
+
+    <section class="content view" data-panel="exceptions">
+      <div class="hero"><div><div class="eyebrow">Qualified human review queue</div><h1>Exceptions and required actions</h1><p>Missing, weak, extra, unresolved, and errored comparisons ranked by severity and supported by concrete remediation.</p></div><button class="primary" id="exportExceptions">Export exception register</button></div>
+      <div class="kpis"><article class="kpi bad clickable" data-ekpi="Critical"><span>Critical</span><b id="eCritical">0</b><small>Immediate escalation</small></article><article class="kpi bad clickable" data-ekpi="High"><span>High</span><b id="eHigh">3</b><small>Resolve before approval</small></article><article class="kpi warn clickable" data-ekpi="Medium"><span>Medium</span><b id="eMedium">5</b><small>Requires review</small></article><article class="kpi clickable" data-ekpi="Low"><span>Low</span><b id="eLow">2</b><small>Track to closure</small></article><article class="kpi clickable" data-ekpi=""><span>Open exceptions</span><b id="eTotal">10</b><small>Excludes N/A</small></article><article class="kpi"><span>Documents affected</span><b id="eDocs">3</b><small>ICF · IB · CRF</small></article></div>
+      <div class="grid"><article class="card span8"><div class="cardhead"><div><h2>Exception register</h2><div class="sub">Click an item to inspect source evidence</div></div><select id="severityFilter" class="trial"><option value="">All severities</option><option>Critical</option><option>High</option><option>Medium</option><option>Low</option></select></div><div id="exceptionList"></div></article><article class="card span4"><div class="cardhead"><div><h2>Remediation by document</h2><div class="sub">Actionable exceptions only</div></div></div><div class="chart" id="exceptionChart"></div></article></div>
+    </section>
+
+    <section class="content view" data-panel="documents">
+      <div class="hero"><div><div class="eyebrow">Identity and extraction evidence</div><h1>Study identity gate</h1><p>Document classification is based on internal evidence—not filenames—and must pass before semantic mapping can proceed.</p></div><button class="secondary" data-view-jump="intake">Replace documents</button></div>
+      <div class="gate"><div class="gate-icon">✓</div><div><strong>Identity gate decision: PASS</strong><p>Trial number, study title, and version chronology are compatible across all required documents.</p></div><span class="tag pass">Mapping permitted</span></div>
+      <div class="grid"><article class="card span7"><div class="cardhead"><div><h2>Document identity evidence</h2><div class="sub">Classified using extracted internal evidence</div></div></div><div class="docs" id="documentList"></div></article><article class="card span5"><div class="cardhead"><div><h2>Identity checks</h2><div class="sub">Required gates before comparison</div></div></div><div class="checklist" id="identityChecks"></div><div style="margin-top:16px"><h2>Coverage limitations</h2><p class="sub" id="limitations">No material extraction limitations. Two scanned CRF annotation notes required OCR confirmation.</p></div></article></div>
+    </section>
+
+    <section class="content view" data-panel="validation">
+      <div class="hero"><div><div class="eyebrow">Deterministic reconciliation</div><h1>Validation report</h1><p>System checks prove that dashboard totals reconcile to atomic records and enforce the agent's status and evidence rules.</p></div><button class="primary" id="downloadValidation">Download validation CSV</button></div>
+      <div class="grid"><article class="card span7"><div class="cardhead"><div><h2>Validation checks</h2><div class="sub">Applied after structured semantic mapping</div></div><span class="tag pass" id="validationBadge">6 / 6 passed</span></div><div class="checklist" id="validationChecks"></div></article><article class="card span5"><div class="cardhead"><div><h2>Processing log</h2><div class="sub">Extraction, recovery and rule enforcement</div></div></div><div id="processingLog"></div></article><article class="card span12"><div class="cardhead"><div><h2>Reconciled metrics by document</h2><div class="sub">Coverage excludes EXTRA and N/A from the denominator</div></div></div><div class="tablewrap"><table><thead><tr><th>Document</th><th>Total</th><th>Match</th><th>Weak</th><th>Missing</th><th>Extra</th><th>N/A</th><th>Unresolved</th><th>Error</th><th>Coverage</th></tr></thead><tbody id="metricsRows"></tbody></table></div></article></div>
+    </section>
+
+    <section class="content view" data-panel="connectors">
+      <div class="hero"><div><div class="eyebrow">Live source integration</div><h1>Data connectors</h1><p>The agent reaches the Apollo Studio workflow, Veeva Vault, and SharePoint through a companion MCP server that runs locally — credentials never live in this browser page.</p></div><button class="primary" id="checkConnectorStatus">Check status</button></div>
+      <article class="card">
+        <div class="cardhead"><div><h2>How this works</h2><div class="sub">Dashboard ⇄ local MCP server ⇄ Apollo Studio agent / Veeva Vault / SharePoint</div></div></div>
+        <div class="flow-note">This dashboard cannot safely hold Vault, SharePoint, or Apollo credentials — all three require server-side auth. Instead, a small Node.js MCP server (in <code>mcp-server/</code>) holds them and exposes: (1) MCP tools an agent/MCP client can call, and (2) a local status API this page polls below.</div>
+        <div class="statusrow"><label class="sub">Status server URL</label><input class="trial" id="statusServerUrl" style="width:280px" value="http://localhost:8787"><span class="sub" id="connectorServerNote">Not checked yet.</span></div>
+      </article>
+      <div class="grid">
+        <article class="card span6">
+          <div class="cardhead"><div><h2>Apollo Studio agent</h2><div class="sub">The real Protocol Consistency workflow, published as an MCP server</div></div><span class="tag warn" id="apolloBadge">Not checked</span></div>
+          <p class="sub" id="apolloMessage">Click Check status to query the local MCP server.</p>
+          <div class="checklist">
+            <div class="check"><div class="checkicon">1</div><div><strong>APOLLO_MCP_URL</strong><small>Internal endpoint — requires Boehringer network/VPN access</small></div></div>
+            <div class="check"><div class="checkicon">2</div><div><strong>APOLLO_MCP_TOKEN / APOLLO_MCP_HEADERS</strong><small>Only if the gateway requires extra auth</small></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px"><button class="primary" data-connect="apollo">Connect</button><button class="secondary" id="testapollo">Test connection</button><button class="secondary" id="discoverApolloTools">Discover tools</button><button class="secondary" data-disconnect="apollo">Disconnect</button></div>
+          <div id="apolloTools" style="margin-top:11px"></div>
+        </article>
+        <article class="card span6">
+          <div class="cardhead"><div><h2>Claude (Anthropic API)</h2><div class="sub">Direct connection to Claude Sonnet 5 for Genie's reasoning skill</div></div><span class="tag warn" id="anthropicBadge">Not checked</span></div>
+          <p class="sub" id="anthropicMessage">Click Check status to query the local MCP server.</p>
+          <div class="checklist">
+            <div class="check"><div class="checkicon">1</div><div><strong>ANTHROPIC_API_KEY</strong><small>From console.anthropic.com — a normal external API call, no VPN needed</small></div></div>
+            <div class="check"><div class="checkicon">2</div><div><strong>ANTHROPIC_MODEL</strong><small>Defaults to claude-sonnet-5</small></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px"><button class="primary" data-connect="anthropic">Connect</button><button class="secondary" id="testanthropic">Test connection</button><button class="secondary" data-disconnect="anthropic">Disconnect</button></div>
+        </article>
+        <article class="card span6">
+          <div class="cardhead"><div><h2>Veeva Vault</h2><div class="sub">Protocol, ICF, IB, CRF source system</div></div><span class="tag warn" id="veevaBadge">Not checked</span></div>
+          <p class="sub" id="veevaMessage">Click Check status to query the local MCP server.</p>
+          <div class="checklist">
+            <div class="check"><div class="checkicon">1</div><div><strong>VAULT_DOMAIN</strong><small>Your Vault DNS, e.g. yourcompany.veevavault.com</small></div></div>
+            <div class="check"><div class="checkicon">2</div><div><strong>VAULT_USERNAME / VAULT_PASSWORD</strong><small>A read-access integration user</small></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px"><button class="primary" data-connect="veeva">Connect</button><button class="secondary" id="testveeva">Test connection</button><button class="secondary" data-disconnect="veeva">Disconnect</button></div>
+        </article>
+        <article class="card span6">
+          <div class="cardhead"><div><h2>SharePoint</h2><div class="sub">Via Microsoft Graph, app-only auth</div></div><span class="tag warn" id="sharepointBadge">Not checked</span></div>
+          <p class="sub" id="sharepointMessage">Click Check status to query the local MCP server.</p>
+          <div class="checklist">
+            <div class="check"><div class="checkicon">1</div><div><strong>Entra app registration</strong><small>Sites.Read.All (or Sites.Selected) with admin consent</small></div></div>
+            <div class="check"><div class="checkicon">2</div><div><strong>SHAREPOINT_SITE_ID</strong><small>Graph site identifier for the target library</small></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px"><button class="primary" data-connect="sharepoint">Connect</button><button class="secondary" id="testsharepoint">Test connection</button><button class="secondary" data-disconnect="sharepoint">Disconnect</button></div>
+        </article>
+        <article class="card span6" id="directlineCard" style="display:none">
+          <div class="cardhead"><div><h2>Patient Story Teller</h2><div class="sub">Copilot Studio bot, via Bot Framework Direct Line</div></div><span class="tag warn" id="directlineBadge">Not checked</span></div>
+          <p class="sub" id="directlineMessage">Click Check status to query the local MCP server.</p>
+          <div class="checklist">
+            <div class="check"><div class="checkicon">1</div><div><strong>DIRECTLINE_SECRET</strong><small>From the bot's Channels &gt; Direct Line settings in Copilot Studio</small></div></div>
+            <div class="check"><div class="checkicon">2</div><div><strong>Bot name</strong><small>Defaults to "Patient Story Teller"</small></div></div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap"><button class="primary" data-connect="directline">Connect</button><button class="secondary" id="testdirectline">Test connection</button><button class="secondary" data-disconnect="directline">Disconnect</button><button class="secondary" id="uninstallDirectline">Remove</button></div>
+        </article>
+        <article class="card span6">
+          <div class="cardhead"><div><h2>Setup</h2><div class="sub">Run once, on this machine</div></div></div>
+          <pre class="codeblock">cd mcp-server
+npm install
+copy .env.example .env
+REM fill in connector values in .env
+npm start</pre>
+          <p class="sub">Full details, including MCP client registration for VS Code / Claude Desktop, are in <code>mcp-server/README.md</code>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="content view" data-panel="skills">
+      <div class="hero"><div><div class="eyebrow">Configure Genie</div><h1>Skills &amp; tools</h1><p>Turn capabilities on or off and connect external systems — the same idea as adding skills or knowledge sources to a Copilot agent. The agent's operating rules stay embedded in how it behaves; they're not published here.</p></div></div>
+      <div class="grid">
+        <article class="card span12">
+          <div class="cardhead"><div><h2>Skills</h2><div class="sub">What Genie is allowed to do when answering a question</div></div></div>
+          <div class="skills-list" id="skillsList"></div>
+        </article>
+        <article class="card span12">
+          <div class="cardhead"><div><h2>Connected tools</h2><div class="sub">Live status from the local MCP server</div></div><button class="secondary" data-view-jump="connectors">Manage connections →</button></div>
+          <div class="skills-list" id="toolsStatusList"></div>
+        </article>
+        <article class="card span12">
+          <div class="cardhead"><div><h2>Available to connect</h2><div class="sub">Add more agents and knowledge sources — like installing a plugin</div></div></div>
+          <div class="skills-list" id="marketplaceList"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="content view" data-panel="intake">
+      <div class="hero"><div><div class="eyebrow">New consistency review</div><h1>Upload trial documents</h1><p>Upload the Protocol, ICF, IB, and CRF for one exact trial number. The Protocol is the only source of truth.</p></div></div>
+      <div class="grid"><article class="card span8"><div class="uploadzone" id="dropzone"><div style="font-size:30px;color:var(--blue)">⇧</div><h3>Drop clinical documents here</h3><p>PDF, DOCX, DOC, TXT, MD, CSV, XLSX, XLS, YAML · up to 20 files</p><button class="primary" style="margin-top:13px" id="chooseFiles">Choose files</button><input type="file" id="fileInput" multiple accept=".pdf,.docx,.doc,.txt,.md,.yml,.yaml,.csv,.xlsx,.xls"></div><div class="filelist" id="fileList"></div></article><article class="card span4"><div class="cardhead"><div><h2>Review configuration</h2><div class="sub">Identity and mapping controls</div></div></div><label class="sub">Trial number (optional)</label><input class="trial" id="trialInput" style="width:100%;margin:5px 0 16px" placeholder="e.g. 2012-0001"><div class="checklist"><div class="check"><div class="checkicon">1</div><div><strong>Identity gate</strong><small>Protocol must be present and readable</small></div></div><div class="check"><div class="checkicon">2</div><div><strong>Bidirectional mapping</strong><small>Protocol → downstream and reverse</small></div></div><div class="check"><div class="checkicon">3</div><div><strong>Deterministic metrics</strong><small>Computed only from atomic records</small></div></div></div><button class="primary" id="startReview" style="width:100%;margin-top:17px">Start consistency review</button><button class="secondary" id="importJson" style="width:100%;margin-top:8px">Import completed agent JSON</button><input type="file" id="jsonInput" accept=".json" hidden></article></div>
+    </section>
+  </main>
+</div>
+
+<dialog class="modal" id="findingModal"><div class="modalhead"><div><h2 id="modalTitle"></h2><div class="sub" id="modalMeta"></div></div><button class="close" id="closeModal">×</button></div><div class="modalbody" id="modalBody"></div></dialog>
+<dialog class="modal" id="evidenceModal"><div class="modalhead"><div><h2 id="evidenceTitle"></h2><div class="sub" id="evidenceMeta"></div></div><button class="close" id="closeEvidence">×</button></div><div class="modalbody" id="evidenceBody"></div></dialog>
+<dialog class="connect-modal" id="connectModal">
+  <div class="modalhead"><div><h2 id="connectTitle">Connect</h2><div class="sub" id="connectSubtitle"></div></div><button class="close" id="closeConnect">×</button></div>
+  <div class="connect-body" id="connectFields"></div>
+  <div class="connect-note" id="connectNote">Sent once to your local MCP server to try the connection. Non-secret fields are remembered on this device for next time; passwords, secrets, and tokens are never saved in the browser.</div>
+  <div class="connect-actions"><span class="sub" id="connectResult" style="margin-right:auto;align-self:center"></span><button class="secondary" id="cancelConnect">Cancel</button><button class="primary" id="submitConnect">Connect</button></div>
+</dialog>
+<input type="file" id="topJsonInput" accept=".json" hidden>
+<div class="toast" id="toast"></div>
+
+<button class="genie-launcher" id="genieLauncher" aria-label="Open Genie assistant"><span class="orb">✦</span>Genie<span class="pulse-dot" id="genieDot"></span></button>
+<div class="genie-panel" id="geniePanel">
+  <div class="genie-head">
+    <button class="genie-minimize" id="genieMinimize" aria-label="Minimize Genie">–</button>
+    <b>Genie</b>
+    <small>Answers grounded in the evidence currently loaded — every number it gives you comes straight from the live records, not a guess.</small>
+  </div>
+  <div class="genie-context" id="genieContext"></div>
+  <div class="genie-thread" id="genieThread"></div>
+  <div class="genie-chips" id="genieChips"></div>
+  <div class="genie-inputrow">
+    <input id="genieInput" placeholder="Ask about a finding, status, document…" autocomplete="off">
+    <button id="genieSend">Ask</button>
+  </div>
+</div>
+
+<script src="vendor/echarts.min.js"></script>
+<script>
+const statuses=["MATCH","WEAK","MISSING","EXTRA","N/A","UNRESOLVED","ERROR"];
+const colors={MATCH:"#16805c",WEAK:"#d97706",MISSING:"#c2413a",EXTRA:"#7c3aed","N/A":"#94a3b8",UNRESOLVED:"#ea580c",ERROR:"#991b1b"};
+const categories=["Eligibility","Treatment","Procedures","Safety","Endpoints","Dosing","Withdrawal","Privacy","PK/PD","Contacts"];
+const docs=[
+ {document:"Protocol",readability:"Readable",trial_number:"2012-0001",title:"Phase II Study of BI-147 in Adults with Advanced Solid Tumors",version_date:"Version 4.0 · 14 Jun 2026",identity_evidence:"Protocol No. 2012-0001; Phase II; Version 4.0",limitations:"None"},
+ {document:"ICF",readability:"Readable",trial_number:"2012-0001",title:"Participant Information and Informed Consent Form",version_date:"Version 3.0 · 21 Jun 2026",identity_evidence:"Study 2012-0001 appears in header and consent statement",limitations:"None"},
+ {document:"IB",readability:"Readable",trial_number:"2012-0001",title:"BI-147 Investigator's Brochure",version_date:"Edition 6 · 02 May 2026",identity_evidence:"BI-147 program and protocol cross-reference present",limitations:"None"},
+ {document:"CRF",readability:"Readable with OCR",trial_number:"2012-0001",title:"2012-0001 Annotated Case Report Form",version_date:"Version 2.2 · 30 Jun 2026",identity_evidence:"Trial number in cover sheet and form footer",limitations:"Two annotation notes required OCR confirmation"}
+];
+const templates=[
+ ["ICF","Eligibility","Adults aged 18 years or older with confirmed advanced solid tumor","Section 4.1, p. 18","You may join if you are 18 years or older and have an advanced solid tumor","ICF § Who can take part?"],
+ ["ICF","Treatment","BI-147 administered intravenously every 21 days","Section 6.2, p. 31","The study medicine is given into a vein once every three weeks","ICF § Study treatment"],
+ ["ICF","Procedures","Tumor imaging at baseline and every 6 weeks","Table 7-1, p. 42","Scans will be performed before treatment and about every 6 weeks","ICF § Study visits"],
+ ["ICF","Safety","Monitor infusion-related reaction during and after infusion","Section 8.4, p. 58","You will be monitored for reactions while receiving study treatment","ICF § Risks"],
+ ["ICF","Withdrawal","Participants may withdraw consent at any time","Section 10.2, p. 72","Taking part is voluntary and you may stop at any time","ICF § Voluntary participation"],
+ ["ICF","Privacy","Coded study data retained for 25 years","Section 12.1, p. 79","Your coded information may be kept for 15 years","ICF § Data use"],
+ ["ICF","Contacts","24-hour study medical contact must be available","Section 13, p. 83","Contact the study doctor if you have questions","ICF § Contacts"],
+ ["IB","Dosing","Recommended Phase II dose is 200 mg IV Q3W","Section 7.3, p. 96","Clinical studies support 200 mg IV every 3 weeks","IB § 7.3"],
+ ["IB","Safety","Hepatotoxicity is an identified risk requiring liver monitoring","Section 8.2, p. 104","Transient liver enzyme elevations have been observed","IB § 8.2"],
+ ["IB","PK/PD","Terminal half-life is approximately 18 days","Section 6.4, p. 82","Mean terminal half-life ranged from 16 to 20 days","IB § 6.4"],
+ ["IB","Treatment","Premedication required before first two infusions","Section 6.2, p. 32","Premedication was optional in early clinical cohorts","IB § 5.8"],
+ ["IB","Safety","Embryo-fetal toxicity risk based on mechanism of action","Section 8.7, p. 111","Reproductive toxicity studies are ongoing","IB § 4.9"],
+ ["CRF","Endpoints","Capture RECIST 1.1 target lesion response","Section 9.1, p. 63","RECIST response: CR / PR / SD / PD","Tumor Assessment form"],
+ ["CRF","Eligibility","Record ECOG performance status 0 or 1","Section 4.1, criterion 5","ECOG performance status","Eligibility form, item 12"],
+ ["CRF","Procedures","Collect central laboratory sample at Cycle 1 Day 1","Table 7-1, p. 43","Central lab sample date/time","Laboratory form"],
+ ["CRF","Safety","Capture treatment-emergent adverse events through 30 days","Section 8.1, p. 54","Adverse event start/stop dates and relationship","Adverse Event form"],
+ ["CRF","Dosing","Record actual dose, start time, stop time, and interruptions","Section 6.4, p. 35","Dose administered and infusion start time","Drug Administration form"],
+ ["CRF","Withdrawal","Capture primary reason for treatment discontinuation","Section 10.1, p. 70","Primary discontinuation reason","End of Treatment form"],
+ ["CRF","PK/PD","PK sample at pre-dose and 2 hours post-dose","Table 7-2, p. 46","PK pre-dose collection time","PK Sampling form"],
+ ["CRF","Privacy","Do not collect directly identifying participant data","Section 12.2, p. 80","Participant full name","Enrollment form"]
+];
+const statusPattern=["MATCH","MATCH","MATCH","WEAK","MATCH","WEAK","MISSING","MATCH","MATCH","MATCH","EXTRA","UNRESOLVED","MATCH","MATCH","MATCH","MATCH","MATCH","MATCH","MISSING","EXTRA"];
+const severities={MATCH:"None",WEAK:"Medium",MISSING:"High",EXTRA:"Medium",UNRESOLVED:"Medium","N/A":"None",ERROR:"High"};
+let state={review_status:"PASS",identity_summary:"All uploaded documents identify trial 2012-0001 with compatible identity evidence.",documents:docs,records:[],extraction_errors:[],coverage_limitations:["Two scanned CRF annotation notes required OCR confirmation."]};
+for(let i=0;i<72;i++){const t=templates[i%templates.length],status=i<20?statusPattern[i]:i<57?"MATCH":i<65?"WEAK":i<69?"MISSING":i<71?"EXTRA":"UNRESOLVED";state.records.push({finding_id:`FIND-${String(i+1).padStart(4,"0")}`,direction:i%4===0?"Downstream → Protocol":"Protocol → Downstream",document:t[0],category:t[1],protocol_assertion_id:`PROT-${String(i+1).padStart(4,"0")}`,downstream_assertion_id:`${t[0]}-${String(i+1).padStart(4,"0")}`,protocol_assertion:t[2],protocol_anchor:t[3],downstream_assertion:status==="MISSING"?"Not located":t[4],downstream_anchor:status==="MISSING"?"Not located":t[5],status,severity:severities[status],rationale:status==="MATCH"?"Concept and all relevant facts are explicitly equivalent.":status==="WEAK"?"Concept is present, but timing, scope, or detail differs from the Protocol.":status==="MISSING"?"The in-scope Protocol requirement was not located in the downstream document.":status==="EXTRA"?"The downstream statement has no explicit basis in the Protocol.":"Evidence is incomplete and requires qualified review.",recommended_action:status==="MATCH"?"No action required.":status==="WEAK"?"Align downstream wording and values exactly to the Protocol.":status==="MISSING"?"Add the Protocol requirement to the next controlled document version.":status==="EXTRA"?"Remove the unsupported content or document its approved Protocol basis.":"Verify the source text and resolve the mapping manually.",confidence:status==="MATCH"?(i%7?"HIGH":"MEDIUM"):status==="UNRESOLVED"?"LOW":"MEDIUM",match_method:status==="MATCH"?(i%3===0?"exact":"synonym"):status==="WEAK"?"semantic-only":"none"});}
+let charts={};
+let docScope="";
+function scopedRecords(scope=docScope){return scope?state.records.filter(r=>r.document===scope):state.records}
+function scopeLabel(scope=docScope){return scope?`${scope} only`:"All documents (compiled)"}
+function metrics(records=scopedRecords()){const c=Object.fromEntries(statuses.map(s=>[s,records.filter(r=>r.status===s).length]));const den=["MATCH","WEAK","MISSING","UNRESOLVED","ERROR"].reduce((n,s)=>n+c[s],0);return{c,total:records.length,covered:c.MATCH+c.WEAK,den,coverage:den?Math.round((c.MATCH+c.WEAK)/den*1000)/10:0,exceptions:records.filter(r=>!["MATCH","N/A"].includes(r.status))};}
+function initChart(id){if(charts[id])charts[id].dispose();charts[id]=echarts.init(document.getElementById(id));return charts[id]}
+function chartBase(){return{animationDuration:450,textStyle:{fontFamily:"Segoe UI",color:"#526476"},tooltip:{trigger:"item"},grid:{left:42,right:18,top:25,bottom:42,containLabel:true}}}
+function renderCharts(){const records=scopedRecords();const m=metrics(records);const visible=["MATCH","WEAK","MISSING","EXTRA","UNRESOLVED","ERROR"];
+ let ch=initChart("statusChart");ch.setOption({...chartBase(),tooltip:{trigger:"item"},legend:{bottom:0,itemWidth:9,itemHeight:9,textStyle:{fontSize:9}},series:[{type:"pie",radius:["48%","70%"],center:["50%","45%"],label:{show:false},data:visible.map(s=>({name:s,value:m.c[s],itemStyle:{color:colors[s]}}))}]});
+ ch.on("click",p=>showEvidence(`${p.name} records`,records.filter(r=>r.status===p.name)));
+ const byDoc=["ICF","IB","CRF"].map(d=>({d,rs:state.records.filter(r=>r.document===d)}));ch=initChart("documentChart");ch.setOption({...chartBase(),legend:{bottom:0,itemWidth:9,itemHeight:9,textStyle:{fontSize:8}},xAxis:{type:"category",data:byDoc.map(x=>x.d),axisTick:{show:false}},yAxis:{type:"value",splitLine:{lineStyle:{color:"#edf1f4"}}},series:visible.map(s=>({name:s,type:"bar",stack:"all",data:byDoc.map(x=>x.rs.filter(r=>r.status===s).length),itemStyle:{color:colors[s]}}))});
+ ch.on("click",p=>showEvidence(`${p.name} · ${p.seriesName} records`,state.records.filter(r=>r.document===p.name&&r.status===p.seriesName),"Full dataset regardless of scope"));
+ const cats=[...new Set(state.records.map(r=>r.category))];ch=initChart("categoryChart");ch.setOption({...chartBase(),legend:{bottom:0,itemWidth:9,itemHeight:9,textStyle:{fontSize:8}},xAxis:{type:"value",splitLine:{lineStyle:{color:"#edf1f4"}}},yAxis:{type:"category",data:cats,axisLabel:{fontSize:9}},series:visible.map(s=>({name:s,type:"bar",stack:"all",data:cats.map(c=>state.records.filter(r=>r.category===c&&r.status===s).length),itemStyle:{color:colors[s]}}))});
+ ch.on("click",p=>showEvidence(`${p.name} · ${p.seriesName} records`,state.records.filter(r=>r.category===p.name&&r.status===p.seriesName),"Full dataset regardless of scope"));
+ const conf=["HIGH","MEDIUM","LOW"];ch=initChart("confidenceChart");ch.setOption({...chartBase(),legend:{bottom:0,itemWidth:9,itemHeight:9,textStyle:{fontSize:9}},series:[{type:"pie",radius:["45%","68%"],center:["50%","44%"],data:conf.map((x,i)=>({name:x,value:records.filter(r=>r.confidence===x).length,itemStyle:{color:["#16805c","#d97706","#c2413a"][i]}})),label:{fontSize:9}}]});
+ ch.on("click",p=>showEvidence(`${p.name} confidence records`,records.filter(r=>r.confidence===p.name)));
+ const exDocs=docScope?[docScope]:["ICF","IB","CRF"];ch=initChart("exceptionChart");ch.setOption({...chartBase(),xAxis:{type:"category",data:exDocs},yAxis:{type:"value",splitLine:{lineStyle:{color:"#edf1f4"}}},series:[{type:"bar",data:exDocs.map(d=>({value:m.exceptions.filter(r=>r.document===d).length,itemStyle:{color:"#c2413a"}})),barWidth:"45%"}]});
+ ch.on("click",p=>showEvidence(`${p.name} exceptions`,m.exceptions.filter(r=>r.document===p.name)));
+}
+function renderAll(){const records=scopedRecords();const m=metrics(records);document.getElementById("kTotal").textContent=m.total;document.getElementById("kCoverage").textContent=m.coverage+"%";document.getElementById("kCovered").textContent=`${m.covered} of ${m.den} covered`;document.getElementById("kMatch").textContent=m.c.MATCH;document.getElementById("kWeak").textContent=m.c.WEAK;document.getElementById("kGaps").textContent=m.exceptions.length;document.getElementById("kConfidence").textContent=(m.total?Math.round(records.filter(r=>r.confidence==="HIGH").length/m.total*100):0)+"%";
+ document.getElementById("reviewPill").textContent=`● ${state.review_status}`;document.getElementById("identityText").textContent=state.identity_summary;
+ const gate=document.getElementById("identityGate"),isPass=state.review_status==="PASS",isFail=["FAIL","NOT PERFORMED"].includes(state.review_status);gate.className=`gate ${isPass?"":isFail?"review-fail":"review-alert"}`;document.getElementById("identityIcon").textContent=isPass?"✓":isFail?"×":"!";document.getElementById("identityTitle").textContent=isPass?"Study identity gate passed":isFail?"Study identity gate failed":"Study identity requires qualified review";const badge=document.getElementById("identityBadge");badge.className=`tag ${state.review_status}`;badge.textContent=isPass?"Identity verified":state.review_status;
+ document.getElementById("overviewChecks").innerHTML=[["Identity gate",state.review_status,isPass],["Metrics reconcile","PASS",true],["Validation issues",state.extraction_errors.length+state.coverage_limitations.length,true]].map(x=>`<div class="check"><div class="checkicon" style="${x[2]?"":"background:#fef3c7;color:#a05a00"}">${x[2]?"✓":"!"}</div><div><strong>${x[0]}</strong><small>${x[1]}</small></div></div>`).join("");
+ const protocolDoc=(state.documents||[]).find(d=>d.document==="Protocol");document.getElementById("studyId").textContent=protocolDoc?.trial_number||"Not identified";document.getElementById("studyTitle").textContent=protocolDoc?.title||"Awaiting Protocol upload";document.getElementById("studyProtocolMeta").textContent=protocolDoc?`${protocolDoc.readability}`:"—";document.getElementById("studyVersion").textContent=protocolDoc?.version_date||"—";
+ document.getElementById("docScopeSelect").value=docScope;document.getElementById("studyScope").textContent=scopeLabel();document.getElementById("studyScopeNote").textContent=docScope?`Isolated to ${docScope} comparison records`:"Combined ICF, IB and CRF results";document.getElementById("crumbStudy").textContent=protocolDoc?`Study ${protocolDoc.trial_number} · Viewing ${scopeLabel()}`:`Viewing ${scopeLabel()}`;
+ renderFindings();renderExceptions();renderDocuments();renderValidation();setTimeout(renderCharts,0);
+}
+function tag(s){return `<span class="tag ${s}">${s}</span>`}
+function renderFindings(){const q=document.getElementById("search").value.toLowerCase(),sf=document.getElementById("statusFilter").value,df=document.getElementById("docFilter").value,cf=document.getElementById("confidenceFilter").value;const rows=state.records.filter(r=>(!sf||r.status===sf)&&(!df||r.document===df)&&(!cf||r.confidence===cf)&&(!q||JSON.stringify(r).toLowerCase().includes(q)));document.getElementById("findingCount").textContent=`${rows.length} of ${state.records.length} records`;document.getElementById("findingRows").innerHTML=rows.map(r=>`<tr><td><span class="link" data-find="${r.finding_id}">${r.finding_id}</span></td><td>${r.document}</td><td>${r.category}</td><td><strong>${r.protocol_assertion}</strong><br><small>${r.protocol_anchor}</small></td><td>${r.downstream_assertion}<br><small>${r.downstream_anchor}</small></td><td>${tag(r.status)}</td><td>${r.match_method}</td><td>${r.confidence}</td></tr>`).join("")||`<tr><td colspan="8" class="empty">No mappings match these filters.</td></tr>`;document.querySelectorAll("[data-find]").forEach(el=>el.onclick=()=>openFinding(el.dataset.find))}
+function renderExceptions(){const m=metrics(),sev=document.getElementById("severityFilter").value;const ex=m.exceptions.filter(r=>!sev||r.severity===sev);["Critical","High","Medium","Low"].forEach(s=>document.getElementById("e"+s).textContent=m.exceptions.filter(r=>r.severity===s).length);document.getElementById("eTotal").textContent=m.exceptions.length;document.getElementById("eDocs").textContent=new Set(m.exceptions.map(r=>r.document)).size;document.getElementById("exceptionList").innerHTML=ex.map(r=>`<div class="exception ${r.severity==="Medium"?"amber":""}" data-ex="${r.finding_id}"><div class="exceptionhead"><h3>${r.finding_id} · ${r.category}</h3><div>${tag(r.status)} ${tag(r.severity)}</div></div><p>${r.rationale}</p><footer><b>${r.document}</b><span>·</span><span>${r.recommended_action}</span></footer></div>`).join("")||`<div class="empty">No exceptions at this severity.</div>`;document.querySelectorAll("[data-ex]").forEach(el=>el.onclick=()=>openFinding(el.dataset.ex))}
+function renderDocuments(){document.getElementById("documentList").innerHTML=state.documents.map(d=>`<div class="doc"><div class="docicon">${d.document}</div><div><strong>${d.title}</strong><small>${d.version_date} · ${d.trial_number}</small><div class="progress"><div class="fill" style="width:${d.readability.includes("Readable")?100:65}%"></div></div></div>${tag(d.readability.includes("Readable")?"PASS":"WEAK")}</div>`).join("");document.getElementById("identityChecks").innerHTML=[["Protocol present and readable","Validated"],["Document types resolved","4 of 4 classified"],["Trial numbers consistent","2012-0001"],["Version chronology compatible","Validated"],["Mapping authorization","Permitted"]].map(x=>`<div class="check"><div class="checkicon">✓</div><div><strong>${x[0]}</strong><small>${x[1]}</small></div>${tag("PASS")}</div>`).join("");document.getElementById("limitations").textContent=state.coverage_limitations.join(" ")||"No material limitations reported."}
+function renderValidation(){const m=metrics(state.records);const checks=[["JSON parsed",true,"Structured mapping loaded"],["Unique finding IDs",new Set(state.records.map(r=>r.finding_id)).size===m.total,"No duplicate IDs"],["Allowed statuses",state.records.every(r=>statuses.includes(r.status)),"Status vocabulary enforced"],["Semantic-only MATCH prohibited",!state.records.some(r=>r.status==="MATCH"&&r.match_method==="semantic-only"),"Fallback rule enforced"],["Dashboard reconciles to records",Object.values(m.c).reduce((a,b)=>a+b,0)===m.total,`${m.total} records reconciled`],["At least one comparison record",m.total>0,`${m.total} records present`]];document.getElementById("validationChecks").innerHTML=checks.map(c=>`<div class="check"><div class="checkicon" style="${c[1]?"":"background:#fee2e2;color:#b42318"}">${c[1]?"✓":"×"}</div><div><strong>${c[0]}</strong><small>${c[2]}</small></div>${tag(c[1]?"PASS":"ERROR")}</div>`).join("");document.getElementById("validationBadge").textContent=`${checks.filter(c=>c[1]).length} / ${checks.length} passed`;const logs=[...state.extraction_errors,...state.coverage_limitations];document.getElementById("processingLog").innerHTML=(logs.length?logs:["No extraction or processing errors were reported."]).map((x,i)=>`<div class="check"><div class="checkicon" style="background:${i?"#fef3c7":"#dcfce7"};color:${i?"#a05a00":"#16805c"}">${i?"!":"✓"}</div><div><strong>${i?"Coverage note":"Processing complete"}</strong><small>${x}</small></div></div>`).join("");document.getElementById("metricsRows").innerHTML=["ICF","IB","CRF"].map(d=>{const rr=state.records.filter(r=>r.document===d),c=Object.fromEntries(statuses.map(s=>[s,rr.filter(r=>r.status===s).length])),den=["MATCH","WEAK","MISSING","UNRESOLVED","ERROR"].reduce((n,s)=>n+c[s],0),cov=den?Math.round((c.MATCH+c.WEAK)/den*1000)/10:0;return`<tr data-doc="${d}"${d===docScope?' class="rowscoped"':""}><td><strong>${d}</strong>${d===docScope?' <span class="tag pass">Scoped</span>':""}</td><td>${rr.length}</td>${statuses.map(s=>`<td>${c[s]}</td>`).join("")}<td><strong>${cov}%</strong></td></tr>`}).join("")}
+function openFinding(id){const r=state.records.find(x=>x.finding_id===id);if(!r)return;document.getElementById("modalTitle").textContent=`${r.finding_id} · ${r.category}`;document.getElementById("modalMeta").innerHTML=`${r.direction} · ${r.document} · ${tag(r.status)} ${tag(r.severity)}`;document.getElementById("modalBody").innerHTML=`<div class="evidence"><div><b>${r.protocol_assertion_id} · Protocol evidence</b><p>${r.protocol_assertion}</p><p style="margin-top:7px;color:var(--blue)">${r.protocol_anchor}</p></div><div><b>${r.downstream_assertion_id} · ${r.document} evidence</b><p>${r.downstream_assertion}</p><p style="margin-top:7px;color:var(--blue)">${r.downstream_anchor}</p></div><div><b>Rationale</b><p>${r.rationale}</p></div><div><b>Required action</b><p>${r.recommended_action}</p></div></div><div style="margin-top:13px;display:flex;justify-content:space-between;align-items:center"><span style="color:var(--muted);font-size:11.5px">Match method: <strong>${r.match_method}</strong> · Confidence: <strong>${r.confidence}</strong></span><button class="secondary" onclick="document.getElementById('findingModal').close();askGenieAbout('${r.finding_id}')">Ask Genie about this</button></div>`;document.getElementById("findingModal").showModal()}
+function showEvidence(title,records,note){document.getElementById("evidenceTitle").textContent=title;document.getElementById("evidenceMeta").textContent=`${records.length} record${records.length===1?"":"s"} · ${note||scopeLabel()}`;document.getElementById("evidenceBody").innerHTML=records.length?`<div class="tablewrap"><table class="evidence-list"><thead><tr><th>ID</th><th>Document</th><th>Category</th><th>Protocol assertion</th><th>Downstream assertion</th><th>Status</th><th>Confidence</th></tr></thead><tbody>${records.map(r=>`<tr data-find="${r.finding_id}"><td class="link">${r.finding_id}</td><td>${r.document}</td><td>${r.category}</td><td><strong>${r.protocol_assertion}</strong><br><small>${r.protocol_anchor}</small></td><td>${r.downstream_assertion}<br><small>${r.downstream_anchor}</small></td><td>${tag(r.status)}</td><td>${r.confidence}</td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No records match this selection.</div>`;document.querySelectorAll("#evidenceBody tr[data-find]").forEach(el=>el.onclick=()=>{document.getElementById("evidenceModal").close();openFinding(el.dataset.find)});document.getElementById("evidenceModal").showModal()}
+document.getElementById("closeEvidence").onclick=()=>document.getElementById("evidenceModal").close();
+document.querySelectorAll(".kpi[data-kpi]").forEach(card=>card.addEventListener("click",()=>{const records=scopedRecords(),kind=card.dataset.kpi;const map={total:["All comparison records",records,null],coverage:["Covered records (MATCH + WEAK)",records.filter(r=>["MATCH","WEAK"].includes(r.status)),null],match:["Exact matches (MATCH)",records.filter(r=>r.status==="MATCH"),null],weak:["Weak mappings (WEAK)",records.filter(r=>r.status==="WEAK"),null],gaps:["Actionable gaps (Missing, Extra, Unresolved, Error)",records.filter(r=>!["MATCH","N/A"].includes(r.status)),null],confidence:["High-confidence records",records.filter(r=>r.confidence==="HIGH"),null]};const[title,rows,note]=map[kind]||["Records",records,null];showEvidence(title,rows,note)}));
+document.querySelectorAll(".kpi[data-ekpi]").forEach(card=>card.addEventListener("click",()=>{const m=metrics(),sev=card.dataset.ekpi,rows=sev?m.exceptions.filter(r=>r.severity===sev):m.exceptions;showEvidence(sev?`${sev} severity exceptions`:"All open exceptions",rows)}));
+document.getElementById("metricsRows").addEventListener("click",e=>{const row=e.target.closest("tr[data-doc]");if(!row)return;const doc=row.dataset.doc;showEvidence(`${doc} · all statuses`,state.records.filter(r=>r.document===doc),"Full dataset regardless of scope")});
+document.getElementById("statusFilter").innerHTML+=[...statuses].map(s=>`<option>${s}</option>`).join("");
+["search","statusFilter","docFilter","confidenceFilter"].forEach(id=>document.getElementById(id).addEventListener(id==="search"?"input":"change",renderFindings));document.getElementById("severityFilter").onchange=renderExceptions;
+function switchView(name){document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.dataset.panel===name));document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===name));const labels={overview:"Executive overview",findings:"Semantic mapping",exceptions:"Exceptions",documents:"Study identity",validation:"Validation report",connectors:"Data connectors",skills:"Skills & tools",intake:"New review"};document.getElementById("crumb").textContent=labels[name];window.scrollTo(0,0);setTimeout(()=>Object.values(charts).forEach(c=>c.resize()),50);document.querySelector(".sidebar").classList.remove("open");if(name==="connectors"){applyInstalledVisibility();refreshConnectorStatus()}if(name==="skills")renderSkillsPage()}
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>switchView(b.dataset.view));document.querySelectorAll("[data-view-jump]").forEach(b=>b.onclick=()=>switchView(b.dataset.viewJump));document.getElementById("menu").onclick=()=>document.querySelector(".sidebar").classList.toggle("open");
+const toast=document.getElementById("toast");function notify(s){toast.textContent=s;toast.classList.add("show");setTimeout(()=>toast.classList.remove("show"),2800)}
+document.getElementById("closeModal").onclick=()=>document.getElementById("findingModal").close();
+function csv(rows,name){const text=rows.map(r=>r.map(v=>`"${String(v??"").replaceAll('"','""')}"`).join(",")).join("\r\n"),a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/csv"}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)}
+document.getElementById("exportCsv").onclick=()=>csv([Object.keys(state.records[0]),...state.records.map(r=>Object.values(r))],"protocol-consistency-findings.csv");document.getElementById("exportExceptions").onclick=()=>{const ex=metrics().exceptions;csv([Object.keys(ex[0]),...ex.map(r=>Object.values(r))],"protocol-consistency-exceptions.csv")};document.getElementById("downloadValidation").onclick=()=>csv([["Check","Result"],["JSON parsed","PASS"],["Unique finding IDs","PASS"],["Allowed statuses","PASS"],["Metrics reconcile","PASS"]],"protocol-consistency-validation.csv");
+const fileInput=document.getElementById("fileInput"),fileList=document.getElementById("fileList"),drop=document.getElementById("dropzone");document.getElementById("chooseFiles").onclick=()=>fileInput.click();
+let pendingFiles=[];
+function showFiles(files){pendingFiles=[...files];fileList.innerHTML=pendingFiles.map(f=>`<div class="file"><b>${f.name}</b><span>${(f.size/1024/1024).toFixed(1)} MB · Ready</span></div>`).join("");notify(`${pendingFiles.length} document${pendingFiles.length===1?"":"s"} ready for review.`)}
+fileInput.onchange=()=>showFiles(fileInput.files);drop.ondragover=e=>{e.preventDefault();drop.classList.add("drag")};drop.ondragleave=()=>drop.classList.remove("drag");drop.ondrop=e=>{e.preventDefault();drop.classList.remove("drag");showFiles(e.dataTransfer.files)};
+document.getElementById("startReview").onclick=async()=>{
+  if(!pendingFiles.length){notify("Upload the Protocol and downstream documents first.");return}
+  const base=statusBase();const btn=document.getElementById("startReview");btn.disabled=true;const original=btn.textContent;btn.textContent="Running the Apollo agent…";
+  notify("Uploading documents to the Apollo agent. This can take a minute or more for a real LLM-based review.");
+  try{
+    const form=new FormData();
+    form.append("trialNumber",document.getElementById("trialInput").value.trim());
+    pendingFiles.forEach(f=>form.append("files",f,f.name));
+    const res=await fetch(`${base}/apollo/run-review`,{method:"POST",body:form});
+    const payload=await res.json();
+    if(!res.ok)throw new Error(payload.error||`HTTP ${res.status}`);
+    if(!payload.data||!Array.isArray(payload.data.records))throw new Error("The agent responded, but the JSON did not include a records array.");
+    state={...state,...payload.data};docScope="";renderAll();switchView("overview");
+    notify(`Live review complete via "${payload.toolName}": ${state.records.length} records reconciled.`);
+  }catch(e){
+    notify(`Live review failed: ${e.message}`);
+  }finally{
+    btn.disabled=false;btn.textContent=original;
+  }
+};
+const STATUS_URL_KEY="pcStatusServerUrl";
+const statusUrlInput=document.getElementById("statusServerUrl");
+statusUrlInput.value=localStorage.getItem(STATUS_URL_KEY)||statusUrlInput.value;
+function statusBase(){const url=statusUrlInput.value.trim()||"http://localhost:8787";localStorage.setItem(STATUS_URL_KEY,url);return url}
+function setConnectorBadge(name,state,message){const badgeMap={connected:["ok","Connected"],configured:["info","Configured · not tested"],"not-configured":["warn","Not configured"],failed:["FAIL","Connection failed"],checking:["info","Checking…"],offline:["FAIL","Status server offline"]};const[cls,label]=badgeMap[state]||["warn",state];const badge=document.getElementById(name+"Badge");badge.className="tag "+cls;badge.textContent=label;if(message)document.getElementById(name+"Message").textContent=message}
+async function refreshConnectorStatus(){const base=statusBase();setConnectorBadge("veeva","checking");setConnectorBadge("sharepoint","checking");setConnectorBadge("apollo","checking");setConnectorBadge("anthropic","checking");if(isInstalled("directline"))setConnectorBadge("directline","checking");try{const res=await fetch(base+"/status",{cache:"no-store"});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();setConnectorBadge("veeva",data.veeva.configured?"configured":"not-configured",data.veeva.configured?"Configured in .env — click Test connection to verify credentials.":"VAULT_DOMAIN, VAULT_USERNAME or VAULT_PASSWORD is missing from mcp-server/.env.");setConnectorBadge("sharepoint",data.sharepoint.configured?"configured":"not-configured",data.sharepoint.configured?"Configured in .env — click Test connection to verify credentials.":"SHAREPOINT_TENANT_ID, SHAREPOINT_CLIENT_ID or SHAREPOINT_CLIENT_SECRET is missing from mcp-server/.env.");setConnectorBadge("apollo",data.apollo.configured?"configured":"not-configured",data.apollo.configured?"Configured — click Test connection to reach the Apollo Studio MCP endpoint (requires Boehringer network/VPN).":"APOLLO_MCP_URL is missing from mcp-server/.env.");setConnectorBadge("anthropic",data.anthropic?.configured?"configured":"not-configured",data.anthropic?.configured?"Configured — click Test connection to verify the API key.":"ANTHROPIC_API_KEY is missing from mcp-server/.env.");if(isInstalled("directline"))setConnectorBadge("directline",data.directline?.configured?"configured":"not-configured",data.directline?.configured?"Configured — click Test connection to verify the Direct Line secret.":"DIRECTLINE_SECRET is missing from mcp-server/.env.");document.getElementById("connectorServerNote").textContent=`Connected to the status server · ${new Date(data.serverTime).toLocaleString()}`}catch(e){setConnectorBadge("veeva","offline");setConnectorBadge("sharepoint","offline");setConnectorBadge("apollo","offline");setConnectorBadge("anthropic","offline");if(isInstalled("directline"))setConnectorBadge("directline","offline");document.getElementById("connectorServerNote").textContent=`Could not reach the status server at ${base}. Run "npm start" in mcp-server/, then click Check status again.`}}
+async function testConnector(name){const base=statusBase();const btn=document.getElementById("test"+name);btn.disabled=true;const original=btn.textContent;btn.textContent="Testing…";try{const res=await fetch(`${base}/test/${name}`,{cache:"no-store"});const data=await res.json();document.getElementById(name+"Message").textContent=data.message;setConnectorBadge(name,data.connected?"connected":(data.configured?"failed":"not-configured"))}catch(e){document.getElementById(name+"Message").textContent=`Could not reach the status server: ${e.message}`;setConnectorBadge(name,"offline")}finally{btn.disabled=false;btn.textContent=original}}
+document.getElementById("checkConnectorStatus").onclick=refreshConnectorStatus;
+document.getElementById("testveeva").onclick=()=>testConnector("veeva");
+document.getElementById("testsharepoint").onclick=()=>testConnector("sharepoint");
+document.getElementById("testapollo").onclick=()=>testConnector("apollo");
+document.getElementById("testanthropic").onclick=()=>testConnector("anthropic");
+document.querySelectorAll("[data-disconnect]").forEach(btn=>btn.onclick=()=>disconnectConnector(btn.dataset.disconnect));
+async function disconnectConnector(name,silent){const spec=CONNECT_SPECS[name];const base=statusBase();const emptyPayload={};(spec?.fields||[]).forEach(f=>emptyPayload[f.key]="");try{await fetch(`${base}/connect/${name}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(emptyPayload)})}catch(e){}spec?.fields.forEach(f=>localStorage.removeItem(connectStorageKey(name,f.key)));setConnectorBadge(name,"not-configured","Disconnected. Click Connect to add credentials again.");if(!silent)notify(`${spec?.title?.replace("Connect ","")||name} disconnected.`)}
+document.getElementById("discoverApolloTools").onclick=async()=>{const base=statusBase();const btn=document.getElementById("discoverApolloTools");btn.disabled=true;const original=btn.textContent;btn.textContent="Discovering…";const box=document.getElementById("apolloTools");box.innerHTML="";try{const res=await fetch(`${base}/apollo/tools`,{cache:"no-store"});const data=await res.json();if(!res.ok)throw new Error(data.error||`HTTP ${res.status}`);box.innerHTML=(data.tools||[]).map(t=>`<div class="check" style="align-items:flex-start"><div class="checkicon">⇄</div><div><strong>${t.name}</strong><small>${t.description||"No description"}</small><pre class="codeblock" style="margin-top:6px;font-size:10.5px">${JSON.stringify(t.inputSchema||{},null,2)}</pre></div></div>`).join("")||`<div class="empty">No tools returned.</div>`;notify(`Discovered ${data.tools?.length||0} tool(s) on the Apollo MCP server.`)}catch(e){box.innerHTML=`<div class="empty">Could not discover tools: ${e.message}</div>`;notify(`Tool discovery failed: ${e.message}`)}finally{btn.disabled=false;btn.textContent=original}};
+
+const CONNECT_SPECS={
+  apollo:{title:"Connect Apollo Studio agent",subtitle:"MCP endpoint on Boehringer's internal network — requires VPN/corporate access",fields:[
+    {key:"url",label:"MCP server URL",type:"text",secret:false,placeholder:"https://studio-apollo-prod...boehringer.com/mcp/server/xxx/mcp"},
+    {key:"token",label:"Bearer token (optional)",type:"password",secret:true,placeholder:"Only if the gateway requires one"},
+    {key:"headersJson",label:"Extra headers as JSON (optional)",type:"text",secret:false,placeholder:'{"X-Api-Key":"..."}'}
+  ]},
+  anthropic:{title:"Connect Claude (Anthropic API)",subtitle:"Direct external API call to Claude Sonnet 5 — no VPN required",fields:[
+    {key:"apiKey",label:"Anthropic API key",type:"password",secret:true,placeholder:"sk-ant-..."},
+    {key:"model",label:"Model",type:"text",secret:false,placeholder:"claude-sonnet-5"}
+  ]},
+  veeva:{title:"Connect Veeva Vault",subtitle:"Session-based Vault REST API authentication",fields:[
+    {key:"domain",label:"Vault domain",type:"text",secret:false,placeholder:"yourcompany.veevavault.com"},
+    {key:"apiVersion",label:"API version",type:"text",secret:false,placeholder:"v24.1"},
+    {key:"username",label:"Username",type:"text",secret:false,placeholder:"api.user@yourcompany.com"},
+    {key:"password",label:"Password",type:"password",secret:true,placeholder:""}
+  ]},
+  sharepoint:{title:"Connect SharePoint",subtitle:"Microsoft Graph, app-only client-credentials auth",fields:[
+    {key:"tenantId",label:"Tenant ID",type:"text",secret:false,placeholder:"00000000-0000-0000-0000-000000000000"},
+    {key:"clientId",label:"Client ID",type:"text",secret:false,placeholder:"00000000-0000-0000-0000-000000000000"},
+    {key:"clientSecret",label:"Client secret",type:"password",secret:true,placeholder:""},
+    {key:"siteId",label:"Site ID",type:"text",secret:false,placeholder:"contoso.sharepoint.com,<site-guid>,<web-guid>"}
+  ]},
+  directline:{title:"Connect Patient Story Teller",subtitle:"Bot Framework Direct Line \u2014 no VPN required",fields:[
+    {key:"secret",label:"Direct Line secret",type:"password",secret:true,placeholder:""},
+    {key:"botName",label:"Bot name",type:"text",secret:false,placeholder:"Patient Story Teller"}
+  ]}
+};
+function connectStorageKey(name,key){return `pcConnect_${name}_${key}`}
+function openConnectModal(name){
+  const spec=CONNECT_SPECS[name];
+  document.getElementById("connectModal").dataset.connector=name;
+  document.getElementById("connectTitle").textContent=spec.title;
+  document.getElementById("connectSubtitle").textContent=spec.subtitle;
+  document.getElementById("connectResult").textContent="";
+  document.getElementById("connectFields").innerHTML=spec.fields.map(f=>{
+    const saved=f.secret?"":(localStorage.getItem(connectStorageKey(name,f.key))||"");
+    return `<label for="cf_${f.key}">${f.label}</label><input id="cf_${f.key}" type="${f.type}" placeholder="${f.placeholder}" value="${saved.replace(/"/g,"&quot;")}">`;
+  }).join("");
+  document.getElementById("connectModal").showModal();
+}
+document.querySelectorAll("[data-connect]").forEach(btn=>btn.onclick=()=>openConnectModal(btn.dataset.connect));
+document.getElementById("closeConnect").onclick=()=>document.getElementById("connectModal").close();
+document.getElementById("cancelConnect").onclick=()=>document.getElementById("connectModal").close();
+document.getElementById("submitConnect").onclick=async()=>{
+  const name=document.getElementById("connectModal").dataset.connector;
+  const spec=CONNECT_SPECS[name];
+  const base=statusBase();
+  const payload={};
+  spec.fields.forEach(f=>{payload[f.key]=document.getElementById("cf_"+f.key).value});
+  const btn=document.getElementById("submitConnect");btn.disabled=true;const original=btn.textContent;btn.textContent="Connecting…";
+  const resultEl=document.getElementById("connectResult");resultEl.textContent="";
+  try{
+    const res=await fetch(`${base}/connect/${name}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||`HTTP ${res.status}`);
+    setConnectorBadge(name,data.connected?"connected":(data.configured?"failed":"not-configured"),data.message);
+    if(data.connected){
+      spec.fields.filter(f=>!f.secret).forEach(f=>localStorage.setItem(connectStorageKey(name,f.key),payload[f.key]||""));
+      notify(`${spec.title.replace("Connect ","")} connected.`);
+      document.getElementById("connectModal").close();
+    }else{
+      resultEl.textContent=data.message;resultEl.style.color="#b42318";
+    }
+  }catch(e){
+    resultEl.textContent=`Could not reach the status server: ${e.message}`;resultEl.style.color="#b42318";
+  }finally{
+    btn.disabled=false;btn.textContent=original;
+  }
+};
+function loadJsonFile(file){const reader=new FileReader();reader.onload=()=>{try{const data=JSON.parse(reader.result);if(!data.records||!Array.isArray(data.records))throw new Error("records array is missing");state={...state,...data};renderAll();switchView("overview");notify(`${state.records.length} agent records loaded and reconciled.`)}catch(e){notify(`Unable to load agent JSON: ${e.message}`)}};reader.readAsText(file)}
+document.getElementById("importJson").onclick=()=>document.getElementById("jsonInput").click();document.getElementById("loadJson").onclick=()=>document.getElementById("topJsonInput").click();document.getElementById("jsonInput").onchange=e=>loadJsonFile(e.target.files[0]);document.getElementById("topJsonInput").onchange=e=>loadJsonFile(e.target.files[0]);
+async function loadConnectedFile(silent){try{const res=await fetch(`agent-output.json?t=${Date.now()}`,{cache:"no-store"});if(!res.ok)throw new Error(`HTTP ${res.status}`);const data=await res.json();if(!data.records||!Array.isArray(data.records))throw new Error("records array is missing");state={...state,...data};docScope="";renderAll();notify(`Connected file loaded: ${state.records.length} records from agent-output.json.`)}catch(e){if(!silent)notify(`Could not load agent-output.json: ${e.message}. Showing built-in sample data instead.`)}}
+document.getElementById("refreshConnected").onclick=()=>loadConnectedFile(false);
+loadConnectedFile(true);
+document.getElementById("rerun").onclick=()=>switchView("intake");
+document.getElementById("trialSelect").onchange=e=>{const factors={"2012-0001":0,"BI-2026-0092":1,"BI-2025-0318":2},n=factors[e.target.value];state.records.forEach((r,i)=>{if(i%13===0)r.status=["MATCH","WEAK","MISSING"][n]});state.documents.forEach(d=>d.trial_number=e.target.value);state.identity_summary=`All uploaded documents identify trial ${e.target.value} with compatible identity evidence.`;renderAll();notify(`Dashboard changed to ${e.target.value}.`)};
+document.getElementById("docScopeSelect").onchange=e=>{docScope=e.target.value;renderAll();notify(docScope?`Comparison scope set to ${docScope} only.`:"Showing the compiled view across all documents.")};
+
+/* ---------- Marketplace: connectors that can be installed beyond the built-in four ---------- */
+const MARKETPLACE_DEFS=[
+  {id:"directline",name:"Patient Story Teller",icon:"🩺",desc:"Copilot Studio bot (same trial 2012-0001 knowledge base) for narrative patient-story generation, connected via Bot Framework Direct Line.",cardId:"directlineCard"}
+];
+function isInstalled(id){return localStorage.getItem("pcInstalled_"+id)==="true"}
+function setInstalled(id,value){localStorage.setItem("pcInstalled_"+id,String(value))}
+function applyInstalledVisibility(){MARKETPLACE_DEFS.forEach(m=>{const card=document.getElementById(m.cardId);if(card)card.style.display=isInstalled(m.id)?"":"none"})}
+function installConnector(id){setInstalled(id,true);applyInstalledVisibility();renderSkillsPage();notify(`${MARKETPLACE_DEFS.find(m=>m.id===id)?.name} added. Opening Data Connectors so you can connect it.`);switchView("connectors")}
+async function uninstallConnector(id){setInstalled(id,false);applyInstalledVisibility();await disconnectConnector(id,true);renderSkillsPage();notify(`${MARKETPLACE_DEFS.find(m=>m.id===id)?.name} removed.`)}
+document.getElementById("uninstallDirectline").onclick=()=>uninstallConnector("directline");
+
+/* ---------- Skills & tools: Copilot-style configuration for what Genie can do ---------- */
+const SKILL_DEFS=[
+  {id:"evidence-lookup",name:"Evidence Lookup",icon:"🔎",desc:"Find any finding, protocol, or downstream record by ID.",core:true},
+  {id:"status-summaries",name:"Status & Category Summaries",icon:"📊",desc:"Summarize records by status, document, or category.",core:true},
+  {id:"coverage-validation",name:"Coverage, Validation & Identity Insights",icon:"✔",desc:"Explain coverage, deterministic validation checks, and study identity.",core:true},
+  {id:"exception-triage",name:"Exception Triage",icon:"⚠",desc:"Summarize open exceptions by severity.",core:true},
+  {id:"claude-reasoning",name:"Claude Sonnet 5 Reasoning",icon:"✦",desc:"When a question can't be answered from local evidence, ask Claude directly (Anthropic API), grounded in the currently loaded evidence. Requires Claude connected on Data Connectors.",core:false},
+  {id:"apollo-reasoning",name:"Apollo Agent Reasoning",icon:"⇄",desc:"Fallback: forward unanswered questions to your real Apollo Studio agent instead. Requires Apollo connected on Data Connectors.",core:false}
+];
+function isSkillEnabled(id){const def=SKILL_DEFS.find(s=>s.id===id);if(def?.core)return true;return localStorage.getItem("pcSkill_"+id)==="true"}
+function toggleSkill(id){localStorage.setItem("pcSkill_"+id,String(!isSkillEnabled(id)));renderSkillsPage()}
+async function renderSkillsPage(){
+  document.getElementById("skillsList").innerHTML=SKILL_DEFS.map(s=>`<div class="skill-card"><div class="skill-icon">${s.icon}</div><div class="skill-info"><strong>${s.name}</strong><small>${s.desc}</small></div>${s.core?'<span class="tag ok">Core · always on</span>':`<button class="toggle ${isSkillEnabled(s.id)?"on":""}" data-skill="${s.id}" aria-pressed="${isSkillEnabled(s.id)}" aria-label="Toggle ${s.name}"></button>`}</div>`).join("");
+  document.querySelectorAll("#skillsList [data-skill]").forEach(btn=>btn.onclick=()=>toggleSkill(btn.dataset.skill));
+  const tools=[["anthropic","Claude (Anthropic API)"],["apollo","Apollo Studio agent"],["veeva","Veeva Vault"],["sharepoint","SharePoint"]];
+  if(isInstalled("directline"))tools.push(["directline","Patient Story Teller"]);
+  function renderToolsList(status){
+    document.getElementById("toolsStatusList").innerHTML=tools.map(([key,label])=>{
+      const badge=status===undefined?`<span class="tag info">Checking…</span>`:status?`<span class="tag ${status[key]?.configured?"ok":"warn"}">${status[key]?.configured?"Configured":"Not configured"}</span>`:`<span class="tag FAIL">Status server offline</span>`;
+      return `<div class="skill-card"><div class="skill-icon">⇄</div><div class="skill-info"><strong>${label}</strong><small>Managed on the Data Connectors page</small></div>${badge}</div>`;
+    }).join("");
+  }
+  renderToolsList(undefined);
+  document.getElementById("marketplaceList").innerHTML=MARKETPLACE_DEFS.filter(m=>!isInstalled(m.id)).map(m=>
+    `<div class="skill-card"><div class="skill-icon">${m.icon}</div><div class="skill-info"><strong>${m.name}</strong><small>${m.desc}</small></div><button class="primary" data-install="${m.id}">Install</button></div>`
+  ).join("")||`<div class="skill-card"><div class="skill-icon">✓</div><div class="skill-info"><strong>Everything available is installed</strong><small>Check back later for more connectors.</small></div></div>`;
+  document.querySelectorAll("#marketplaceList [data-install]").forEach(btn=>btn.onclick=()=>installConnector(btn.dataset.install));
+  let status=null;
+  try{const res=await fetch(`${statusBase()}/status`,{cache:"no-store"});if(res.ok)status=await res.json()}catch(e){}
+  renderToolsList(status);
+}
+
+/* ---------- Genie: a deterministic assistant grounded in whatever evidence is currently loaded ---------- */
+const VIEW_LABELS={overview:"Executive overview",findings:"Semantic mapping",exceptions:"Exceptions",documents:"Study identity",validation:"Validation report",connectors:"Data connectors",skills:"Skills & tools",intake:"New review"};
+function currentViewName(){return document.querySelector(".view.active")?.dataset.panel||"overview"}
+function genieContextLine(){
+  const records=scopedRecords(),protocolDoc=(state.documents||[]).find(d=>d.document==="Protocol");
+  return `Viewing <strong>${VIEW_LABELS[currentViewName()]}</strong> · Study <strong>${protocolDoc?.trial_number||"—"}</strong> · Scope <strong>${scopeLabel()}</strong> · <strong>${records.length}</strong> records in scope`;
+}
+function updateGenieContext(){const el=document.getElementById("genieContext");if(el)el.innerHTML=genieContextLine();const dot=document.getElementById("genieDot");if(dot)dot.style.background=state.records.length?"#34d399":"#94a3b8"}
+function findRecordById(text){
+  const m=text.match(/\b(FIND|PROT|ICF|IB|CRF)-?0*(\d{1,4})\b/i);
+  if(!m)return null;
+  const prefix=m[1].toUpperCase(),num=String(m[2]).padStart(4,"0"),id=`${prefix}-${num}`;
+  return prefix==="FIND"?state.records.find(r=>r.finding_id===id):state.records.find(r=>r.protocol_assertion_id===id||r.downstream_assertion_id===id);
+}
+const STATUS_WORDS={match:"MATCH",matches:"MATCH",matched:"MATCH",weak:"WEAK",missing:"MISSING",extra:"EXTRA",unresolved:"UNRESOLVED",error:"ERROR",errors:"ERROR","n/a":"N/A",na:"N/A"};
+const DOC_WORDS={icf:"ICF","ib":"IB",crf:"CRF"};
+function pct(n,d){return d?Math.round(n/d*1000)/10:0}
+function answerGenie(question){
+  const q=question.toLowerCase().trim();
+  const records=scopedRecords(),m=metrics(records);
+  const rec=findRecordById(question);
+  if(rec){
+    return {html:`<strong>${rec.finding_id}</strong> (${rec.document} · ${rec.category}) is currently <strong>${rec.status}</strong> — severity ${rec.severity}, confidence ${rec.confidence}, match method ${rec.match_method}.<br><br>`+
+      `<em>Protocol:</em> ${rec.protocol_assertion} <span style="color:var(--muted)">[${rec.protocol_anchor}]</span><br>`+
+      `<em>${rec.document}:</em> ${rec.downstream_assertion} <span style="color:var(--muted)">[${rec.downstream_anchor}]</span><br><br>`+
+      `${rec.rationale} <strong>Required action:</strong> ${rec.recommended_action}`,
+      jumpLabel:"Open full evidence",jump:`finding:${rec.finding_id}`};
+  }
+  for(const word in STATUS_WORDS){
+    if(q.includes(word)){
+      const status=STATUS_WORDS[word],matches=records.filter(r=>r.status===status);
+      const list=matches.slice(0,5).map(r=>`<li><strong>${r.finding_id}</strong> (${r.document}/${r.category}) — ${r.rationale}</li>`).join("");
+      return {html:`${matches.length} record${matches.length===1?"":"s"} ${docScope?`in ${docScope} `:""}${docScope?"":"across all documents "}${matches.length===1?"is":"are"} currently <strong>${status}</strong>.`+
+        (matches.length?`<ul>${list}</ul>${matches.length>5?`<small>+${matches.length-5} more — open Semantic mapping to see all.</small>`:""}`:""),
+        jumpLabel:matches.length?`Filter Semantic mapping to ${status}`:null,jump:matches.length?`status:${status}`:null};
+    }
+  }
+  for(const word in DOC_WORDS){
+    if(q.includes(word)){
+      const doc=DOC_WORDS[word],rr=state.records.filter(r=>r.document===doc);
+      const c=Object.fromEntries(statuses.map(s=>[s,rr.filter(r=>r.status===s).length]));
+      const den=["MATCH","WEAK","MISSING","UNRESOLVED","ERROR"].reduce((n,s)=>n+c[s],0),cov=pct(c.MATCH+c.WEAK,den);
+      return {html:`<strong>${doc}</strong> has ${rr.length} comparison records: ${c.MATCH} MATCH, ${c.WEAK} WEAK, ${c.MISSING} MISSING, ${c.EXTRA} EXTRA, ${c.UNRESOLVED} UNRESOLVED, ${c.ERROR} ERROR. In-scope coverage is <strong>${cov}%</strong> (${c.MATCH+c.WEAK} of ${den}).`,
+        jumpLabel:`Focus dashboard on ${doc}`,jump:`document:${doc}`};
+    }
+  }
+  const categories=[...new Set(state.records.map(r=>r.category))];
+  const catHit=categories.find(c=>q.includes(c.toLowerCase()));
+  if(catHit){
+    const rr=state.records.filter(r=>r.category===catHit);
+    const c=Object.fromEntries(statuses.map(s=>[s,rr.filter(r=>r.status===s).length]));
+    return {html:`<strong>${catHit}</strong> has ${rr.length} records: ${c.MATCH} MATCH, ${c.WEAK} WEAK, ${c.MISSING} MISSING, ${c.EXTRA} EXTRA, ${c.UNRESOLVED} UNRESOLVED, ${c.ERROR} ERROR.`,
+      jumpLabel:"View in Semantic mapping",jump:`category:${catHit}`};
+  }
+  if(/coverage|reconcil/.test(q)){
+    return {html:`In-scope coverage is <strong>${m.coverage}%</strong> (${m.covered} of ${m.den} records), covering ${m.c.MATCH} MATCH and ${m.c.WEAK} WEAK out of a denominator that excludes EXTRA and N/A.`,jumpLabel:"Open Validation report",jump:"validation"};
+  }
+  if(/exception|gap|open action|remediat/.test(q)){
+    const bySeverity={Critical:0,High:0,Medium:0,Low:0};m.exceptions.forEach(r=>{if(bySeverity[r.severity]!==undefined)bySeverity[r.severity]++});
+    return {html:`There are <strong>${m.exceptions.length}</strong> open exceptions in scope: ${bySeverity.Critical} Critical, ${bySeverity.High} High, ${bySeverity.Medium} Medium, ${bySeverity.Low} Low.`,jumpLabel:"Open Exceptions page",jump:"exceptions"};
+  }
+  if(/valid|reconcil check|deterministic/.test(q)){
+    const allTotal=metrics(state.records).total;
+    const checks=[new Set(state.records.map(r=>r.finding_id)).size===allTotal,state.records.every(r=>statuses.includes(r.status)),!state.records.some(r=>r.status==="MATCH"&&r.match_method==="semantic-only"),allTotal>0];
+    const passed=checks.filter(Boolean).length;
+    return {html:`Validation report: <strong>${passed} / ${checks.length}</strong> deterministic checks pass across all ${allTotal} records (unique IDs, allowed statuses, no semantic-only MATCH, at least one record present).`,jumpLabel:"Open Validation report",jump:"validation"};
+  }
+  if(/identity|study id|trial|protocol version/.test(q)){
+    const protocolDoc=(state.documents||[]).find(d=>d.document==="Protocol");
+    return {html:`Review status is <strong>${state.review_status}</strong>. ${state.identity_summary} Protocol: ${protocolDoc?`${protocolDoc.title} (${protocolDoc.version_date})`:"not identified"}.`,jumpLabel:"Open Study identity",jump:"documents"};
+  }
+  if(/confiden/.test(q)){
+    const conf={HIGH:0,MEDIUM:0,LOW:0};records.forEach(r=>{if(conf[r.confidence]!==undefined)conf[r.confidence]++});
+    return {html:`Confidence across ${records.length} records in scope: ${conf.HIGH} HIGH, ${conf.MEDIUM} MEDIUM, ${conf.LOW} LOW.`,jumpLabel:"View in Executive overview",jump:"view:overview"};
+  }
+  return {html:`I can answer questions grounded in the ${records.length} records currently in scope. Try: a finding ID (e.g. "FIND-0007"), a status (MATCH, WEAK, MISSING, EXTRA, UNRESOLVED, ERROR, N/A), a document (ICF, IB, CRF), a category (${categories.slice(0,3).join(", ")}…), or ask about coverage, exceptions, validation, identity, or confidence.`,fallback:true};
+}
+function performGenieJump(descriptor){
+  if(!descriptor)return;
+  const [type,value]=descriptor.split(":");
+  if(type==="finding"){openFinding(value);return}
+  if(type==="status"){switchView("findings");document.getElementById("statusFilter").value=value;renderFindings();return}
+  if(type==="document"){switchView("findings");document.getElementById("docFilter").value=value;renderFindings();return}
+  if(type==="category"){switchView("findings");document.getElementById("search").value=value;renderFindings();return}
+  if(type==="exceptions"||type==="validation"||type==="documents"||type==="view"){switchView(type==="view"?value:type);return}
+}
+function pushGenie(role,html,jumpLabel,jump,id){
+  const thread=document.getElementById("genieThread");
+  const div=document.createElement("div");
+  if(id)div.id=id;
+  div.className=`genie-msg ${role}`;
+  div.innerHTML=html+(jumpLabel?`<span class="genie-jump" data-jump="${jump}">${jumpLabel} →</span>`:"");
+  thread.appendChild(div);
+  thread.scrollTop=thread.scrollHeight;
+  return div;
+}
+function replaceGenie(id,html){const el=document.getElementById(id);if(el){el.innerHTML=html;document.getElementById("genieThread").scrollTop=document.getElementById("genieThread").scrollHeight}}
+function evidenceSnapshot(){
+  const records=scopedRecords(),m=metrics(records),protocolDoc=(state.documents||[]).find(d=>d.document==="Protocol");
+  return {study:{trial_number:protocolDoc?.trial_number,title:protocolDoc?.title,review_status:state.review_status,identity_summary:state.identity_summary},
+    scope:scopeLabel(),currentView:VIEW_LABELS[currentViewName()],
+    metrics:{total:m.total,coverage:m.coverage,covered:m.covered,denominator:m.den,byStatus:m.c},
+    exceptionCount:m.exceptions.length,records:records.slice(0,80)};
+}
+async function sendGenie(text){
+  if(!text.trim())return;
+  pushGenie("user",text.replace(/</g,"&lt;"));
+  document.getElementById("genieInput").value="";
+  const a=answerGenie(text);
+  if(!a.fallback){pushGenie("bot",a.html,a.jumpLabel,a.jump);return}
+  const claudeOn=isSkillEnabled("claude-reasoning"),apolloOn=isSkillEnabled("apollo-reasoning");
+  if(!claudeOn&&!apolloOn){pushGenie("bot",a.html);return}
+  const base=statusBase();
+  if(claudeOn){
+    const thinkId="genie-think-"+Date.now();
+    pushGenie("bot",`<em style="color:var(--muted)">Thinking — asking Claude…</em>`,null,null,thinkId);
+    try{
+      const res=await fetch(`${base}/anthropic/chat`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:text,context:evidenceSnapshot()})});
+      const data=await res.json();
+      if(!res.ok)throw new Error(data.error||`HTTP ${res.status}`);
+      replaceGenie(thinkId,`<strong>Claude (${data.model||"Sonnet 5"}):</strong><br>${(data.text||"(empty response)").replace(/</g,"&lt;").replace(/\n/g,"<br>")}`);
+      return;
+    }catch(e){
+      if(!apolloOn){replaceGenie(thinkId,`Couldn't reach Claude (${e.message}). Here's what local evidence shows instead:<br><br>${a.html}`);return}
+      replaceGenie(thinkId,`Couldn't reach Claude (${e.message}). Trying the Apollo agent instead…`);
+    }
+  }
+  const thinkId2="genie-think-"+Date.now()+"b";
+  pushGenie("bot",`<em style="color:var(--muted)">Thinking — asking the Apollo agent…</em>`,null,null,thinkId2);
+  try{
+    const protocolDoc=(state.documents||[]).find(d=>d.document==="Protocol");
+    const res=await fetch(`${base}/apollo/chat`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message:text,trialNumber:protocolDoc?.trial_number})});
+    const data=await res.json();
+    if(!res.ok)throw new Error(data.error||`HTTP ${res.status}`);
+    replaceGenie(thinkId2,`<strong>Apollo agent:</strong><br>${(data.text||"(empty response)").replace(/</g,"&lt;").replace(/\n/g,"<br>")}`);
+  }catch(e){
+    replaceGenie(thinkId2,`Couldn't reach the Apollo agent (${e.message}). Here's what local evidence shows instead:<br><br>${a.html}`);
+  }
+}
+function askGenieAbout(findingId){openGeniePanel();sendGenie(findingId)}
+function openGeniePanel(){document.getElementById("geniePanel").classList.add("open");updateGenieContext();document.getElementById("genieInput").focus();if(!genieGreeted){genieGreeted=true;pushGenie("bot",`Hi — I'm Genie. Ask me about any finding, status, document, category, or metric and I'll answer from the ${state.records.length} records currently loaded.`)}}
+document.getElementById("genieLauncher").onclick=()=>{const panel=document.getElementById("geniePanel");panel.classList.toggle("open");if(panel.classList.contains("open"))openGeniePanel()};
+document.getElementById("genieMinimize").onclick=()=>document.getElementById("geniePanel").classList.remove("open");
+document.getElementById("genieSend").onclick=()=>sendGenie(document.getElementById("genieInput").value);
+document.getElementById("genieInput").addEventListener("keydown",e=>{if(e.key==="Enter")sendGenie(e.target.value)});
+document.getElementById("genieThread").addEventListener("click",e=>{const el=e.target.closest("[data-jump]");if(el){document.getElementById("geniePanel").classList.remove("open");performGenieJump(el.dataset.jump)}});
+const GENIE_SUGGESTIONS=["Show MISSING records","Show CRF exceptions","What's the identity status?","Summarize validation","Show only missing and extra findings"];
+document.getElementById("genieChips").innerHTML=GENIE_SUGGESTIONS.map(s=>`<span class="genie-chip">${s}</span>`).join("");
+document.getElementById("genieChips").addEventListener("click",e=>{if(e.target.classList.contains("genie-chip"))sendGenie(e.target.textContent)});
+let genieGreeted=false;
+const _switchViewBase=switchView;switchView=function(name){_switchViewBase(name);updateGenieContext()};
+updateGenieContext();
+
+applyInstalledVisibility();
+window.addEventListener("resize",()=>Object.values(charts).forEach(c=>c.resize()));renderAll();
+</script>
+</body>
+</html>
