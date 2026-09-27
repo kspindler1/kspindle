@@ -4,7 +4,7 @@
    http(s). It intentionally does NOT intercept cross-origin requests (such as the
    hosted Kloud Genie API). Registration silently no-ops on file:// (service workers
    require http/https), which is expected and not an error. */
-const CACHE_NAME = 'kloud-app-shell-v17';
+const CACHE_NAME = 'kloud-app-shell-v19';
 const APP_SHELL = [
   './Kloud_Shark_Tank_Full_Experience.html',
   './manifest.webmanifest',

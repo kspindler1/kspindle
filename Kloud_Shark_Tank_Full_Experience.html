@@ -470,7 +470,18 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 .arch-tier,.arch-lanes,.facts-table,.pipeline-flow{max-width:1100px;margin-left:auto;margin-right:auto}.arch-row .node,.lane,.arch .node,.node.pipe{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.16);border-radius:20px;backdrop-filter:blur(14px)}.arch-row .node.hub,.node.pipe.hub{background:linear-gradient(135deg,#0b3c6f,#10234d);border-color:#2997ff;box-shadow:0 15px 60px rgba(0,113,227,.25)}.lane li{background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.1)}.facts-table{border-collapse:separate;border-spacing:0;overflow:hidden;border-radius:18px;background:#111}.facts-table th{background:#f5f5f7;color:#1d1d1f}.facts-table th,.facts-table td{padding:15px 18px;border-color:rgba(255,255,255,.12)}.facts-table td{color:#d2d2d7}
 .agent-card{background:rgba(28,28,30,.72);border-color:rgba(255,255,255,.15);border-radius:24px;padding:26px;backdrop-filter:blur(16px)}.agent-card:hover{border-color:#2997ff;box-shadow:0 18px 50px rgba(0,0,0,.45)}.agent-card .icon{background:rgba(41,151,255,.16);border-color:rgba(41,151,255,.35)}.agent-card .tag{color:#2997ff}.agent-card button,.chips button{background:#0071e3;border-color:#0071e3}.agent-card .details-toggle{background:transparent;border-color:#2997ff;color:#2997ff}.rail{gap:20px;padding:8px 4px 24px}.rail .agent-card{width:310px}
 .genie-shell{border-radius:28px;background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.18);box-shadow:0 26px 80px rgba(0,0,0,.4)}.avatar{background:linear-gradient(135deg,#0071e3,#8c5cff);border:0}.bubble.user{background:#0071e3}.composer input{background:rgba(0,0,0,.42);border-color:rgba(255,255,255,.22)}.composer button{background:#0071e3;border-color:#0071e3}.dropzone{border-color:rgba(41,151,255,.6);background:rgba(41,151,255,.07)}.decision{background:radial-gradient(ellipse at 50% 15%,#173d70 0%,#070d19 46%,#000 78%)}.decision h2 span,.head h2 span{color:#2997ff}.sound-toggle{background:rgba(28,28,30,.9);border-color:rgba(255,255,255,.2);backdrop-filter:blur(14px)}
-@media(max-width:600px){.navicons{overflow-x:auto;justify-content:flex-start;gap:18px}.navicons button{white-space:nowrap}.navicons button:nth-child(n+4){display:none}.landing-inner h1{font-size:5.5rem}.feature{border-radius:26px}.trust span+span:before{padding-right:9px}}
+@media(max-width:600px){
+  .navtop{padding:10px 16px}
+  .crumbs{display:none}
+  .navicons{width:100%;box-sizing:border-box;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px 4px;padding:8px 12px 10px;overflow:visible}
+  .navicons button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;min-width:0;white-space:nowrap;text-align:center;font-size:.66rem;line-height:1.15}
+  .navicons button:nth-child(n){display:flex}
+  .navicons .navicon-mark{font-size:.9rem;line-height:1}
+  .navicons button.genie-icon-only{justify-self:center;flex:initial;min-width:32px;min-height:32px}
+  .landing-inner h1{font-size:5.5rem}
+  .feature{border-radius:26px}
+  .trust span+span:before{padding-right:9px}
+}
 
 /* Restored animated sky layer */
 .stars{display:block;opacity:.16;z-index:-3;background-image:radial-gradient(rgba(255,255,255,.8) 1px,transparent 1px);background-size:58px 58px}
@@ -1044,6 +1055,8 @@ function showSubview(id){
   document.querySelectorAll('.navicons button').forEach(b=>b.classList.toggle('current', b.dataset.jump===id));
   currentSubview = id;
   window.scrollTo({top:0,behavior:'instant' in window ? 'instant' : 'auto'});
+  const activeSubview = document.getElementById(id);
+  if(activeSubview) activeSubview.classList.add('reveal-visible');
   document.querySelectorAll('#'+id+' .reveal, #'+id+' .agent-card').forEach(el=>el.classList.add('reveal-visible'));
 }
 
