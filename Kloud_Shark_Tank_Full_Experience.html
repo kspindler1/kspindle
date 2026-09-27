@@ -934,7 +934,7 @@ const AGENTS = [
     risk:'Low — test data rarely covers every possible scenario',
     testing:'Yes', status:'Ready', statusClass:'ready', location:'Copilot',
     demo:false,
-    evidence:{ src:'evidence/test-data-entry-generated-files.png', title:'Test data generated from the CQL listings',
+    evidence:{ src:'test-data-entry-generated-files.png', title:'Test data generated from the CQL listings',
       caption:'Study 2012-0001: for every CQL listing (L01–L16) the agent generated a SHOULD_SHOW and a SHOULD_NOT_SHOW Veeva-ready CSV (subjects SCR-51xx / SCR-52xx), plus a README listing map, so each listing can be proven to return exactly the right rows. Note: opening an export in Excel and re-saving often reformats dates into an incompatible value.' } },
   { id:'cdb-tester', name:'CDB Listing Tester (Computer-Using Agent)', icon:'🖱️', tag:'Veeva CDMS automation', platform:'copilot',
     summary:'A computer-using agent connected to Veeva CDMS that reviews CDB listings, issues queries, exports listings, and enters test data.',
