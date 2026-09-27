@@ -275,6 +275,20 @@ section.block{padding:100px 6vw}
 .market-steps li b{display:block;color:#fff;margin-bottom:4px}
 .market-steps li b::before{content:counter(ms) " · ";color:var(--cyan)}
 .agent-card.flash{outline:2px solid var(--cyan);outline-offset:3px}
+.agent-card{position:relative}
+.evidence-icon{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(41,151,255,.6);background:rgba(41,151,255,.16);font-size:1.15rem;cursor:pointer;z-index:2}
+.evidence-icon:hover{background:#0071e3;transform:scale(1.06)}
+.evidence-box{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.78);display:grid;place-items:center;padding:24px;backdrop-filter:blur(6px)}
+.evidence-box[hidden]{display:none}
+.evidence-panel{width:min(900px,100%);max-height:92vh;display:flex;flex-direction:column;background:#111418;border:1px solid rgba(255,255,255,.18);border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
+.evidence-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.12)}
+.evidence-head b{color:#fff;flex:1}
+.evidence-head a{color:var(--cyan);font-size:.82rem;white-space:nowrap}
+.evidence-head button{background:none;border:0;color:#fff;font-size:1.4rem;cursor:pointer;width:34px;height:34px;border-radius:8px}
+.evidence-head button:hover{background:rgba(255,255,255,.1)}
+.evidence-img-wrap{overflow:auto;background:#fff;text-align:center}
+.evidence-img-wrap img{max-width:100%;height:auto;display:block;margin:0 auto}
+#evidenceCaption{margin:0;padding:12px 18px 16px;color:#b9c6d2;font-size:.85rem;line-height:1.5}
 @media(max-width:1000px){.rag-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.rag-grid{grid-template-columns:1fr}}
 .rag-card{position:relative;padding:20px 18px 18px;border-radius:20px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.16)}
@@ -292,8 +306,8 @@ section.block{padding:100px 6vw}
 .fab-genie:hover:after{opacity:1}
 .kloud-mark{display:block;width:70%;height:70%;margin:auto}
 .fab-genie .kloud-mark{width:38px;height:38px}
-.fab-genie .fab-x{font-size:1.6rem;line-height:1}
-.fab-genie[aria-expanded="true"] .kloud-mark,.fab-genie[aria-expanded="false"] .fab-x{display:none}
+.fab-genie[aria-expanded="true"]{box-shadow:0 0 0 3px rgba(255,255,255,.35),0 12px 34px rgba(0,113,227,.45)}
+.fab-genie[aria-expanded="true"]:after{content:"Minimize Genie"}
 .nav-genie-head .avatar{display:grid;place-items:center}
 .nav-genie{position:fixed;right:22px;bottom:146px;z-index:61;width:min(380px,calc(100vw - 32px));max-height:min(560px,calc(100vh - 170px));display:none;flex-direction:column;
   border-radius:22px;background:rgba(10,14,22,.97);border:1px solid rgba(255,255,255,.18);box-shadow:0 26px 80px rgba(0,0,0,.6);backdrop-filter:blur(16px);overflow:hidden}
@@ -306,19 +320,19 @@ section.block{padding:100px 6vw}
 .nav-genie-tabs{display:flex;gap:6px;padding:10px 16px 0}
 .nav-genie-tabs button{flex:1;border:1px solid rgba(255,255,255,.18);background:transparent;color:#cfd8e0;border-radius:999px;padding:6px 8px;font-size:.78rem;font-weight:700;cursor:pointer}
 .nav-genie-tabs button.active{background:#0071e3;border-color:#0071e3;color:#fff}
-.nav-genie.minimized{max-height:none}
 .nav-genie-model{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 16px 0;color:#8fa3b3;font-size:.72rem}
 .nav-genie-model label{display:flex;align-items:center;gap:6px;color:#cfd8e0;font-weight:700}
 .nav-genie-model select{background:#111827;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:3px 6px;font-size:.74rem}
 .nav-genie-disclosure{padding:0 16px 10px;color:#6f8394;font-size:.66rem;line-height:1.35}
-.nav-genie.minimized>*:not(.nav-genie-head){display:none}
-.nav-genie.minimized .nav-genie-head{border-bottom:0;cursor:pointer}
 .nav-genie-chat .bubble pre{white-space:pre-wrap;background:rgba(0,0,0,.45);padding:8px 10px;border-radius:8px;font-size:.78rem;overflow:auto;margin:6px 0}
 .nav-genie-chat .bubble code{background:rgba(255,255,255,.08);padding:1px 4px;border-radius:4px;font-size:.8em}
 .nav-genie-chat{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:9px;min-height:160px}
 .nav-genie-chat .bubble{font-size:.85rem}
-.nav-genie-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
-.nav-genie-quick button,.nav-go{border:1px solid rgba(41,151,255,.6);background:rgba(41,151,255,.12);color:#fff;border-radius:999px;padding:5px 10px;font-size:.75rem;cursor:pointer}
+.nav-genie-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px;max-height:112px;overflow:auto}
+.nav-genie-quick button,.nav-go{border:1px solid rgba(41,151,255,.6);background:rgba(41,151,255,.12);color:#fff;border-radius:999px;padding:6px 10px;font-size:.75rem;cursor:pointer;text-align:left}
+.nav-genie-quick button:hover,.nav-go:hover{background:rgba(41,151,255,.3);border-color:#2997ff}
+.nav-genie-quick button:focus-visible{outline:2px solid #8bdcff;outline-offset:2px}
+.nav-genie-quick button:disabled{opacity:.5;cursor:wait}
 .nav-go{margin:6px 6px 0 0}
 .nav-genie form{display:flex;gap:8px;padding:10px 16px 16px;border-top:1px solid rgba(255,255,255,.1)}
 .nav-genie input{flex:1;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(0,0,0,.42);color:#fff;padding:9px 14px;font-size:.85rem}
@@ -671,7 +685,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <p>Run the same retrieved context through different LLMs (GPT, Claude, Llama, Mistral, Gemini and others). The
             <i>Model Tradeoff Analyst</i> agent scores capability vs. cost. Try it live in the Genie model selector.</p></div>
         <div class="rag-card"><div class="rag-num">3</div><b>🔗 Connect workflows</b>
-          <p>The WWoW hub chains agents — Consistency Review → Trial Builder → Rule Builder → CQL → Test Data — through
+          <p>The connected workflow is designed to link agents — Consistency Review → Trial Builder → Rule Builder → CQL → Test Data — through
             MCP and Apollo/Dify workflows, so one agent's output is the next one's input.</p></div>
         <div class="rag-card"><div class="rag-num">4</div><b>✅ Verify &amp; trust</b>
           <p>Every answer shows its sources, is checked against a golden question set, and still needs human review before use.
@@ -749,7 +763,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <h3>How the marketplace connects clinical and data management</h3>
       <p class="market-sub">Today the clinical team and data management hand documents back and forth by email and spreadsheet.
         In Kloud, both sides "shop" for the agent they need from one catalog — and every agent reads from and writes back to the
-        same trusted library through the WWoW hub, so one team's output is the other team's validated input.</p>
+        same trusted library through a shared orchestration layer, so one team's output can become the next team's input.</p>
       <div class="market-lanes">
         <div class="market-lane clin">
           <div class="lane-title">🩺 Clinical team</div>
@@ -757,7 +771,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <div class="lane-chips" data-lane="clin"></div>
         </div>
         <div class="market-hub">
-          <div class="hub-core">☁ WWoW hub<br><small>Trusted RAG library · shared standards · audit trail</small></div>
+          <div class="hub-core">☁ Shared orchestration<br><small>Trusted RAG library · shared standards · audit trail</small></div>
           <div class="hub-flow"><span>⇄ specs &amp; rules</span><span>⇄ clean data &amp; listings</span><span>⇄ findings &amp; queries</span></div>
         </div>
         <div class="market-lane dm">
@@ -848,7 +862,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   <div class="demo-frame-wrap" id="demoFrameWrap"></div>
 </div>
 
-<button class="fab-genie" id="fabGenie" type="button" aria-label="Open Kloud Genie navigator" aria-expanded="false"><svg class="kloud-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#fff" d="M14 38h22a9 9 0 0 0 1.6-17.86A12 12 0 0 0 14.4 17.1 10.5 10.5 0 0 0 14 38z"/><text x="25" y="33.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="17" fill="#0071e3">K</text></svg><span class="fab-x">×</span></button>
+<button class="fab-genie" id="fabGenie" type="button" aria-label="Open Kloud Genie navigator" aria-expanded="false"><svg class="kloud-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#fff" d="M14 38h22a9 9 0 0 0 1.6-17.86A12 12 0 0 0 14.4 17.1 10.5 10.5 0 0 0 14 38z"/><text x="25" y="33.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="17" fill="#0071e3">K</text></svg></button>
 <div class="nav-genie" id="navGenie" role="dialog" aria-label="Kloud Genie navigator">
   <div class="nav-genie-head">
     <div class="avatar" style="width:34px;height:34px"><svg class="kloud-mark" viewBox="0 0 48 48" aria-hidden="true"><path fill="#fff" d="M14 38h22a9 9 0 0 0 1.6-17.86A12 12 0 0 0 14.4 17.1 10.5 10.5 0 0 0 14 38z"/><text x="25" y="33.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="17" fill="#0071e3">K</text></svg></div>
@@ -885,6 +899,17 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 </div>
 <button class="sound-toggle" id="soundToggle" type="button">Sound: off</button>
 <div class="toast" id="toast"></div>
+<div class="evidence-box" id="evidenceBox" role="dialog" aria-modal="true" aria-labelledby="evidenceTitle" hidden>
+  <div class="evidence-panel">
+    <div class="evidence-head">
+      <b id="evidenceTitle">Evidence</b>
+      <a id="evidenceOpen" href="#" target="_blank" rel="noopener">Open full size ↗</a>
+      <button type="button" id="evidenceClose" aria-label="Close evidence">×</button>
+    </div>
+    <div class="evidence-img-wrap"><img id="evidenceImg" alt=""></div>
+    <p id="evidenceCaption"></p>
+  </div>
+</div>
 
 <script>
 /* ---------------- data: the agent roster (kept honest — only Clinical Trial Consistency has a real demo) ---------------- */
@@ -908,7 +933,9 @@ const AGENTS = [
     input:'Study-specific SDS and/or annotated CRF, plus a Veeva template export',
     risk:'Low — test data rarely covers every possible scenario',
     testing:'Yes', status:'Ready', statusClass:'ready', location:'Copilot',
-    demo:false },
+    demo:false,
+    evidence:{ src:'evidence/test-data-entry-generated-files.png', title:'Test data generated from the CQL listings',
+      caption:'Study 2012-0001: for every CQL listing (L01–L16) the agent generated a SHOULD_SHOW and a SHOULD_NOT_SHOW Veeva-ready CSV (subjects SCR-51xx / SCR-52xx), plus a README listing map, so each listing can be proven to return exactly the right rows. Note: opening an export in Excel and re-saving often reformats dates into an incompatible value.' } },
   { id:'cdb-tester', name:'CDB Listing Tester (Computer-Using Agent)', icon:'🖱️', tag:'Veeva CDMS automation', platform:'copilot',
     summary:'A computer-using agent connected to Veeva CDMS that reviews CDB listings, issues queries, exports listings, and enters test data.',
     input:'Access to Veeva CDMS',
@@ -1054,6 +1081,7 @@ document.querySelector('.market-explain').addEventListener('click', e=>{
 });
 grid.innerHTML = AGENTS.map(a => `
   <article class="agent-card${a.protocol ? ' protocol' : ''}" data-agent="${a.id}">
+    ${a.evidence ? `<button type="button" class="evidence-icon" data-evidence="${a.id}" title="View screenshot evidence" aria-label="View screenshot evidence for ${a.name}">📸</button>` : ''}
     <div class="icon">${a.icon}</div>
     <div class="tag">${a.tag} · ${a.location}</div>
     <h2>${a.name}</h2>
@@ -1062,6 +1090,7 @@ grid.innerHTML = AGENTS.map(a => `
       <span class="badge ${a.statusClass}">${a.status.split('—')[0].trim()}</span>
       ${a.protocol ? '<span class="badge ready">Featured · live demo</span>' : ''}
       ${a.video ? '<span class="badge ready">Video demo</span>' : ''}
+      ${a.evidence ? '<span class="badge ready">Screenshot evidence</span>' : ''}
       ${a.crossref ? '<span class="badge exp">Copilot Studio bot</span>' : ''}
     </div>
     <div class="detail" id="detail-${a.id}">
@@ -1076,7 +1105,7 @@ grid.innerHTML = AGENTS.map(a => `
     </div>
     <div class="row-btns">
       <button class="details-toggle" data-toggle="${a.id}">Details ▾</button>
-      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">${a.video ? '▶ Play Demo Video' : 'Launch Interactive Demo'}</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
+      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">${a.video ? '▶ Play Demo Video' : 'Launch Interactive Demo'}</button>` : a.evidence ? `<button class="primary-action" data-evidence="${a.id}">📸 View Evidence</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
       <button class="explore-agent" data-explore="${a.id}">Explore agent →</button>
     </div>
   </article>`).join('');
@@ -1094,6 +1123,33 @@ grid.querySelectorAll('[data-launch]').forEach(btn=>{
     openDemo(agent);
   });
 });
+
+/* screenshot evidence lightbox */
+const evidenceBox = document.getElementById('evidenceBox');
+let evidenceReturnFocus = null;
+function openEvidence(agent){
+  const ev = agent && agent.evidence; if(!ev) return;
+  evidenceReturnFocus = document.activeElement;
+  document.getElementById('evidenceTitle').textContent = `${agent.name} — ${ev.title}`;
+  const img = document.getElementById('evidenceImg');
+  img.src = ev.src; img.alt = ev.title;
+  document.getElementById('evidenceOpen').href = ev.src;
+  document.getElementById('evidenceCaption').textContent = ev.caption;
+  evidenceBox.hidden = false;
+  document.getElementById('evidenceClose').focus();
+}
+function closeEvidence(){
+  evidenceBox.hidden = true;
+  if(evidenceReturnFocus) evidenceReturnFocus.focus();
+}
+grid.addEventListener('click', e=>{
+  const b = e.target.closest('[data-evidence]'); if(!b) return;
+  e.stopPropagation();
+  openEvidence(AGENTS.find(a=>a.id===b.dataset.evidence));
+}, true);
+document.getElementById('evidenceClose').addEventListener('click', closeEvidence);
+evidenceBox.addEventListener('click', e=>{ if(e.target === evidenceBox) closeEvidence(); });
+document.addEventListener('keydown', e=>{ if(e.key === 'Escape' && !evidenceBox.hidden) closeEvidence(); });
 
 /* architecture lanes */
 const laneApollo = document.getElementById('laneApollo');
@@ -1173,19 +1229,19 @@ function formatAnswer(text){
    3) cite: every answer lists the records it used; if every LLM is down, answer from retrieval alone */
 const KNOWLEDGE = [
   ...AGENTS.map(a=>({ id:a.id, title:a.name, nav:{view:'agents', agent:a.id},
-    text:`${a.name} (${a.tag}; runs on ${a.location}). ${a.summary} Input: ${a.input}. Status: ${a.status}. Risk: ${a.risk}. Testing: ${a.testing}.${a.video ? ' A recorded video demo is on the Live Demos page.' : ''}${a.protocol ? ' A live interactive dashboard demo is on the Live Demos page.' : ''}` })),
+    text:`${a.name} (${a.tag}; runs on ${a.location}). ${a.summary} Input: ${a.input}. Status: ${a.status}. Risk: ${a.risk}. Testing: ${a.testing}.${a.video ? ' A recorded video demo is on the Live Demos page.' : ''}${a.protocol ? ' A live interactive dashboard demo is on the Live Demos page.' : ''}${a.evidence ? ' Screenshot evidence is on its Specialists card: ' + a.evidence.caption : ''}` })),
   { id:'kb-rag', title:'Trusted RAG testbed', nav:{view:'archSection', anchor:'.rag-testbed'},
     text:'Kloud is a trusted retrieval-augmented generation (RAG) system: agents answer from retrieved, approved, access-controlled sources and cite them; the LLM is never the source of truth. The prototype tests four layers independently: retrieve (central library options), generate (different LLMs), connect workflows, and verify (sources, golden question set, human review).' },
   { id:'kb-llm', title:'Testing different LLMs', nav:{view:'archSection', anchor:'.rag-testbed'},
     text:'Kloud is LLM-agnostic. The same retrieved context is run through different LLMs (for example GPT, Claude, Llama, Mistral, Gemini, Codestral) to compare accuracy, cost and latency; the Model Tradeoff Analyst agent scores capability versus cost. The Genie model selector lets you compare free LLMs live.' },
   { id:'kb-library', title:'Central library options', nav:{view:'archSection'},
     text:'Goal, not yet built: one shared, governed data and metadata library connected via MCP (Model Context Protocol) that every agent can call. Candidate library options under evaluation include Databricks, Veeva, SharePoint/M365 and Apollo knowledge bases.' },
-  { id:'kb-workflow', title:'Connected workflows and the WWoW hub', nav:{view:'archSection'},
-    text:'The WWoW hub agent orchestrates the specialists and feeds the dashboards. Real pipeline: Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Workflows connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
+  { id:'kb-workflow', title:'Connected workflows and orchestration', nav:{view:'archSection'},
+    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
   { id:'kb-arch', title:'Architecture', nav:{view:'archSection'},
     text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Mission: end to end flow to get treatment faster for patients.' },
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
-    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, CDB Listing Tester, SDTM Creation) all read from and write to one trusted RAG library through the WWoW hub, so one team\'s output becomes the other team\'s validated input. The flow is Design, Build, Standardize, Validate, Review. New agents plug into the same backbone and any study team can reuse them.' },
+    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
   { id:'kb-demos', title:'Live Demos', nav:{view:'flagship'},
     text:'Live Demos page has four demos: Clinical Trial Consistency Review dashboard (Protocol vs ICF vs CRF vs SAP vs IB), Safety & Tumor Response dashboard (synthetic data, swimmer and spider plots), CQL Harmonizer video (Mode A: Harmonize, an incompatible listing becomes acceptable) and CQL Builder video (Mode B: Construction, simple English to CQL listing).' },
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
@@ -1242,9 +1298,10 @@ function retrievalOnlyAnswer(q, docs){
 async function ragAnswer(q, {history = [], extra = '', model} = {}){
   const docs = retrieve(q);
   const choice = model || genieModelSelect.value;
-  const order = choice === 'builtin' ? [] : choice === 'auto' ? ['llm7','pollinations'] : [choice, ...Object.keys(LLM_PROVIDERS).filter(k=>k !== choice)];
+  const order = choice === 'builtin' ? [] : choice === 'auto' ? ['llm7','pollinations','llm7'] : [choice, ...Object.keys(LLM_PROVIDERS).filter(k=>k !== choice), choice];
   const messages = ragMessages(q, docs, history, extra);
-  for(const key of order){
+  for(const [n, key] of order.entries()){
+    if(n === order.length - 1 && n > 0) await new Promise(r=>setTimeout(r, 1500));
     const ctrl = new AbortController();
     const timer = setTimeout(()=>ctrl.abort(), FREE_LLM_TIMEOUT_MS);
     try{
@@ -1273,23 +1330,12 @@ let navBusy = false;
 function toggleNavGenie(open){
   const isOpen = open ?? !navGenie.classList.contains('open');
   navGenie.classList.toggle('open', isOpen);
-  if(isOpen) setNavMinimized(false);
   fabGenie.setAttribute('aria-expanded', String(isOpen));
-  fabGenie.setAttribute('aria-label', isOpen ? 'Close Kloud Genie' : 'Open Kloud Genie navigator');
+  fabGenie.setAttribute('aria-label', isOpen ? 'Minimize Kloud Genie' : 'Open Kloud Genie navigator');
   if(isOpen) setTimeout(()=>navInput.focus(), 50);
 }
-function setNavMinimized(min){
-  navGenie.classList.toggle('minimized', min);
-  const b = document.getElementById('navGenieMin');
-  b.textContent = min ? '▢' : '—';
-  b.setAttribute('aria-label', min ? 'Restore' : 'Minimize');
-  b.title = min ? 'Restore' : 'Minimize';
-  if(!min) setTimeout(()=>navInput.focus(), 50);
-}
-document.getElementById('navGenieMin').addEventListener('click', e=>{ e.stopPropagation(); setNavMinimized(!navGenie.classList.contains('minimized')); });
-document.querySelector('.nav-genie-head').addEventListener('click', e=>{
-  if(navGenie.classList.contains('minimized') && !e.target.closest('button')) setNavMinimized(false);
-});
+/* minimize tucks the panel back into the K icon; the conversation is kept for when it reopens */
+document.getElementById('navGenieMin').addEventListener('click', e=>{ e.stopPropagation(); toggleNavGenie(false); });
 
 let navMode = 'guide';
 const chatHistory = [];
@@ -1298,7 +1344,6 @@ function setNavMode(mode, announce = true){
   navMode = mode;
   const guide = mode === 'guide';
   document.querySelectorAll('.nav-genie-tabs button').forEach(x=>{ const on = x.dataset.mode === mode; x.classList.toggle('active', on); x.setAttribute('aria-selected', String(on)); });
-  document.getElementById('navGenieQuick').style.display = guide ? '' : 'none';
   navInput.placeholder = guide ? 'Ask Kloud Genie or say where to go…' : 'Ask me anything…';
   document.querySelector('#navGenieForm button').textContent = guide ? 'Ask' : 'Send';
   document.getElementById('navGenieStatus').textContent = guide ? 'Trusted Kloud library · no login' : 'Free LLM chat · no login';
@@ -1306,6 +1351,7 @@ function setNavMode(mode, announce = true){
   const builtin = genieModelSelect.querySelector('option[value=builtin]');
   builtin.disabled = !guide;
   if(!guide && genieModelSelect.value === 'builtin') genieModelSelect.value = 'auto';
+  renderGeniePrompts();
   if(announce) navBubble(guide
     ? '<b>Kloud Genie</b> mode: I answer only from the trusted Kloud library, cite my sources and can take you anywhere on the site.'
     : '<b>LLM chat</b> mode: I\'m a general, Copilot-style assistant on a free LLM — ask me to explain, draft, summarize or brainstorm. Don\'t paste patient or confidential data.', 'kloud');
@@ -1343,8 +1389,9 @@ async function freeChat(q){
     + ' Never request or repeat patient-identifiable or confidential data; remind the user this is a free public model if they share such data.';
   const messages = [{role:'system', content:system}, ...chatHistory.slice(-10), {role:'user', content:q}];
   const choice = genieModelSelect.value;
-  const order = choice === 'auto' || choice === 'builtin' ? ['llm7','pollinations'] : [choice, ...Object.keys(LLM_PROVIDERS).filter(k=>k !== choice)];
-  for(const key of order){
+  const order = choice === 'auto' || choice === 'builtin' ? ['llm7','pollinations','llm7'] : [choice, ...Object.keys(LLM_PROVIDERS).filter(k=>k !== choice), choice];
+  for(const [n, key] of order.entries()){
+    if(n === order.length - 1 && n > 0) await new Promise(r=>setTimeout(r, 1500));
     const ctrl = new AbortController();
     const timer = setTimeout(()=>ctrl.abort(), FREE_LLM_TIMEOUT_MS);
     try{
@@ -1379,6 +1426,7 @@ function goTo(nav){
     const detail = document.getElementById('detail-' + nav.agent);
     if(detail && !detail.classList.contains('open')) card.querySelector('[data-toggle]').click();
     if(card){ card.scrollIntoView({behavior:'smooth', block:'center'}); card.animate([{boxShadow:'0 0 0 3px #2997ff'},{boxShadow:'0 0 0 0 transparent'}], {duration:1800}); }
+    if(nav.evidence) setTimeout(()=>openEvidence(AGENTS.find(a=>a.id === nav.agent)), 450);
   } else if(nav.anchor){
     const el = document.querySelector(nav.anchor);
     if(el) setTimeout(()=>el.scrollIntoView({behavior:'smooth', block:'start'}), 60);
@@ -1386,6 +1434,7 @@ function goTo(nav){
 }
 
 const NAV_ROUTES = [
+  { re:/test data entry.*(evidence|screenshot)|(evidence|screenshot).*test data entry/, nav:{view:'agents', agent:'test-data-generator', evidence:true}, label:'Test Data Entry Generator screenshot evidence' },
   { re:/safety|tumou?r|swimmer|spider/, nav:{demo:'safety'}, label:'Safety & Tumor Response dashboard' },
   { re:/consistency|protocol|icf|sap\b/, nav:{demo:'protocol'}, label:'Clinical Trial Consistency Review dashboard', needsDemoWord:true },
   { re:/harmoni[sz]er|mode a/, nav:{demo:'cql-harmonizer'}, label:'CQL Harmonizer video', needsDemoWord:true },
@@ -1461,16 +1510,30 @@ document.getElementById('navGenieForm').addEventListener('submit', e=>{
   const v = navInput.value; navInput.value = '';
   askNavGenie(v);
 });
-const NAV_QUICK = [
-  ['🎬 Live demos', 'show me the demos'],
-  ['🧠 Trusted RAG', 'show the trusted RAG testbed'],
-  ['🗺️ Architecture', 'go to architecture'],
-  ['🧩 Agents', 'show the agents'],
-  ['📲 Install app', 'show install app']
-];
-document.getElementById('navGenieQuick').innerHTML = NAV_QUICK.map(([l,q])=>`<button type="button" data-q="${escapeHtml(q)}">${l}</button>`).join('');
+const GENIE_PROMPTS = {
+  guide: [
+    ['🧩 Explore the agents', 'Show me the clinical and data management agents.'],
+    ['🔗 How the marketplace connects', 'How does the clinical and data management marketplace connect?'],
+    ['📸 Test data evidence', 'Show me the screenshot evidence for Test Data Entry Generator.'],
+    ['🎬 Play CQL Harmonizer', 'Play the CQL Harmonizer video demo.']
+  ],
+  chat: [
+    ['✍️ Draft a message', 'Help me draft a clear, professional message about a project update.'],
+    ['🧠 Brainstorm ideas', 'Give me five practical ideas to make a team presentation more engaging.'],
+    ['📋 Summarize simply', 'Explain a complex topic in a short, easy-to-understand summary.'],
+    ['💡 Think it through', 'Help me compare options by listing pros, cons, and a recommendation.']
+  ]
+};
+function renderGeniePrompts(){
+  const quick = document.getElementById('navGenieQuick');
+  quick.innerHTML = GENIE_PROMPTS[navMode].map(([label,prompt])=>
+    `<button type="button" data-prompt="${escapeHtml(prompt)}">${label}</button>`
+  ).join('');
+}
+renderGeniePrompts();
 document.getElementById('navGenieQuick').addEventListener('click', e=>{
-  const b = e.target.closest('[data-q]'); if(b) askNavGenie(b.dataset.q);
+  const b = e.target.closest('[data-prompt]');
+  if(b && !navBusy){ navInput.value = ''; askNavGenie(b.dataset.prompt); }
 });
 /* ---------------- ambient generative soundtrack (Web Audio, no assets) ---------------- */
 let active=false, ctx, timer;
