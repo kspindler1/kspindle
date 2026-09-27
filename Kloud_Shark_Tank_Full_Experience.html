@@ -324,6 +324,9 @@ section.block{padding:100px 6vw}
 .nav-genie-model label{display:flex;align-items:center;gap:6px;color:#cfd8e0;font-weight:700}
 .nav-genie-model select{background:#111827;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:3px 6px;font-size:.74rem}
 .nav-genie-disclosure{padding:0 16px 10px;color:#6f8394;font-size:.66rem;line-height:1.35}
+.nav-genie-disclosure strong{color:#ffd60a}
+.site-disclaimer{padding:16px max(6vw,24px) 20px;text-align:center;background:#08090b;border-top:1px solid rgba(255,255,255,.12);color:#85858b;font-size:.72rem;line-height:1.55}
+.site-disclaimer strong{color:#c7c7cc}
 .nav-genie-chat .bubble pre{white-space:pre-wrap;background:rgba(0,0,0,.45);padding:8px 10px;border-radius:8px;font-size:.78rem;overflow:auto;margin:6px 0}
 .nav-genie-chat .bubble code{background:rgba(255,255,255,.08);padding:1px 4px;border-radius:4px;font-size:.8em}
 .nav-genie-chat{flex:1;overflow:auto;padding:14px 16px;display:flex;flex-direction:column;gap:9px;min-height:160px}
@@ -907,15 +910,20 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <span id="navGenieModeHint">Trusted answers from the Kloud library, with sources</span>
   </div>
   <div class="nav-genie-chat" id="navGenieChat">
-    <div class="bubble kloud">Hi, I'm Kloud Genie. In <b>Kloud Genie</b> mode I answer from the trusted Kloud library with sources and take you anywhere on the site. Try "show me the demos", "play the CQL Builder video", or ask what an agent does. Switch to <b>LLM chat</b> for a free, Copilot-style assistant that can help with anything.</div>
+    <div class="bubble kloud"><b>Sample / prototype only.</b> This demonstration is not a production system and is not approved for clinical or operational decisions. Do not enter patient-identifiable, confidential, or other non-public information. In <b>Kloud Genie</b> mode I answer from the demo's sample library with sources and can guide you around the site. Switch to <b>LLM chat</b> for a free general assistant; prompts may be sent to an external public LLM provider.</div>
   </div>
   <div class="nav-genie-quick" id="navGenieQuick"></div>
   <form id="navGenieForm">
     <input id="navGenieInput" type="text" placeholder="Ask Kloud Genie or say where to go…" autocomplete="off">
     <button type="submit">Ask</button>
   </form>
-  <div class="nav-genie-disclosure">Prototype: questions go to a free public LLM (LLM7.io or Pollinations.ai). Don't enter patient-identifiable or confidential data.</div>
+  <div class="nav-genie-disclosure"><strong>Sample / prototype only.</strong> Don't enter patient-identifiable, confidential, or other non-public data. LLM chat sends prompts to free public providers (LLM7.io or Pollinations.ai).</div>
 </div>
+<footer class="site-disclaimer">
+  <strong>Sample / prototype only — not a production system or approved for clinical or operational decisions.</strong>
+  Demo content and outputs may be incomplete or synthetic and require qualified human review. Do not enter patient-identifiable,
+  confidential, or other non-public information. LLM chat sends prompts to external public providers; use only non-sensitive sample data.
+</footer>
 <button class="sound-toggle" id="soundToggle" type="button">Sound: off</button>
 <div class="toast" id="toast"></div>
 <div class="evidence-box" id="evidenceBox" role="dialog" aria-modal="true" aria-labelledby="evidenceTitle" hidden>
