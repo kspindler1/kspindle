@@ -1,0 +1,22 @@
+name = "kloud-genie-api"
+main = "src/index.js"
+compatibility_date = "2026-09-25"
+workers_dev = true
+
+[vars]
+ALLOWED_ORIGIN = "https://kspindler1.github.io"
+TURNSTILE_HOSTNAME = "kspindler1.github.io"
+TURNSTILE_SITE_KEY = "REPLACE_WITH_PUBLIC_TURNSTILE_SITE_KEY"
+LLM_PROVIDER = "cloudflare-workers-ai"
+LLM_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+
+[ai]
+binding = "AI"
+
+[[durable_objects.bindings]]
+name = "USAGE_LIMITER"
+class_name = "UsageLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["UsageLimiter"]

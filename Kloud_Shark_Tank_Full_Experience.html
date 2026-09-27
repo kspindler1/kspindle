@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -14,6 +14,7 @@
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="icon" href="icon-192.png" type="image/png">
 <script src="qrcode-lib.js"></script>
+<script src="kloud-config.js"></script>
 <style>
 /* ---- requested base styling ---- */
 a{ text-decoration:none; color:#464feb; }
@@ -303,6 +304,9 @@ section.block{padding:100px 6vw}
 .composer{display:flex;gap:9px;padding:14px 20px 20px}
 .composer input{flex:1;border-radius:999px;border:1px solid #ffffff25;background:#061826;color:#fff;padding:11px 16px}
 .composer button{border:1px solid var(--cyan);background:linear-gradient(135deg,#02999d,#2665c3);color:#fff;border-radius:999px;padding:0 18px;font-weight:800}
+.composer button:disabled{opacity:.5;cursor:not-allowed;filter:saturate(.45)}
+.turnstile-wrap{display:flex;justify-content:center;min-height:65px;padding:4px 20px}
+.turnstile-status{font-size:.75rem;color:var(--muted);text-align:center;margin:0 20px 10px}
 .disclosure{font-size:.72rem;color:#8fb1c5;text-align:center;padding:0 20px 16px}
 
 /* genie connector status + connect modal */
@@ -346,6 +350,10 @@ section.block{padding:100px 6vw}
 .demo-bar .back:hover{background:#ffffff1c}
 .demo-frame-wrap{flex:1;position:relative;background:#000}
 .demo-frame-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.demo-video-stage{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;overflow:auto}
+.demo-video-stage video{max-width:min(1280px,100%);max-height:calc(100% - 90px);width:auto;border-radius:14px;background:#000;box-shadow:0 20px 60px #0009}
+.demo-video-stage .caption{max-width:1100px;color:#cfe6f0;font-size:.9rem;line-height:1.5;text-align:center}
+.demo-video-stage .caption b{color:#fff}
 .demo-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);flex-direction:column;gap:10px;text-align:center;padding:20px}
 
 .toast{position:fixed;left:50%;bottom:78px;transform:translate(-50%,120px);padding:12px 18px;border-radius:12px;background:#0b3049;border:1px solid var(--cyan);transition:.25s;z-index:70;font-size:.88rem}
@@ -491,9 +499,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <div>
         <div class="eyebrow-pill"><span class="dot">🗺️</span>THE ARCHITECTURE</div>
         <h2>Fourteen agents.<br>One shared <span>backbone</span>.</h2>
-        <p>This is Kelsey's real agent inventory, not a hypothetical roster — each one built as a proof of concept
-          on Apollo Studio or Microsoft Copilot Studio, at a real status from experimental to published. The
-          dashed tier below is the stated next step, not something already built.</p>
+        <p>End to End flow to get treatment faster for patients. For the people, for the patients.</p>
       </div>
     </div>
 
@@ -577,7 +583,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <div>
         <div class="eyebrow-pill"><span class="dot">🎬</span>LIVE DEMOS</div>
         <h2>See Kloud agents<br>at <span style="color:var(--cyan)">work</span>.</h2>
-        <p>Real, interactive demos — not scripted walkthroughs. Click either card below to launch it.</p>
+        <p>Two live, interactive dashboards plus two recorded agent demos from the Clinical Data Agents overview. Click any card to launch it.</p>
       </div>
     </div>
     <div class="demo-grid">
@@ -602,6 +608,26 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <button class="outline-pill" data-jump="genieSection">Ask Kloud Genie about it</button>
         </div>
       </article>
+      <article class="demo-card">
+        <div class="eyebrow-pill"><span class="dot">📐</span>CQL HARMONIZER · VIDEO DEMO</div>
+        <h3>Mode A: Harmonize</h3>
+        <p>An incompatible CDB listing copied from another trial becomes an acceptable listing for the new trial —
+          variable names are harmonized against the new trial's SDS and annotated CRF. Recorded on Apollo.</p>
+        <div class="cta-row">
+          <button class="white-pill" data-video-demo="cql-harmonizer">▶ Play Demo Video</button>
+          <button class="outline-pill" data-jump="genieSection">Ask Kloud Genie about it</button>
+        </div>
+      </article>
+      <article class="demo-card">
+        <div class="eyebrow-pill"><span class="dot">🧱</span>CQL BUILDER · VIDEO DEMO</div>
+        <h3>Mode B: Construction</h3>
+        <p>Simple English in, CQL listing out — a new CDB listing is constructed from a plain-language request plus the
+          study's specification and annotated CRF. Recorded on Apollo.</p>
+        <div class="cta-row">
+          <button class="white-pill" data-video-demo="cql-builder">▶ Play Demo Video</button>
+          <button class="outline-pill" data-jump="genieSection">Ask Kloud Genie about it</button>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -612,6 +638,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <h2>Fourteen agents.<br>One <span>marketplace</span>.</h2>
         <p>Every agent Kelsey has actually built, shown with real scope, inputs, risk level and status — nothing
           here is faked. Click a card for the full spec. Clinical Trial Consistency Review has a live interactive demo;
+          CQL Harmonizer and CQL Builder have recorded video demos;
           Patient Story Teller is a real Copilot Studio bot; the rest are honestly labeled by their real status.</p>
       </div>
     </div>
@@ -623,16 +650,15 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="feature feature-cyan">
       <div class="eyebrow-pill"><span class="dot">☁</span>ASK KLOUD</div>
       <h2>Meet the <span style="color:var(--cyan)">Kloud Genie</span>.</h2>
-      <p class="lede">Ask about any agent, the architecture, or anything else — Kloud Genie answers for real, via
-        Claude (Anthropic API), grounded in the actual agent roster. No canned scripts.</p>
+      <p class="lede">Ask about any agent, the architecture, or anything else — Kloud Genie answers with a free, open AI model
+      (no login, no key) grounded in the actual agent roster. If the free model is busy, Genie answers instantly from the built-in roster.</p>
       <div class="genie-shell">
         <div class="genie-head">
           <div class="avatar">☁</div>
           <div><b>Kloud Genie</b><div class="status">● Ready to help</div></div>
         </div>
         <div class="genie-connector-bar">
-          <span class="status-pill" id="claudeStatusBadge">Checking…</span>
-          <button class="connect-claude-btn" id="openConnectModal">Connect Claude</button>
+          <span class="status-pill" id="genieStatusBadge">Connecting to free AI…</span>
         </div>
         <div class="chat" id="genieChat">
           <div class="bubble kloud">Hi, I'm Kloud. Ask me anything about the fourteen agents, the architecture, or drop a file below to see how routing works — I'll answer for real, not from a script.</div>
@@ -644,28 +670,16 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <input type="file" id="fileInput" multiple style="display:none">
         </div>
         <div class="filechips" id="fileChips"></div>
+        <div class="turnstile-wrap" id="genieTurnstile" hidden></div>
+        <p class="turnstile-status" id="turnstileStatus">No login needed — just type a question.</p>
         <div class="composer">
           <input type="text" id="genieInput" placeholder="Ask about an agent, e.g. &quot;protocol consistency&quot;">
-          <button id="genieSend">Ask</button>
+          <button id="genieSend" disabled>Ask</button>
         </div>
-        <div class="disclosure">Kloud Genie calls Claude (Anthropic API) through the same local connector server as the Clinical Trial Consistency dashboard — grounded in the real roster JSON, never inventing agents or facts.</div>
+        <div class="disclosure">Prototype: your question and the public Kloud agent roster are sent to a free third-party AI service (Pollinations.ai). Do not enter patient-identifiable, confidential, or regulated data.</div>
       </div>
     </div>
   </section>
-
-  <div class="modal-overlay" id="connectModal">
-    <div class="modal-card">
-      <h3>Connect Claude (Anthropic API)</h3>
-      <p>Kloud Genie calls Claude through a small local connector server (the same one used by the Clinical Trial Consistency dashboard) running at <code>localhost:8787</code>. Your API key is sent once to that local process and held only in its memory — it is never written to this page, to disk, or to browser storage.</p>
-      <label>API key<input type="password" id="cf_apiKey" placeholder="sk-ant-..." autocomplete="off"></label>
-      <label>Model <small>(optional — defaults to claude-sonnet-5)</small><input type="text" id="cf_model" placeholder="claude-sonnet-5" autocomplete="off"></label>
-      <div class="modal-actions">
-        <button class="secondary" id="cancelConnect">Cancel</button>
-        <button class="primary" id="submitConnect">Connect</button>
-      </div>
-      <div class="modal-msg" id="connectMsg"></div>
-    </div>
-  </div>
 
   <section class="block reveal subview" id="visionSection">
     <div class="head">
@@ -745,13 +759,15 @@ const AGENTS = [
     input:'Original CDB listing, SDS from the new trial, annotated CRF',
     risk:'Low — code will only appear compatible; output still requires review',
     testing:'Tested in 3+ studies', status:'Ready for use', statusClass:'ready', location:'Apollo',
-    demo:false },
+    demo:true, video:'demos/cql-harmonizer-mode-a.mp4', videoTitle:'CQL Harmonizer — Mode A: Harmonize',
+    videoCaption:'<b>Mode A: Harmonize</b> — an incompatible listing becomes acceptable for the new trial.' },
   { id:'cql-builder', name:'CQL Builder', icon:'🧱', tag:'CDB listing creation', platform:'both',
     summary:"Creates a new CDB listing from a study's specification and/or annotated CRF.",
     input:'Study-specific SDS and/or annotated CRF',
     risk:"Low — user must understand what's needed and review the output",
     testing:'Yes', status:'Working — may be folded into CQL Harmonizer', statusClass:'testing', location:'Copilot and Apollo (Apollo preferred)',
-    demo:false },
+    demo:true, video:'demos/cql-builder-mode-b.mp4', videoTitle:'CQL Builder — Mode B: Construction',
+    videoCaption:'<b>Mode B: Construction</b> — simple English in, CQL listing out.' },
   { id:'test-data-generator', name:'Test Data Entry Generator', icon:'🧪', tag:'SDTM validation', platform:'copilot',
     summary:'Creates test data for testing rules or SDTM programming from a study specification and CRF.',
     input:'Study-specific SDS and/or annotated CRF, plus a Veeva template export',
@@ -878,6 +894,9 @@ document.getElementById('backToExperience').addEventListener('click', ()=>{
 });
 document.getElementById('flagshipLaunch').addEventListener('click', ()=>openDemo(AGENTS.find(a=>a.id==='protocol')));
 document.getElementById('safetyLaunch').addEventListener('click', ()=>openDemo({name:'Safety & Tumor Response Dashboard'}, DEMO_URL_SAFETY));
+document.querySelectorAll('[data-video-demo]').forEach(btn=>{
+  btn.addEventListener('click', ()=>openDemo(AGENTS.find(a=>a.id===btn.dataset.videoDemo)));
+});
 
 /* ---------------- agent catalog: every agent, always visible, no hidden scrolling ---------------- */
 const grid = document.getElementById('agentGrid');
@@ -890,6 +909,7 @@ grid.innerHTML = AGENTS.map(a => `
     <div class="badges">
       <span class="badge ${a.statusClass}">${a.status.split('—')[0].trim()}</span>
       ${a.protocol ? '<span class="badge ready">Featured · live demo</span>' : ''}
+      ${a.video ? '<span class="badge ready">Video demo</span>' : ''}
       ${a.crossref ? '<span class="badge exp">Copilot Studio bot</span>' : ''}
     </div>
     <div class="detail" id="detail-${a.id}">
@@ -904,7 +924,7 @@ grid.innerHTML = AGENTS.map(a => `
     </div>
     <div class="row-btns">
       <button class="details-toggle" data-toggle="${a.id}">Details ▾</button>
-      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">Launch Interactive Demo</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
+      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">${a.video ? '▶ Play Demo Video' : 'Launch Interactive Demo'}</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
       <button class="explore-agent" data-explore="${a.id}">Explore agent →</button>
     </div>
   </article>`).join('');
@@ -929,9 +949,31 @@ const laneCopilot = document.getElementById('laneCopilot');
 laneApollo.innerHTML = AGENTS.filter(a=>a.platform==='apollo'||a.platform==='both').map(a=>`<li><b>${a.icon} ${a.name}</b> — ${a.tag}</li>`).join('');
 laneCopilot.innerHTML = AGENTS.filter(a=>a.platform==='copilot'||a.platform==='both').map(a=>`<li><b>${a.icon} ${a.name}</b> — ${a.tag}</li>`).join('');
 
+const VIDEO_TRIAGE_NOTE = 'Mismatch triage: listing wrong → fix the CQL · data wrong → Scenario B revision and re-import · specification wrong → back to the CRF spec.';
+
 function openDemo(agent, url = DEMO_URL){
-  document.getElementById('demoTitle').textContent = agent.name + ' — Interactive Demo';
   const wrap = document.getElementById('demoFrameWrap');
+  wrap.querySelectorAll('video').forEach(v=>{ v.pause(); v.removeAttribute('src'); v.load(); });
+  if(agent.video){
+    document.getElementById('demoTitle').textContent = agent.videoTitle + ' — Demo Video';
+    wrap.innerHTML = `<div class="demo-video-stage">
+      <video controls autoplay playsinline preload="metadata" title="${escapeHtml(agent.videoTitle)}">
+        <source src="${agent.video}" type="video/mp4">
+      </video>
+      <div class="caption">${agent.videoCaption}<br>${VIDEO_TRIAGE_NOTE}</div>
+    </div>`;
+    const video = wrap.querySelector('video');
+    const sources = wrap.querySelectorAll('source');
+    sources[sources.length - 1].addEventListener('error', ()=>{
+      wrap.querySelector('.caption').insertAdjacentHTML('afterbegin',
+        `<b>This browser couldn't play the video.</b> <a href="${agent.video}" target="_blank" rel="noopener" style="color:var(--cyan)">Open it directly</a> or try Edge/Chrome.<br>`);
+    });
+    video.play().catch(()=>{});
+    showPage('demo');
+    showToast('Playing the ' + agent.name + ' demo video.');
+    return;
+  }
+  document.getElementById('demoTitle').textContent = agent.name + ' — Interactive Demo';
   wrap.innerHTML = `<iframe src="${url}" title="${agent.name} interactive demo"></iframe>`;
   showPage('demo');
   showToast('Opening the live ' + agent.name + ' dashboard.');
@@ -948,13 +990,23 @@ const revealObserver = (()=>{
 })();
 revealObserver.check();
 
-/* ---------------- Kloud Genie: scripted concierge (deterministic, not a live model) ---------------- */
+/* ---------------- Kloud Genie: hosted-model concierge ---------------- */
 const chat = document.getElementById('genieChat');
 const chips = document.getElementById('genieChips');
 chips.innerHTML = AGENTS.map(a=>`<button data-ask="${a.id}">${a.icon} ${a.name}</button>`).join('')
-  + `<button data-ask="protocol-launch">🚀 Launch Clinical Trial Consistency demo</button>`;
+  + `<button data-ask="protocol-launch">🚀 Launch Clinical Trial Consistency demo</button>`
+  + `<button data-ask="video-cql-harmonizer">🎬 Play CQL Harmonizer video</button>`
+  + `<button data-ask="video-cql-builder">🎬 Play CQL Builder video</button>`;
 
-const STATUS_BASE = 'http://localhost:8787';
+const GENIE_API_BASE = String(window.KLOUD_API_URL || '').trim().replace(/\/+$/, '');
+const genieSend = document.getElementById('genieSend');
+const turnstileStatus = document.getElementById('turnstileStatus');
+let turnstileWidgetId = null;
+let turnstileToken = '';
+let turnstileScriptLoading = false;
+let turnstileSiteKey = '';
+let genieServiceReady = false;
+let genieBusy = false;
 
 function escapeHtml(s){
   return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -972,120 +1024,221 @@ function pushBubble(text, who){
   return div;
 }
 
-/* Kloud Genie's real brain: Claude (Anthropic API), called through the local
-   connector server, grounded in the actual agent roster JSON below. */
-const KLOUD_PERSONA = `You are Kloud Genie, the concierge for a real internal AI agent roster ("Kelsey's Bot Army") at a pharmaceutical company's clinical operations group. You are embedded in a pitch/demo site called Kloud.
+function updateGenieSendState(){
+  genieSend.disabled = genieBusy || (genieMode === 'hosted' && (!genieServiceReady || !turnstileToken));
+}
 
-Rules:
-- Ground every specific claim about an agent (its purpose, inputs, risk, status, or location) in the ROSTER JSON given as context — never invent an agent, a status, or a capability that isn't in it.
-- If asked something the roster JSON doesn't cover, say so plainly rather than guessing.
-- The "Databricks via MCP" central library is explicitly a GOAL that is NOT yet built — always describe it that way if it comes up, never as something already working.
-- You may reason and give opinions or recommendations beyond the roster (e.g. "which agent should I use for X", or general clinical-ops advice) as long as you don't fabricate facts about a specific agent's real-world status.
-- Keep answers concise and in Kloud's voice ("because the sky's the limit") — a short paragraph or a tight list, not a wall of text.`;
-
-function rosterContext(){
-  return {
-    agents: AGENTS.map(({id,name,tag,summary,input,risk,testing,status,location,platform})=>
-      ({id,name,tag,summary,input,risk,testing,status,location,platform})),
-    architecture: {
-      sourceSystems: ['Veeva Vault & CDMS','Protocol / ICF / IB / CRF / SAP documents','SharePoint & project plans'],
-      centralLibraryGoal: 'e.g., Veeva, Databricks — connected via MCP (Model Context Protocol) — NOT YET BUILT, this is the stated next step, not current reality.',
-      platformsToday: ['Apollo Studio (Dify)', 'Microsoft Copilot / Copilot Studio'],
-      frontDoor: 'Kloud Genie routes requests to the right agent on the right platform.'
+function renderTurnstileWidget(){
+  if(!window.turnstile || !turnstileSiteKey || turnstileWidgetId !== null) return;
+  turnstileWidgetId = window.turnstile.render(document.getElementById('genieTurnstile'), {
+    sitekey: turnstileSiteKey,
+    action: 'kloud-genie',
+    theme: 'dark',
+    callback: token=>{
+      turnstileToken = token;
+      turnstileStatus.textContent = 'Verification complete. You can send one question.';
+      updateGenieSendState();
+    },
+    'expired-callback': ()=>{
+      turnstileToken = '';
+      turnstileStatus.textContent = 'Verification expired. Complete the check to send a question.';
+      updateGenieSendState();
+    },
+    'error-callback': ()=>{
+      turnstileToken = '';
+      turnstileStatus.textContent = 'Verification could not load. Refresh and try again.';
+      updateGenieSendState();
     }
+  });
+}
+
+function loadTurnstile(siteKey){
+  turnstileSiteKey = siteKey;
+  if(window.turnstile){
+    renderTurnstileWidget();
+    return;
+  }
+  if(turnstileScriptLoading) return;
+  turnstileScriptLoading = true;
+  const script = document.createElement('script');
+  script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+  script.async = true;
+  script.defer = true;
+  script.onload = ()=>{
+    turnstileScriptLoading = false;
+    renderTurnstileWidget();
   };
+  script.onerror = ()=>{
+    turnstileScriptLoading = false;
+    turnstileStatus.textContent = 'Verification could not load. Refresh and try again.';
+  };
+  document.head.appendChild(script);
 }
 
-function connectorErrorBubble(reason){
-  const offline = reason === 'offline';
-  const body = offline
-    ? `Kloud Genie couldn't reach its local connector server at <code>localhost:8787</code>. Run <code>npm start</code> in <code>mcp-server/</code> (see <code>mcp-server/README.md</code>), then try again.`
-    : `Claude didn't answer: ${escapeHtml(reason)}`;
-  return `${body}<br><button type="button" class="connect-inline" data-connect-claude>Connect Claude</button>`;
+/* Genie modes: 'hosted' = optional Cloudflare Worker (kloud-config.js), 'free' = free no-key public LLM
+   called straight from the browser, 'builtin' = instant roster-grounded answers when the free LLM is busy. */
+const FREE_LLM_URL = 'https://text.pollinations.ai/';
+const FREE_LLM_TIMEOUT_MS = 20000;
+const FREE_LLM_MIN_GAP_MS = 3000;
+let genieMode = GENIE_API_BASE ? 'hosted' : 'free';
+let lastFreeCall = 0;
+const genieHistory = [];
+
+function setGenieBadge(text, cls){
+  const badge = document.getElementById('genieStatusBadge');
+  badge.textContent = text;
+  badge.className = 'status-pill ' + cls;
 }
 
-async function refreshClaudeStatus(){
-  const badge = document.getElementById('claudeStatusBadge');
+function useFreeMode(){
+  genieMode = 'free';
+  genieServiceReady = true;
+  document.getElementById('genieTurnstile').hidden = true;
+  setGenieBadge('Free AI · no login', 'ok');
+  turnstileStatus.textContent = 'No login needed — just type a question.';
+  updateGenieSendState();
+}
+
+async function refreshGenieStatus(){
+  if(genieMode !== 'hosted'){ useFreeMode(); return true; }
   try{
-    const res = await fetch(`${STATUS_BASE}/status`, {cache:'no-store'});
-    if(!res.ok) throw new Error('bad status');
+    const res = await fetch(`${GENIE_API_BASE}/status`, {cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
-    const ok = Boolean(data.anthropic && data.anthropic.configured);
-    badge.textContent = ok ? 'Claude connected' : 'Claude not connected';
-    badge.className = 'status-pill ' + (ok ? 'ok' : 'warn');
-    return ok;
+    if(!(data.available && data.turnstileSiteKey)) throw new Error('unavailable');
+    genieServiceReady = true;
+    document.getElementById('genieTurnstile').hidden = false;
+    setGenieBadge(data.provider ? `${data.provider} ready` : 'AI service ready', 'ok');
+    turnstileStatus.textContent = 'Complete the anti-bot check to send one question.';
+    loadTurnstile(data.turnstileSiteKey);
+    updateGenieSendState();
+    return true;
   }catch(err){
-    badge.textContent = 'Local connector offline';
-    badge.className = 'status-pill off';
-    return false;
+    useFreeMode();
+    return true;
   }
 }
-refreshClaudeStatus();
 
-function openConnectModal(){
-  document.getElementById('connectModal').classList.add('show');
-  document.getElementById('connectMsg').textContent = '';
+function buildGenieSystemPrompt(){
+  const roster = AGENTS.map(a=>`- ${a.name} [${a.status.split('—')[0].trim()}; ${a.location}]: ${a.summary}${a.video ? ' (video demo on site)' : ''}${a.protocol ? ' (live interactive demo on site)' : ''}`).join('\n');
+  return `You are Kloud Genie, the concierge for Kloud, Kelsey Spindler's marketplace of clinical data engineering agents at Boehringer Ingelheim (ExpMED D&A). `
+    + `Architecture: source systems (for example Veeva, Databricks) feed specialist agents on Apollo (Dify) and Microsoft Copilot; a WWoW Hub agent orchestrates them and feeds dashboards; the goal is one shared, governed knowledge library via MCP on Databricks. `
+    + `Every output still requires human review. Mission: end to end flow to get treatment faster for patients. `
+    + `Answer in at most 5 short sentences, plain text, no markdown tables. Only use facts from this roster; if unsure, say so. Never ask for or repeat patient data.\n`
+    + `Agents:\n${roster}`;
 }
-function closeConnectModal(){ document.getElementById('connectModal').classList.remove('show'); }
-document.getElementById('openConnectModal').addEventListener('click', openConnectModal);
-document.getElementById('cancelConnect').addEventListener('click', closeConnectModal);
-document.getElementById('connectModal').addEventListener('click', e=>{ if(e.target.id==='connectModal') closeConnectModal(); });
-chat.addEventListener('click', e=>{ if(e.target.closest('[data-connect-claude]')) openConnectModal(); });
 
-document.getElementById('submitConnect').addEventListener('click', async ()=>{
-  const apiKey = document.getElementById('cf_apiKey').value.trim();
-  const model = document.getElementById('cf_model').value.trim();
-  const msg = document.getElementById('connectMsg');
-  if(!apiKey){ msg.textContent = 'API key is required.'; return; }
-  msg.textContent = 'Connecting…';
+function cleanFreeAnswer(text){
+  return String(text || '')
+    .replace(/\n+-{3,}[\s\S]*?(pollinations|sponsor|\bad\b)[\s\S]*$/i, '')
+    .replace(/🌸[\s\S]*$/u, '')
+    .trim();
+}
+
+async function askFreeLlm(q){
+  const wait = FREE_LLM_MIN_GAP_MS - (Date.now() - lastFreeCall);
+  if(wait > 0) await new Promise(r=>setTimeout(r, wait));
+  lastFreeCall = Date.now();
+  const recent = genieHistory.slice(-4).map(h=>`${h.role === 'user' ? 'User' : 'Genie'}: ${h.text}`).join('\n');
+  const prompt = (recent ? `Conversation so far:\n${recent}\n\n` : '') + `User: ${q}`;
+  const url = `${FREE_LLM_URL}${encodeURIComponent(prompt.slice(0, 1500))}?model=openai&private=true&system=${encodeURIComponent(buildGenieSystemPrompt())}`;
+  const ctrl = new AbortController();
+  const timer = setTimeout(()=>ctrl.abort(), FREE_LLM_TIMEOUT_MS);
   try{
-    const res = await fetch(`${STATUS_BASE}/connect/anthropic`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ apiKey, model: model || undefined })
-    });
-    const data = await res.json().catch(()=>({}));
-    if(data.connected){
-      msg.textContent = data.message || 'Connected.';
-      await refreshClaudeStatus();
-      setTimeout(closeConnectModal, 900);
-    } else {
-      msg.textContent = data.message || 'Could not connect — check the API key.';
-    }
-  }catch(err){
-    msg.textContent = `Couldn't reach localhost:8787. Run "npm start" in mcp-server/ first (see mcp-server/README.md).`;
+    const res = await fetch(url, {signal: ctrl.signal, cache:'no-store'});
+    if(!res.ok) throw new Error(`HTTP ${res.status}`);
+    const text = cleanFreeAnswer(await res.text());
+    if(!text || /^\s*[{<]/.test(text)) throw new Error('empty');
+    return text;
+  } finally {
+    clearTimeout(timer);
   }
-});
+}
+
+function builtinGenieAnswer(q){
+  const s = q.toLowerCase();
+  const words = s.split(/[^a-z0-9]+/).filter(w=>w.length > 2 && !['the','and','what','does','about','tell','for','how','can','you','with','agent','agents','kloud'].includes(w));
+  if(/\b(architecture|hub|wwow|mcp|databricks|veeva|flow|connect)/.test(s)){
+    return 'Kloud connects source systems (for example Veeva and Databricks) to specialist agents on Apollo (Dify) and Microsoft Copilot. The WWoW Hub agent orchestrates them and feeds the dashboards, and the goal is one shared, governed knowledge library via MCP on Databricks. Every output still gets human review.';
+  }
+  if(/\b(demo|video|show me|watch)/.test(s)){
+    return 'Live Demos has four: the Clinical Trial Consistency Review dashboard, the Safety & Tumor Response dashboard, and two recorded videos — CQL Harmonizer (Mode A: Harmonize) and CQL Builder (Mode B: Construction).';
+  }
+  let best = null, bestScore = 0;
+  AGENTS.forEach(a=>{
+    const hay = `${a.name} ${a.tag} ${a.summary} ${a.id}`.toLowerCase();
+    let score = s.includes(a.name.toLowerCase()) ? 10 : 0;
+    words.forEach(w=>{ if(hay.includes(w)) score += 1; });
+    if(score > bestScore){ best = a; bestScore = score; }
+  });
+  if(best){
+    return `${best.icon} ${best.name} (${best.location}) — ${best.summary} Input: ${best.input}. Status: ${best.status}. Risk: ${best.risk}.${best.video ? ' There is a demo video under Live Demos.' : ''}${best.protocol ? ' Try the live interactive demo under Live Demos.' : ''}`;
+  }
+  return `Kloud has ${AGENTS.length} agents: ${AGENTS.map(a=>a.name).join(', ')}. Ask about any of them by name.`;
+}
 
 async function askGenie(raw){
   const q = (raw||'').trim();
-  if(!q) return;
+  if(!q || genieBusy) return;
+  if(genieMode === 'hosted' && !turnstileToken){
+    pushBubble(escapeHtml(q), 'user');
+    pushBubble('Complete the anti-bot verification above before asking Kloud Genie.', 'kloud');
+    return;
+  }
   pushBubble(escapeHtml(q), 'user');
   const thinking = pushBubble('<i>Thinking…</i>', 'kloud thinking');
+  genieBusy = true;
+  updateGenieSendState();
+  let answer = '';
+  let source = '';
   try{
-    const res = await fetch(`${STATUS_BASE}/anthropic/chat`, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ message: q, context: rosterContext(), persona: KLOUD_PERSONA })
-    });
-    const data = await res.json().catch(()=>({}));
-    thinking.classList.remove('thinking');
-    if(!res.ok){
-      thinking.innerHTML = connectorErrorBubble(data.error || `HTTP ${res.status}`);
-      return;
+    if(genieMode === 'hosted'){
+      const challengeToken = turnstileToken;
+      turnstileToken = '';
+      const res = await fetch(`${GENIE_API_BASE}/llm/chat`, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ message: q, turnstileToken: challengeToken })
+      });
+      const data = await res.json().catch(()=>({}));
+      if(!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
+      answer = data.text;
+    } else {
+      answer = await askFreeLlm(q);
+      setGenieBadge('Free AI · no login', 'ok');
     }
-    thinking.innerHTML = formatAnswer(data.text);
   }catch(err){
+    answer = builtinGenieAnswer(q);
+    source = 'Answered from the built-in Kloud roster (the free AI model was busy).';
+    if(genieMode !== 'hosted') setGenieBadge('Built-in answers · free AI busy', 'warn');
+  }finally{
     thinking.classList.remove('thinking');
-    thinking.innerHTML = connectorErrorBubble('offline');
+    thinking.innerHTML = formatAnswer(answer) + (source ? `<br><small style="opacity:.7">${escapeHtml(source)}</small>` : '');
+    genieHistory.push({role:'user', text:q}, {role:'genie', text:answer});
+    genieBusy = false;
+    if(genieMode === 'hosted'){
+      if(window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+      turnstileToken = '';
+      turnstileStatus.textContent = 'Complete the anti-bot check to send your next question.';
+    }
+    updateGenieSendState();
+    chat.scrollTop = chat.scrollHeight;
   }
-  chat.scrollTop = chat.scrollHeight;
 }
+refreshGenieStatus();
 
 document.getElementById('genieSend').addEventListener('click', ()=>{
   const input = document.getElementById('genieInput');
-  askGenie(input.value); input.value='';
+  const message = input.value;
+  input.value='';
+  askGenie(message);
 });
 document.getElementById('genieInput').addEventListener('keydown', e=>{
-  if(e.key==='Enter'){ askGenie(e.target.value); e.target.value=''; }
+  if(e.key==='Enter'){
+    e.preventDefault();
+    const message = e.target.value;
+    e.target.value='';
+    askGenie(message);
+  }
 });
 chips.addEventListener('click', e=>{
   const btn = e.target.closest('button[data-ask]'); if(!btn) return;
@@ -1093,6 +1246,10 @@ chips.addEventListener('click', e=>{
     pushBubble('Launch Clinical Trial Consistency demo', 'user');
     pushBubble("Opening the real dashboard now.", 'kloud');
     openDemo(AGENTS.find(a=>a.id==='protocol'));
+    return;
+  }
+  if(btn.dataset.ask.startsWith('video-')){
+    openDemo(AGENTS.find(a=>a.id===btn.dataset.ask.slice(6)));
     return;
   }
   const agent = AGENTS.find(a=>a.id===btn.dataset.ask);
