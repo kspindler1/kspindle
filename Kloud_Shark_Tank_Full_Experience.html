@@ -1693,11 +1693,13 @@ document.querySelectorAll('[data-jump]').forEach(function(b){b.addEventListener(
 JOURNEY.forEach(function(id,i){var s=document.getElementById(id);var c=document.createElement('div');c.className='journey-controls';c.innerHTML='<button type="button" class="journey-prev" '+(i===0?'style="visibility:hidden"':'')+'>← '+(LABELS[JOURNEY[i-1]]||'')+'</button><span>'+ (i+1)+' / '+JOURNEY.length+'</span><button type="button" class="journey-next">'+(LABELS[JOURNEY[i+1]]||'Start over')+' →</button>';c.querySelector('.journey-prev').addEventListener('click',function(){if(i>0)goJourney(JOURNEY[i-1])});c.querySelector('.journey-next').addEventListener('click',function(){goJourney(JOURNEY[i+1]||'archSection')});s.appendChild(c)});
 window.addEventListener('popstate',function(){var id=(location.hash||'').slice(1);if(JOURNEY.indexOf(id)>-1){jumpTo(id);announceRoute(id)}else showPage('landing')});
 window.addEventListener('hashchange',function(){var id=(location.hash||'').slice(1);if(JOURNEY.indexOf(id)>-1&&currentSubview!==id){jumpTo(id);announceRoute(id)}});
-if(JOURNEY.indexOf((location.hash||'').slice(1))>-1)goJourney(location.hash.slice(1),false);
+if(location.hash){
+  try { history.replaceState(history.state,'',location.pathname+location.search); }
+  catch (e) { location.hash=''; }
+}
 grid.querySelectorAll('.agent-card').forEach(function(card){card.addEventListener('click',function(e){if(e.target.closest('[data-toggle],.explore-agent'))return;var b=card.querySelector('[data-toggle]');b.click()})});
 grid.querySelectorAll('.explore-agent').forEach(function(btn){btn.addEventListener('click',function(){var a=AGENTS.find(function(v){return v.id===btn.dataset.explore});askGenie('Tell me about '+a.name+'.')})});
 document.querySelectorAll('.arch-row .node,.lane').forEach(function(n){n.tabIndex=0;n.setAttribute('role','button');n.addEventListener('click',function(){if(n.classList.contains('hub'))askGenie();else goJourney('agents')});n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.click()}})});
-if((location.hash||'').slice(1)==='genieSection')askGenie();
 document.addEventListener('keydown',function(e){if(e.target.matches('input,textarea'))return;if(e.altKey&&e.key==='ArrowRight'){var i=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(i+1)%JOURNEY.length])}if(e.altKey&&e.key==='ArrowLeft'){var j=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(j+JOURNEY.length-1)%JOURNEY.length])}});
 </script></body>
 </html>
