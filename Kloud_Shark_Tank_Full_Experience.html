@@ -369,6 +369,9 @@ section.block{padding:100px 6vw}
 .node.pipe b{color:#fff;font-size:.86rem;line-height:1.2}
 .node.pipe small{color:var(--muted);font-size:.72rem;line-height:1.35}
 .node.pipe.hub{border-color:var(--gold);box-shadow:0 0 24px #f6c85f22}
+.model-selection-card{max-width:920px;width:100%;flex:none;background:linear-gradient(135deg,#20351c,#10251e);border-color:#a6d96a}
+.model-selection-card small{max-width:780px}
+.model-selection-note{max-width:920px;margin:10px auto 0;color:var(--muted);font-size:.78rem;text-align:center;line-height:1.45}
 .pipe-arrow{display:flex;align-items:center;justify-content:center;color:var(--cyan);font-size:1.4rem;flex:0 0 auto;padding:0 2px}
 .pipeline-outputs{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:14px}
 .out-chip{background:#123b58;border:1px solid var(--gold);color:#f6c85f;border-radius:999px;padding:6px 13px;font-size:.78rem;font-weight:700}
@@ -617,6 +620,19 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     </div>
 
     <div class="arch-tier">
+      <div class="tier-label">0 · Choose a model for the use case</div>
+      <div class="pipeline-flow">
+        <div class="node pipe hub model-selection-card">
+          <div class="pipe-icon">⚖️</div>
+          <b>Model Tradeoff Analyst</b>
+          <small>Compare available Apollo models and deployment variants for the task: precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence. Use the current Apollo Model Guide and supplied model catalog as evidence.</small>
+        </div>
+      </div>
+      <p class="model-selection-note">Decision principle: select the least-cost option that still meets the use case’s quality and runtime needs. Ratings are evidence-based; unknown prices or performance stay clearly marked.</p>
+    </div>
+    <div class="arch-down">↓</div>
+
+    <div class="arch-tier">
       <div class="tier-label">1 · Real pipeline — protocol to test data</div>
       <p style="color:var(--muted);font-size:.85rem;margin:0 0 14px;max-width:760px">How a trial actually gets
         built today, agent to agent: each one's output is the next one's input. This is a real workflow, not a
@@ -624,7 +640,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <div class="pipeline-flow">
         <div class="node pipe"><div class="pipe-icon">📄</div><b>Clinical Trial Consistency Review</b><small>Flags Protocol/ICF/IB/CRF/SAP conflicts before build starts</small></div>
         <div class="pipe-arrow">→</div>
-        <div class="node pipe"><div class="pipe-icon">🏗️</div><b>Trial Builder</b><small>Turns the reconciled protocol into a CRF list, visit schedule, suggested listings</small></div>
+        <div class="node pipe"><div class="pipe-icon">🏗️</div><b>Trial Builder</b><small>Turns the reconciled protocol into a CRF list, visit schedule, suggested listings, and other trial build/design suggestions</small></div>
         <div class="pipe-arrow">→</div>
         <div class="node pipe"><div class="pipe-icon">⚙️</div><b>Rule Builder</b><small>Builds and harmonizes edit-check rules against that CRF</small></div>
         <div class="pipe-arrow">→</div>
@@ -982,13 +998,13 @@ const AGENTS = [
     testing:'Yes', status:'Testing / experimental', statusClass:'testing', location:'Apollo and Copilot (Apollo preferred)',
     demo:false },
   { id:'trial-builder', name:'Trial Builder', icon:'🏗️', tag:'Study build', platform:'apollo',
-    summary:'Analyzes a protocol and creates a starting point for trial build — CRF list, visit schedule, and suggested listings.',
+    summary:'Analyzes a protocol and creates a starting point for trial build — CRF list, visit schedule, suggested listings, and other trial build/design suggestions.',
     input:'Protocol',
     risk:'Low',
     testing:'Used for trial 2030', status:'Experimental', statusClass:'testing', location:'Apollo',
     demo:false },
   { id:'model-tradeoff', name:'Model Tradeoff Analyst', icon:'⚖️', tag:'AI economics', platform:'copilot',
-    summary:'Analyzes the models available in Apollo by purpose, capability vs. cost, and the nodes/tools available in a chat or workflow.',
+    summary:'Evaluates available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to identify the least-cost option that meets requirements; also reviews nodes and tools available in a chat or workflow.',
     input:'A chat bot / workflow to evaluate',
     risk:'Low',
     testing:'Used for chat-flow and agent creation', status:'Published', statusClass:'ready', location:'Copilot',
@@ -1271,7 +1287,7 @@ const KNOWLEDGE = [
   { id:'kb-library', title:'Central library options', nav:{view:'archSection'},
     text:'Goal, not yet built: one shared, governed data and metadata library connected via MCP (Model Context Protocol) that every agent can call. Candidate library options under evaluation include Databricks, Veeva, SharePoint/M365 and Apollo knowledge bases.' },
   { id:'kb-workflow', title:'Connected workflows and orchestration', nav:{view:'archSection'},
-    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
+    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
   { id:'kb-arch', title:'Architecture', nav:{view:'archSection'},
     text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Mission: end to end flow to get treatment faster for patients.' },
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
