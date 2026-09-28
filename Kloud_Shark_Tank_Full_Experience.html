@@ -867,7 +867,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   <section class="decision reveal subview" id="decisionSection">
     <div class="eyebrow-pill"><span class="dot">🚀</span>THE DECISION</div>
     <h2>Build the backbone.<br>Connect the company.<br><span>Scale trusted intelligence.</span></h2>
-    <em>because the sky's the limit</em>
+    <em>If we can think it, we can design it</em>
     <div class="cta-row" style="justify-content:center;margin-top:28px">
       <button class="white-pill" data-jump="flagship">See the live demos</button>
       <button class="outline-pill" data-jump="archSection">Review the architecture</button>
@@ -1077,8 +1077,13 @@ document.querySelectorAll('[data-jump]').forEach(btn=>{
 
 document.getElementById('enterKloud').addEventListener('click', ()=>{ audio(true); showPage('experience', 'archSection'); });
 document.getElementById('meetAgents').addEventListener('click', ()=>{ audio(true); showPage('experience', 'agents'); });
-document.getElementById('brandBtn').addEventListener('click', ()=>showPage('landing'));
-document.getElementById('navHomeBtn').addEventListener('click', ()=>showPage('landing'));
+function goHome(){
+  try { history.pushState({}, '', location.pathname + location.search); }
+  catch (e) { location.hash = ''; }
+  showPage('landing');
+}
+document.getElementById('brandBtn').addEventListener('click', goHome);
+document.getElementById('navHomeBtn').addEventListener('click', goHome);
 document.getElementById('backToExperience').addEventListener('click', ()=>{
   showPage('experience');
   document.getElementById('demoFrameWrap').innerHTML = '';
