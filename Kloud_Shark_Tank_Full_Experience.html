@@ -614,7 +614,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">🗺️</span>THE ARCHITECTURE</div>
-        <h2>Fourteen agents.<br>One shared <span>backbone</span>.</h2>
+        <h2>Sixteen agents.<br>One shared <span>backbone</span>.</h2>
         <p>End to End flow to get treatment faster for patients. For the people, for the patients.</p>
       </div>
     </div>
@@ -645,6 +645,10 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="node pipe"><div class="pipe-icon">⚙️</div><b>Rule Builder</b><small>Builds and harmonizes edit-check rules against that CRF</small></div>
         <div class="pipe-arrow">→</div>
         <div class="node pipe"><div class="pipe-icon">📐🧱</div><b>CQL Harmonizer / CQL Builder</b><small>Creates or harmonizes the CDB listing CQL for the new trial</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">🗺️</div><b>Sample Subject Export Mapping</b><small>Maps sample subject exports to the target structure</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">📊</div><b>Patient Dashboard Mapping Agent</b><small>Maps SDTM/source_d fields for patient dashboard R outputs</small></div>
         <div class="pipe-arrow">→</div>
         <div class="node pipe hub"><div class="pipe-icon">🧪</div><b>Test Data Entry Generator</b><small>Outputs SDTM and/or EDC-format test data for UAT</small></div>
       </div>
@@ -789,7 +793,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">🧩</span>AGENT CATALOG</div>
-        <h2>Fourteen agents.<br>One <span>marketplace</span>.</h2>
+        <h2>Sixteen agents.<br>One <span>marketplace</span>.</h2>
         <p>A marketplace for clinical trial management: specialist agents for <b>both the clinical team and data management</b>,
           plugged into one trusted backbone so every hand-off between them is shared, traceable and faster. Every agent here is real —
           click a card for the full spec. Clinical Trial Consistency Review has a live interactive demo; CQL Harmonizer and CQL Builder
@@ -979,6 +983,18 @@ const AGENTS = [
     demo:false,
     evidence:{ src:'test-data-entry-generated-files.png', title:'Test data generated from the CQL listings',
       caption:'Study 2012-0001: for every CQL listing (L01–L16) the agent generated a SHOULD_SHOW and a SHOULD_NOT_SHOW Veeva-ready CSV (subjects SCR-51xx / SCR-52xx), plus a README listing map, so each listing can be proven to return exactly the right rows. Note: opening an export in Excel and re-saving often reformats dates into an incompatible value.' } },
+  { id:'sample-subject-export-mapping', name:'Sample Subject Export Mapping', icon:'🗺️', tag:'Subject export mapping', platform:'unconfirmed',
+    summary:'Maps sample subject exports to the target structure for downstream use.',
+    input:'Sample subject export and target mapping requirements',
+    risk:'Requires review to confirm mapped fields and values',
+    testing:'Validation details not provided', status:'Details to confirm', statusClass:'testing', location:'Platform to confirm',
+    demo:false },
+  { id:'patient-dashboard-mapping', name:'Patient Dashboard Mapping Agent', icon:'📊', tag:'Dashboard data mapping', platform:'unconfirmed',
+    summary:'Maps SDTM/source_d data fields required for patient dashboard R outputs.',
+    input:'SDTM/source_d data and patient dashboard R output requirements',
+    risk:'Requires review to confirm mapped fields and values',
+    testing:'Validation details not provided', status:'Details to confirm', statusClass:'testing', location:'Platform to confirm',
+    demo:false },
   { id:'cdb-tester', name:'CDB Listing Tester (Computer-Using Agent)', icon:'🖱️', tag:'Veeva CDMS automation', platform:'copilot',
     summary:'A computer-using agent connected to Veeva CDMS that reviews CDB listings, issues queries, exports listings, and enters test data.',
     input:'Access to Veeva CDMS',
@@ -1114,7 +1130,7 @@ document.querySelectorAll('[data-video-demo]').forEach(btn=>{
 const grid = document.getElementById('agentGrid');
 const MARKET_LANES = {
   clin: ['protocol','patient-profile-tool','patient-story','trial-builder'],
-  dm: ['trial-builder','rule-builder','dts-cp','cql-harmonizer','cql-builder','test-data-generator','cdb-tester','sdtm-creation'],
+  dm: ['trial-builder','rule-builder','dts-cp','cql-harmonizer','cql-builder','test-data-generator','sample-subject-export-mapping','patient-dashboard-mapping','cdb-tester','sdtm-creation'],
   platform: ['model-tradeoff','yaml-troubleshooter','chaos-coordinator']
 };
 document.querySelectorAll('.lane-chips[data-lane]').forEach(box=>{
@@ -1287,11 +1303,11 @@ const KNOWLEDGE = [
   { id:'kb-library', title:'Central library options', nav:{view:'archSection'},
     text:'Goal, not yet built: one shared, governed data and metadata library connected via MCP (Model Context Protocol) that every agent can call. Candidate library options under evaluation include Databricks, Veeva, SharePoint/M365 and Apollo knowledge bases.' },
   { id:'kb-workflow', title:'Connected workflows and orchestration', nav:{view:'archSection'},
-    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
+    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Sample Subject Export Mapping -> Patient Dashboard Mapping Agent (SDTM/source_d mapping for patient dashboard R outputs) -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
   { id:'kb-arch', title:'Architecture', nav:{view:'archSection'},
-    text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Mission: end to end flow to get treatment faster for patients.' },
+    text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Downstream mapping agents include Sample Subject Export Mapping and Patient Dashboard Mapping Agent (SDTM/source_d mapping for R outputs). Mission: end to end flow to get treatment faster for patients.' },
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
-    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
+    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, Sample Subject Export Mapping, Patient Dashboard Mapping Agent, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
   { id:'kb-demos', title:'Live Demos', nav:{view:'flagship'},
     text:'Live Demos page has four demos: Clinical Trial Consistency Review dashboard (Protocol vs ICF vs CRF vs SAP vs IB), Safety & Tumor Response dashboard (synthetic data, swimmer and spider plots), CQL Harmonizer video (Mode A: Harmonize, an incompatible listing becomes acceptable) and CQL Builder video (Mode B: Construction, simple English to CQL listing).' },
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
