@@ -290,6 +290,7 @@ section.block{padding:100px 6vw}
 .evidence-shot img{width:100%;height:min(52vh,520px);object-fit:contain;display:block;background:#fff;border-radius:8px}
 .evidence-shot figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px;color:#c9d6de;font-size:.8rem}
 .evidence-shot a{color:var(--cyan);white-space:nowrap}
+.evidence-shot .evidence-image-link{display:block}
 #evidenceCaption{margin:0;padding:12px 18px 16px;color:#b9c6d2;font-size:.85rem;line-height:1.5}
 @media(max-width:1000px){.rag-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.rag-grid{grid-template-columns:1fr}}
@@ -1051,11 +1052,12 @@ const AGENTS = [
     input:'Clinical datasets and study context (trial 2012-0001 knowledge base)',
     risk:'Low',
     testing:'Deployed for trial 2012-0001', status:'Working — Copilot Studio bot, connectable via Direct Line', statusClass:'ready', location:'Microsoft Copilot Studio',
-    demo:false, crossref:true, evidenceBadge:'Demo screenshots', evidenceButtonLabel:'View Demo Screenshots',
+    demo:true, demoUrl:'./1305-0069%20Progress%20Dashboard.html', crossref:true, evidenceBadge:'Interactive demo · screenshots',
+    evidenceButtonLabel:'View Screenshots',
     evidence:{ title:'1305-0069 Patient Story Teller demo screenshots',
-      caption:'Screenshot evidence only: one image shows the 1305-0069 Progress Dashboard.html file, and the other shows sample subject-profile PDFs. The actual dashboard HTML and PDF files were not supplied, so these screenshots do not launch the interactive dashboard.',
+      caption:'The 1305-0069 Progress Dashboard title links to the interactive mock/test-data dashboard. The images below are supporting screenshots; the subject-profile PDFs themselves are not included.',
       images:[
-        { src:'patient-story-dashboard-file.png', title:'1305-0069 Progress Dashboard.html file' },
+        { src:'patient-story-dashboard-file.png', href:'./1305-0069%20Progress%20Dashboard.html', title:'1305-0069 Progress Dashboard' },
         { src:'patient-story-subject-profiles.png', title:'1305-0069 subject-profile PDF listing' }
       ] } },
   { id:'yaml-troubleshooter', name:'YAML Agent Troubleshooter', icon:'🛠️', tag:'DSL diagnostics & repair', platform:'apollo',
@@ -1213,7 +1215,7 @@ grid.querySelectorAll('[data-toggle]').forEach(btn=>{
 grid.querySelectorAll('[data-launch]').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     const agent = AGENTS.find(a=>a.id===btn.dataset.launch);
-    openDemo(agent);
+    openDemo(agent, agent.demoUrl || DEMO_URL);
   });
 });
 
@@ -1230,11 +1232,21 @@ function openEvidence(agent){
   images.forEach(image=>{
     const figure = document.createElement('figure');
     figure.className = 'evidence-shot';
+    const imageLink = document.createElement('a');
+    imageLink.className = 'evidence-image-link';
+    imageLink.href = image.src;
+    imageLink.target = '_blank';
+    imageLink.rel = 'noopener';
+    imageLink.setAttribute('aria-label', `Open ${image.title} screenshot full size`);
     const img = document.createElement('img');
     img.src = image.src;
-    img.alt = image.title;
+    img.alt = `${image.title} screenshot`;
+    imageLink.append(img);
     const caption = document.createElement('figcaption');
-    const title = document.createElement('span');
+    const title = document.createElement('a');
+    title.href = image.href || image.src;
+    title.target = '_blank';
+    title.rel = 'noopener';
     title.textContent = image.title;
     const link = document.createElement('a');
     link.href = image.src;
@@ -1242,7 +1254,7 @@ function openEvidence(agent){
     link.rel = 'noopener';
     link.textContent = 'Open full size ↗';
     caption.append(title,link);
-    figure.append(img,caption);
+    figure.append(imageLink,caption);
     gallery.append(figure);
   });
   document.getElementById('evidenceCaption').textContent = ev.caption;
