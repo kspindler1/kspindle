@@ -283,11 +283,13 @@ section.block{padding:100px 6vw}
 .evidence-panel{width:min(900px,100%);max-height:92vh;display:flex;flex-direction:column;background:#111418;border:1px solid rgba(255,255,255,.18);border-radius:20px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.6)}
 .evidence-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid rgba(255,255,255,.12)}
 .evidence-head b{color:#fff;flex:1}
-.evidence-head a{color:var(--cyan);font-size:.82rem;white-space:nowrap}
 .evidence-head button{background:none;border:0;color:#fff;font-size:1.4rem;cursor:pointer;width:34px;height:34px;border-radius:8px}
 .evidence-head button:hover{background:rgba(255,255,255,.1)}
-.evidence-img-wrap{overflow:auto;background:#fff;text-align:center}
-.evidence-img-wrap img{max-width:100%;height:auto;display:block;margin:0 auto}
+.evidence-images{display:grid;grid-template-columns:1fr;gap:14px;padding:14px;overflow:auto}
+.evidence-shot{margin:0;padding:10px;border-radius:12px;background:#ffffff0b;border:1px solid rgba(255,255,255,.12)}
+.evidence-shot img{width:100%;height:min(52vh,520px);object-fit:contain;display:block;background:#fff;border-radius:8px}
+.evidence-shot figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:8px;color:#c9d6de;font-size:.8rem}
+.evidence-shot a{color:var(--cyan);white-space:nowrap}
 #evidenceCaption{margin:0;padding:12px 18px 16px;color:#b9c6d2;font-size:.85rem;line-height:1.5}
 @media(max-width:1000px){.rag-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.rag-grid{grid-template-columns:1fr}}
@@ -348,6 +350,7 @@ section.block{padding:100px 6vw}
 .arch-tier .tier-label .goal-badge{background:var(--gold);color:#3a2a00;border-radius:999px;padding:3px 10px;font-size:.68rem;text-transform:none;letter-spacing:0}
 .arch-row{display:grid;gap:10px}
 .arch-row.n3{grid-template-columns:repeat(3,1fr)}
+.arch-row.n2{grid-template-columns:repeat(2,1fr)}
 .arch-row.n1{grid-template-columns:1fr}
 .arch .node,.arch-row .node{background:linear-gradient(145deg,#123551df,#071c30df);border:1px solid #69b9f244;border-radius:16px;padding:14px 12px;text-align:center;font-size:.8rem;color:var(--muted)}
 .arch-row .node b{display:block;color:#fff;font-size:.9rem;margin-bottom:3px}
@@ -378,7 +381,7 @@ section.block{padding:100px 6vw}
 .out-label{color:var(--muted);font-size:.78rem;font-style:italic}
 @media(max-width:760px){.pipe-arrow{transform:rotate(90deg);padding:6px 0}.node.pipe{max-width:280px;flex:1 1 100%}}
 .lane li b{color:#fff}
-@media(max-width:900px){.arch-row.n3{grid-template-columns:1fr}.arch-lanes{grid-template-columns:1fr}}
+@media(max-width:900px){.arch-row.n3,.arch-row.n2{grid-template-columns:1fr}.arch-lanes{grid-template-columns:1fr}}
 
 /* kloud genie panel */
 .genie-shell{background:linear-gradient(145deg,#123957eb,#061b2eeb);border:1px solid #69b9f244;border-radius:24px;box-shadow:0 24px 70px #0007;overflow:hidden;max-width:760px;margin:0 auto}
@@ -457,7 +460,7 @@ section.block{padding:100px 6vw}
 .toast.show{transform:translate(-50%,0)}
 
 @media(max-width:900px){.agent-grid{grid-template-columns:1fr 1fr}.arch{grid-template-columns:1fr}}
-@media(max-width:600px){.agent-grid{grid-template-columns:1fr}.head{display:block}.crumbs{display:none}}
+@media(max-width:600px){.agent-grid{grid-template-columns:1fr}.head{display:block}.crumbs{display:none}.evidence-box{padding:10px}.evidence-panel{max-height:94vh}.evidence-head{padding:10px 12px}.evidence-head b{font-size:.9rem}.evidence-images{padding:10px;gap:10px}}
 
 /* Product-launch refinement: cinematic, minimal, glass-led */
 :root{--bg:#000;--panel:#101114;--cyan:#2997ff;--blue:#0071e3;--purple:#bf5af2;--green:#30d158;--gold:#ffd60a;--text:#f5f5f7;--muted:#a1a1a6}
@@ -484,7 +487,10 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   .navicons button:nth-child(n){display:flex}
   .navicons .navicon-mark{font-size:.9rem;line-height:1}
   .navicons button.genie-icon-only{justify-self:center;flex:initial;min-width:32px;min-height:32px}
-  .landing-inner h1{font-size:5.5rem}
+  .landing-hero-wrap{padding:150px 20px 42px;min-height:100svh}
+  .landing-inner{width:100%;min-width:0}
+  .landing-inner h1{font-size:clamp(2rem,8.8vw,3.2rem);overflow-wrap:anywhere}
+  .landing-inner p{font-size:1rem}
   .feature{border-radius:26px}
   .trust span+span:before{padding-right:9px}
 }
@@ -614,7 +620,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">🗺️</span>THE ARCHITECTURE</div>
-        <h2>Sixteen agents.<br>One shared <span>backbone</span>.</h2>
+        <h2>Seventeen agents.<br>One shared <span>backbone</span>.</h2>
         <p>End to End flow to get treatment faster for patients. For the people, for the patients.</p>
       </div>
     </div>
@@ -696,7 +702,17 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="arch-down">↓</div>
 
     <div class="arch-tier">
-      <div class="tier-label">5 · Front door</div>
+      <div class="tier-label">5 · Troubleshooting support workflows</div>
+      <p style="color:var(--muted);font-size:.85rem;margin:0 0 14px;max-width:820px">Apollo agents connect to troubleshooting agents and workflows to help diagnose issues users may encounter. Use YAML diagnostics for Apollo/Dify workflow issues and Copilot HTML support for HTML generation and troubleshooting; review generated or repaired outputs before use.</p>
+      <div class="arch-row n2">
+        <div class="node"><b>YAML Agent Troubleshooter · Apollo</b>Diagnoses Apollo/Dify application workflow YAML issues</div>
+        <div class="node"><b>HTML Agent · Copilot</b>Generates HTML and helps troubleshoot HTML issues</div>
+      </div>
+    </div>
+    <div class="arch-down">↓</div>
+
+    <div class="arch-tier">
+      <div class="tier-label">6 · Front door</div>
       <div class="arch-row n1">
         <div class="node hub"><b>Kloud Genie</b>Takes the request, routes it to the right agent on the right platform</div>
       </div>
@@ -715,7 +731,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     </table>
 
     <div class="arch-tier rag-testbed">
-      <div class="tier-label">6 · Trusted RAG testbed <span class="goal-badge">What the prototype is testing</span></div>
+      <div class="tier-label">7 · Trusted RAG testbed <span class="goal-badge">What the prototype is testing</span></div>
       <p class="rag-intro">Kloud is a <b>trusted retrieval-augmented generation (RAG) system</b>. Before scaling, it needs to
         prove which combination of model, library and workflow gives reliable, traceable answers. Each layer below is tested
         independently, so any one can change without rebuilding the rest.</p>
@@ -793,7 +809,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">🧩</span>AGENT CATALOG</div>
-        <h2>Sixteen agents.<br>One <span>marketplace</span>.</h2>
+        <h2>Seventeen agents.<br>One <span>marketplace</span>.</h2>
         <p>A marketplace for clinical trial management: specialist agents for <b>both the clinical team and data management</b>,
           plugged into one trusted backbone so every hand-off between them is shared, traceable and faster. Every agent here is real —
           click a card for the full spec. Clinical Trial Consistency Review has a live interactive demo; CQL Harmonizer and CQL Builder
@@ -950,16 +966,15 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   <div class="evidence-panel">
     <div class="evidence-head">
       <b id="evidenceTitle">Evidence</b>
-      <a id="evidenceOpen" href="#" target="_blank" rel="noopener">Open full size ↗</a>
       <button type="button" id="evidenceClose" aria-label="Close evidence">×</button>
     </div>
-    <div class="evidence-img-wrap"><img id="evidenceImg" alt=""></div>
+    <div class="evidence-images" id="evidenceImages"></div>
     <p id="evidenceCaption"></p>
   </div>
 </div>
 
 <script>
-/* ---------------- data: the agent roster (kept honest — only Clinical Trial Consistency has a real demo) ---------------- */
+/* ---------------- data: specialist agents and their verified demo evidence ---------------- */
 const AGENTS = [
   { id:'cql-harmonizer', name:'CQL Harmonizer', icon:'📐', tag:'Standards alignment', platform:'apollo',
     summary:'Harmonizes variable names in copied-down CDB listings when moving CQL code from one trial to a new trial.',
@@ -1036,12 +1051,24 @@ const AGENTS = [
     input:'Clinical datasets and study context (trial 2012-0001 knowledge base)',
     risk:'Low',
     testing:'Deployed for trial 2012-0001', status:'Working — Copilot Studio bot, connectable via Direct Line', statusClass:'ready', location:'Microsoft Copilot Studio',
-    demo:false, crossref:true },
+    demo:false, crossref:true, evidenceBadge:'Demo screenshots', evidenceButtonLabel:'View Demo Screenshots',
+    evidence:{ title:'1305-0069 Patient Story Teller demo screenshots',
+      caption:'Screenshot evidence only: one image shows the 1305-0069 Progress Dashboard.html file, and the other shows sample subject-profile PDFs. The actual dashboard HTML and PDF files were not supplied, so these screenshots do not launch the interactive dashboard.',
+      images:[
+        { src:'patient-story-dashboard-file.png', title:'1305-0069 Progress Dashboard.html file' },
+        { src:'patient-story-subject-profiles.png', title:'1305-0069 subject-profile PDF listing' }
+      ] } },
   { id:'yaml-troubleshooter', name:'YAML Agent Troubleshooter', icon:'🛠️', tag:'DSL diagnostics & repair', platform:'apollo',
     summary:'Analyzes an uploaded Apollo/Dify application DSL YAML file, diagnoses defects, and corrects the file with the lowest-risk changes.',
     input:'Apollo/Dify application DSL YAML file',
     risk:'Low — only applies lowest-risk corrections; the corrected YAML and assessment report still require human review before redeploy',
     testing:'Added to roster — testing history not yet documented', status:'Experimental', statusClass:'testing', location:'Apollo',
+    demo:false },
+  { id:'html-agent', name:'HTML Agent', icon:'🌐', tag:'HTML generation & troubleshooting', platform:'copilot',
+    summary:'Generates HTML and helps troubleshoot HTML issues users may encounter.',
+    input:'HTML generation request or an HTML file and issue description',
+    risk:'Generated HTML and suggested fixes require review and testing before use',
+    testing:'Validation details not provided', status:'Details to confirm', statusClass:'testing', location:'Microsoft Copilot',
     demo:false },
   { id:'patient-profile-tool', name:'Patient Profile Tool', icon:'🗂️', tag:'Patient-level review', platform:'apollo',
     summary:'Generates a structured, traceable patient profile view (demographics, dosing, labs, AEs, tumor assessments) from study data for medical and clinical review.',
@@ -1131,7 +1158,7 @@ const grid = document.getElementById('agentGrid');
 const MARKET_LANES = {
   clin: ['protocol','patient-profile-tool','patient-story','trial-builder'],
   dm: ['trial-builder','rule-builder','dts-cp','cql-harmonizer','cql-builder','test-data-generator','sample-subject-export-mapping','patient-dashboard-mapping','cdb-tester','sdtm-creation'],
-  platform: ['model-tradeoff','yaml-troubleshooter','chaos-coordinator']
+  platform: ['model-tradeoff','yaml-troubleshooter','html-agent','chaos-coordinator']
 };
 document.querySelectorAll('.lane-chips[data-lane]').forEach(box=>{
   box.insertAdjacentHTML('beforeend', MARKET_LANES[box.dataset.lane].map(id=>{
@@ -1156,7 +1183,7 @@ grid.innerHTML = AGENTS.map(a => `
       <span class="badge ${a.statusClass}">${a.status.split('—')[0].trim()}</span>
       ${a.protocol ? '<span class="badge ready">Featured · live demo</span>' : ''}
       ${a.video ? '<span class="badge ready">Video demo</span>' : ''}
-      ${a.evidence ? '<span class="badge ready">Screenshot evidence</span>' : ''}
+      ${a.evidence ? `<span class="badge ready">${a.evidenceBadge || 'Screenshot evidence'}</span>` : ''}
       ${a.crossref ? '<span class="badge exp">Copilot Studio bot</span>' : ''}
     </div>
     <div class="detail" id="detail-${a.id}">
@@ -1171,7 +1198,7 @@ grid.innerHTML = AGENTS.map(a => `
     </div>
     <div class="row-btns">
       <button class="details-toggle" data-toggle="${a.id}">Details ▾</button>
-      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">${a.video ? '▶ Play Demo Video' : 'Launch Interactive Demo'}</button>` : a.evidence ? `<button class="primary-action" data-evidence="${a.id}">📸 View Evidence</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
+      ${a.demo ? `<button class="primary-action" data-launch="${a.id}">${a.video ? '▶ Play Demo Video' : 'Launch Interactive Demo'}</button>` : a.evidence ? `<button class="primary-action" data-evidence="${a.id}">📸 ${a.evidenceButtonLabel || 'View Evidence'}</button>` : `<button disabled title="No standalone interactive demo yet">No live demo yet</button>`}
       <button class="explore-agent" data-explore="${a.id}">Explore agent →</button>
     </div>
   </article>`).join('');
@@ -1197,9 +1224,27 @@ function openEvidence(agent){
   const ev = agent && agent.evidence; if(!ev) return;
   evidenceReturnFocus = document.activeElement;
   document.getElementById('evidenceTitle').textContent = `${agent.name} — ${ev.title}`;
-  const img = document.getElementById('evidenceImg');
-  img.src = ev.src; img.alt = ev.title;
-  document.getElementById('evidenceOpen').href = ev.src;
+  const gallery = document.getElementById('evidenceImages');
+  gallery.replaceChildren();
+  const images = ev.images || [{src:ev.src,title:ev.title}];
+  images.forEach(image=>{
+    const figure = document.createElement('figure');
+    figure.className = 'evidence-shot';
+    const img = document.createElement('img');
+    img.src = image.src;
+    img.alt = image.title;
+    const caption = document.createElement('figcaption');
+    const title = document.createElement('span');
+    title.textContent = image.title;
+    const link = document.createElement('a');
+    link.href = image.src;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.textContent = 'Open full size ↗';
+    caption.append(title,link);
+    figure.append(img,caption);
+    gallery.append(figure);
+  });
   document.getElementById('evidenceCaption').textContent = ev.caption;
   evidenceBox.hidden = false;
   document.getElementById('evidenceClose').focus();
@@ -1303,11 +1348,11 @@ const KNOWLEDGE = [
   { id:'kb-library', title:'Central library options', nav:{view:'archSection'},
     text:'Goal, not yet built: one shared, governed data and metadata library connected via MCP (Model Context Protocol) that every agent can call. Candidate library options under evaluation include Databricks, Veeva, SharePoint/M365 and Apollo knowledge bases.' },
   { id:'kb-workflow', title:'Connected workflows and orchestration', nav:{view:'archSection'},
-    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Sample Subject Export Mapping -> Patient Dashboard Mapping Agent (SDTM/source_d mapping for patient dashboard R outputs) -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
+    text:'The planned orchestration layer connects specialist agents and feeds dashboards. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The target pipeline is Clinical Trial Consistency Review -> Trial Builder -> Rule Builder -> CQL Harmonizer / CQL Builder -> Sample Subject Export Mapping -> Patient Dashboard Mapping Agent (SDTM/source_d mapping for patient dashboard R outputs) -> Test Data Entry Generator, producing SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Apollo agents connect to troubleshooting agents and workflows: the Apollo YAML Agent Troubleshooter diagnoses Dify workflow issues, while the Copilot HTML Agent supports HTML generation and troubleshooting. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.' },
   { id:'kb-arch', title:'Architecture', nav:{view:'archSection'},
-    text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Downstream mapping agents include Sample Subject Export Mapping and Patient Dashboard Mapping Agent (SDTM/source_d mapping for R outputs). Mission: end to end flow to get treatment faster for patients.' },
+    text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Downstream mapping agents include Sample Subject Export Mapping and Patient Dashboard Mapping Agent (SDTM/source_d mapping for R outputs). Apollo agent workflows are connected to troubleshooting support, including the YAML Agent Troubleshooter in Apollo and the HTML Agent in Copilot for HTML generation and troubleshooting. Mission: end to end flow to get treatment faster for patients.' },
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
-    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, Sample Subject Export Mapping, Patient Dashboard Mapping Agent, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
+    text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, Sample Subject Export Mapping, Patient Dashboard Mapping Agent, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. Platform support includes the Model Tradeoff Analyst, YAML Agent Troubleshooter, and HTML Agent. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
   { id:'kb-demos', title:'Live Demos', nav:{view:'flagship'},
     text:'Live Demos page has four demos: Clinical Trial Consistency Review dashboard (Protocol vs ICF vs CRF vs SAP vs IB), Safety & Tumor Response dashboard (synthetic data, swimmer and spider plots), CQL Harmonizer video (Mode A: Harmonize, an incompatible listing becomes acceptable) and CQL Builder video (Mode B: Construction, simple English to CQL listing).' },
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
