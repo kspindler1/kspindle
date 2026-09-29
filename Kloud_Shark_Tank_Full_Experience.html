@@ -758,7 +758,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <div>
         <div class="eyebrow-pill"><span class="dot">🎬</span>LIVE DEMOS</div>
         <h2>See Kloud agents<br>at <span style="color:var(--cyan)">work</span>.</h2>
-        <p>Two live, interactive dashboards plus two recorded agent demos from the Clinical Data Agents overview. Click any card to launch it.</p>
+        <p>Three interactive dashboards plus two recorded agent demos. The 1305-0069 progress dashboard is a mock/test-data build; use the Flags &amp; Assumptions tab when reviewing it.</p>
       </div>
     </div>
     <div class="demo-grid">
@@ -781,6 +781,15 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="cta-row">
           <button class="white-pill" id="safetyLaunch">Launch Interactive Demo</button>
           <button class="outline-pill" data-genie-ask="Tell me about the Safety and Tumor Response dashboard">Ask Kloud Genie about it</button>
+        </div>
+      </article>
+      <article class="demo-card">
+        <div class="eyebrow-pill"><span class="dot">🩺</span>PATIENT STORY TELLER · INTERACTIVE DEMO</div>
+        <h3>1305-0069 Progress Dashboard</h3>
+        <p>Explore the interactive progress dashboard with overview metrics, charts, sortable and filterable data tables, and build flags. This is a mock/test-data dashboard, not a production clinical system.</p>
+        <div class="cta-row">
+          <button class="white-pill" id="patientStoryLaunch">Launch Interactive Demo</button>
+          <button class="outline-pill" data-genie-ask="Tell me about the Patient Story Teller dashboard demo">Ask Kloud Genie about it</button>
         </div>
       </article>
       <article class="demo-card">
@@ -1151,6 +1160,10 @@ document.getElementById('backToExperience').addEventListener('click', ()=>{
 });
 document.getElementById('flagshipLaunch').addEventListener('click', ()=>openDemo(AGENTS.find(a=>a.id==='protocol')));
 document.getElementById('safetyLaunch').addEventListener('click', ()=>openDemo({name:'Safety & Tumor Response Dashboard'}, DEMO_URL_SAFETY));
+document.getElementById('patientStoryLaunch').addEventListener('click', ()=>{
+  const agent = AGENTS.find(a=>a.id==='patient-story');
+  openDemo(agent, agent.demoUrl);
+});
 document.querySelectorAll('[data-video-demo]').forEach(btn=>{
   btn.addEventListener('click', ()=>openDemo(AGENTS.find(a=>a.id===btn.dataset.videoDemo)));
 });
@@ -1366,7 +1379,7 @@ const KNOWLEDGE = [
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
     text:'Kloud is a marketplace for clinical trial management serving both the clinical team and data management. Clinical-side agents (Clinical Trial Consistency Review, Patient Profile Tool, Patient Story Teller) and data-management agents (Trial Builder, Rule Builder, DTS CP Domain Creation, CQL Harmonizer, CQL Builder, Test Data Entry Generator, Sample Subject Export Mapping, Patient Dashboard Mapping Agent, CDB Listing Tester, SDTM Creation) are intended to use a shared trusted RAG library and orchestration layer, so one team\'s output can become the other team\'s validated input. Platform support includes the Model Tradeoff Analyst, YAML Agent Troubleshooter, and HTML Agent. The target flow is Design, Build, Standardize, Validate, Review. New agents can plug into the same backbone and be reused across study teams.' },
   { id:'kb-demos', title:'Live Demos', nav:{view:'flagship'},
-    text:'Live Demos page has four demos: Clinical Trial Consistency Review dashboard (Protocol vs ICF vs CRF vs SAP vs IB), Safety & Tumor Response dashboard (synthetic data, swimmer and spider plots), CQL Harmonizer video (Mode A: Harmonize, an incompatible listing becomes acceptable) and CQL Builder video (Mode B: Construction, simple English to CQL listing).' },
+    text:'Live Demos page has five demos: Clinical Trial Consistency Review dashboard (Protocol vs ICF vs CRF vs SAP vs IB), Safety & Tumor Response dashboard (synthetic data, swimmer and spider plots), the 1305-0069 Patient Story Teller progress dashboard (interactive mock/test-data build with overview, charts, sortable/filterable data tables, and flags), CQL Harmonizer video (Mode A: Harmonize, an incompatible listing becomes acceptable), and CQL Builder video (Mode B: Construction, simple English to CQL listing).' },
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
     text:'Governed knowledge sources, human review of every non-ready agent output, traceable outputs back to the source record, and no patient-identifiable data in the prototype.' },
   { id:'kb-roadmap', title:'Roadmap', nav:{view:'visionSection'}, text:'The Roadmap page covers what comes next for Kloud.' },
