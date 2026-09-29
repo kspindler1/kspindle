@@ -532,6 +532,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   </div>
   <div class="navicons">
     <button id="navHomeBtn"><span class="navicon-mark">🏠</span>Home</button>
+    <button data-jump="directorAgentSection"><span class="navicon-mark">🔭</span>The Vision</button>
     <button data-jump="archSection"><span class="navicon-mark">🗺️</span>Architecture</button>
     <button data-jump="flagship"><span class="navicon-mark">🎬</span>Live Demo</button>
     <button data-jump="agents"><span class="navicon-mark">🧩</span>Specialists</button>
@@ -618,6 +619,47 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 
 <!-- ================= PAGE 2: EXPERIENCE ================= -->
 <div class="page" id="page-experience">
+
+  <section class="block reveal subview" id="directorAgentSection">
+    <div class="head">
+      <div>
+        <div class="eyebrow-pill"><span class="dot">🔭</span>THE VISION</div>
+        <h2>One director agent.<br>Any <span>workflow</span> you need.</h2>
+        <p>Kloud starts as a single front door. From there, you design the workflow — picking only the specialist agents the task actually needs.</p>
+      </div>
+    </div>
+
+    <div class="arch-tier">
+      <div class="tier-label">How it works, generically</div>
+      <div class="pipeline-flow">
+        <div class="node pipe hub"><div class="pipe-icon">☁</div><b>Kloud (Director Agent)</b><small>Design your workflow based on what agents you need</small></div>
+      </div>
+    </div>
+    <div class="arch-down">↓</div>
+
+    <div class="arch-tier">
+      <div class="tier-label">Example: protocol to test data</div>
+      <p style="color:var(--muted);font-size:.85rem;margin:0 0 14px;max-width:760px">One example of a workflow Kloud can design and hand off, agent to agent — the same director agent could just as easily design a shorter or different flow for a different task.</p>
+      <div class="pipeline-flow">
+        <div class="node pipe hub"><div class="pipe-icon">☁</div><b>Kloud</b><small>Director agent</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">⚖️</div><b>Model Tradeoff</b><small>Chooses the least-cost model that meets the use case</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">🏗️</div><b>Trial Builder</b><small>Turns the protocol into a CRF list and study build suggestions</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">⚙️</div><b>Rule Builder</b><small>Builds and harmonizes edit-check rules against that CRF</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">📐🧱</div><b>CQL Harmonizer/Builder</b><small>Creates or harmonizes the CDB listing CQL</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">🗺️</div><b>Mapping Agent</b><small>Maps sample subject exports and patient dashboard fields</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe"><div class="pipe-icon">🧪</div><b>Test Data Generator</b><small>Produces SDTM/EDC test data for UAT</small></div>
+        <div class="pipe-arrow">→</div>
+        <div class="node pipe hub"><div class="pipe-icon">🧬</div><b>SDTM Creation</b><small>Final SDTM programming output</small></div>
+      </div>
+    </div>
+    <p style="color:var(--muted);font-size:.85rem;max-width:760px;margin-top:14px">This is just one example — swap, skip, or reorder agents for a different task, and Kloud designs the workflow around it.</p>
+  <div class="journey-controls"><button type="button" class="journey-prev" style="visibility:hidden">← </button><span>1 / 6</span><button type="button" class="journey-next">Architecture →</button></div></section>
 
   <section class="block reveal subview" id="archSection">
     <div class="head">
@@ -753,7 +795,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
             No patient-identifiable data enters the prototype.</p></div>
       </div>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev" style="visibility:hidden">← </button><span>1 / 5</span><button type="button" class="journey-next">Live Demo →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← The Vision</button><span>2 / 6</span><button type="button" class="journey-next">Live Demo →</button></div></section>
 
   <section class="block reveal subview" id="flagship">
     <div class="head">
@@ -815,7 +857,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         </div>
       </article>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Architecture</button><span>2 / 5</span><button type="button" class="journey-next">Specialists →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Architecture</button><span>3 / 6</span><button type="button" class="journey-next">Specialists →</button></div></section>
 
   <section class="block reveal subview" id="agents">
     <div class="head">
@@ -1357,7 +1399,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <button class="explore-agent" data-explore="protocol">Explore agent →</button>
     </div>
   </article></div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Live Demo</button><span>3 / 5</span><button type="button" class="journey-next">Roadmap →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Live Demo</button><span>4 / 6</span><button type="button" class="journey-next">Roadmap →</button></div></section>
 
   <section class="block reveal subview" id="visionSection">
     <div class="head">
@@ -1404,7 +1446,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         from the architecture page, and the unified work/chat flow above, before this is rolled out beyond the teams
         already using it today.</p>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Specialists</button><span>4 / 5</span><button type="button" class="journey-next">The Decision →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Specialists</button><span>5 / 6</span><button type="button" class="journey-next">The Decision →</button></div></section>
 
   <section class="decision reveal subview" id="decisionSection">
     <div class="eyebrow-pill"><span class="dot">🚀</span>THE DECISION</div>
@@ -1414,7 +1456,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <button class="white-pill" data-jump="flagship">See the live demos</button>
       <button class="outline-pill" data-jump="archSection">Review the architecture</button>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>5 / 5</span><button type="button" class="journey-next">Start over →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>6 / 6</span><button type="button" class="journey-next">Start over →</button></div></section>
 </div>
 
 <!-- ================= PAGE 3: INTERACTIVE DEMO ================= -->
@@ -1893,6 +1935,8 @@ const KNOWLEDGE = [
     text:`The planned orchestration layer connects specialist agents and feeds dashboards. Required order: ${WORKFLOW_ORDER.map(step=>step.name).join(' -> ')}. Sample Subject Export Mapping and Patient Dashboard Mapping Agent must both precede Test Data Entry Generator; confirm mapping outputs before test generation. The Model Tradeoff Analyst compares available Apollo models for the use case across precision, reasoning, semantic-match fit, input/output cost, runtime, and confidence to help identify the least-cost option that meets requirements. The mapping agent prepares SDTM/source_d fields for patient dashboard R outputs; Test Data Entry Generator produces SDTM and EDC test data for UAT. Trial Builder proposes a CRF list, visit schedule, suggested listings, and other trial build/design suggestions. Apollo agents connect to troubleshooting agents and workflows: the Apollo YAML Agent Troubleshooter diagnoses Dify workflow issues, while the Copilot HTML Agent supports HTML generation and troubleshooting. Workflows may connect through MCP, Apollo (Dify) workflows and Copilot Studio.` },
   { id:'kb-workflow-order', title:'Required mapping-before-test workflow order', nav:{view:'agents', anchor:'.market-explain'},
     text:`Canonical planned sequence: ${WORKFLOW_ORDER.map((step,i)=>`${i+1}. ${step.name}`).join(' ')}. Ordering rule: Sample Subject Export Mapping and Patient Dashboard Mapping Agent both come before Test Data Entry Generator. Verify mapping outputs before proceeding to test generation. This describes the intended workflow; the prototype does not execute these agents.` },
+  { id:'kb-vision-director', title:'The Vision — Kloud as director agent', nav:{view:'directorAgentSection'},
+    text:'The Vision page shows how Kloud works generically: Kloud is a director agent — it takes a request and designs a workflow based on what specialist agents the task needs, rather than a single fixed pipeline. Example workflow shown on the page: Kloud (director agent) -> Model Tradeoff -> Trial Builder -> Rule Builder -> CQL Harmonizer/Builder -> Mapping Agent -> Test Data Generator -> SDTM Creation. Agents can be swapped, skipped, or reordered for a different task; this example is one instance of the flow, not the only possible one.' },
   { id:'kb-arch', title:'Architecture', nav:{view:'archSection'},
     text:'Source systems (Veeva Vault and CDMS; Protocol, ICF, IB, CRF, SAP documents; SharePoint specs and project plans) feed a central library, then agents running on Apollo Studio (Dify) and Microsoft Copilot / Copilot Studio, with Kloud Genie as the front door. Downstream mapping agents include Sample Subject Export Mapping and Patient Dashboard Mapping Agent (SDTM/source_d mapping for R outputs). Apollo agent workflows are connected to troubleshooting support, including the YAML Agent Troubleshooter in Apollo and the HTML Agent in Copilot for HTML generation and troubleshooting. Mission: end to end flow to get treatment faster for patients.' },
   { id:'kb-market', title:'Clinical trial management marketplace', nav:{view:'agents', anchor:'.market-explain'},
@@ -2138,6 +2182,7 @@ const NAV_ROUTES = [
   { re:/builder video|cql builder|mode b|construction/, nav:{demo:'cql-builder'}, label:'CQL Builder video', needsDemoWord:true },
   { re:/\brag\b|retrieval|llm|model|trusted|testbed/, nav:{view:'archSection', anchor:'.rag-testbed'}, label:'Trusted RAG testbed' },
   { re:/demo|dashboard|video/, nav:{view:'flagship'}, label:'Live Demos' },
+  { re:/director agent|design (my|your|a|the) workflow|which agents (do|should) i (need|use)|\bthe vision\b/, nav:{view:'directorAgentSection'}, label:'The Vision' },
   { re:/architect|backbone|pipeline|workflow|hub|library|mcp|how .*work/, nav:{view:'archSection'}, label:'Architecture' },
   { re:/marketplace|market place|clinical .*data management|data management .*clinical/, nav:{view:'agents', anchor:'.market-explain'}, label:'Marketplace explainer' },
   { re:/agents|specialist|catalog/, nav:{view:'agents'}, label:'Agent catalog' },
@@ -2190,7 +2235,7 @@ async function askNavGenie(raw){
   }
   navBusy = true;
   const thinking = navBubble('<i>Checking the Kloud library…</i>', 'kloud thinking');
-  const r = await ragAnswer(q, {history: navHistory, extra:'You are also a site guide: when useful, tell the user which page of the site (Architecture, Live Demos, Specialists, Roadmap, The Decision) has more.'});
+  const r = await ragAnswer(q, {history: navHistory, extra:'You are also a site guide: when useful, tell the user which page of the site (The Vision, Architecture, Live Demos, Specialists, Roadmap, The Decision) has more.'});
   thinking.classList.remove('thinking');
   const orderActions = isWorkflowOrderQuestion(q) ? workflowReviewButtons() : '';
   thinking.innerHTML = formatAnswer(r.text) + citeLine(r) + orderActions + (r.docs.length && !isWorkflowOrderQuestion(q) ? '<div>' + navButtons(r.docs) + '</div>' : '') + followupSuggestions();
@@ -2346,8 +2391,8 @@ function showToast(msg){
 </script>
 <script>
 /* Connected app-style navigation */
-const JOURNEY=['archSection','flagship','agents','visionSection','decisionSection'];
-const LABELS={archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',decisionSection:'The Decision'};
+const JOURNEY=['directorAgentSection','archSection','flagship','agents','visionSection','decisionSection'];
+const LABELS={directorAgentSection:'The Vision',archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',decisionSection:'The Decision'};
 const hint=document.createElement('div');hint.className='route-hint';document.body.appendChild(hint);
 function announceRoute(id){hint.textContent='Now viewing: '+LABELS[id];hint.classList.add('show');clearTimeout(announceRoute.t);announceRoute.t=setTimeout(function(){hint.classList.remove('show')},1500)}
 function updateRoute(id){
