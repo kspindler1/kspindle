@@ -474,7 +474,10 @@ body{background:#000;color:var(--text);font-family:-apple-system,BlinkMacSystemF
 .navtop{max-width:1180px;margin:auto;padding:12px 24px}.brand{font-size:.9rem;letter-spacing:.11em}.brand .mark{filter:none;font-size:1.12rem}.brand small{font-size:.63rem;color:#a1a1a6}.navicons{gap:0;justify-content:space-between;max-width:1160px;margin:auto;padding:10px 24px 12px;border-top-color:rgba(255,255,255,.08)}
 .navicons button{flex-direction:row;gap:5px;font-size:.74rem;font-weight:500;white-space:nowrap;padding:4px 6px}.navicons .navicon-mark{width:auto;height:auto;border:0;background:transparent;font-size:.9rem}.navicons button.current .navicon-mark,.navicons button:hover .navicon-mark{background:transparent;border:0;box-shadow:none;transform:none}.navicons button.current{color:#2997ff}
 .navicons button.genie-icon-only{min-width:32px;min-height:32px;justify-content:center;padding:4px}
-.navicons .genie-icon-only .kloud-mark{width:22px;height:22px}
+@media(min-width:601px){.navicons{max-width:1180px;padding:10px 16px 12px;gap:2px}.navicons button:not(.genie-icon-only) .navicon-mark{display:none}.navicons button{font-size:.8rem;padding:6px 8px;white-space:nowrap;flex:none}}
+@media(min-width:601px) and (max-width:780px){.navicons{padding:8px 4px 10px}.navicons button{font-size:.62rem!important;padding:4px 3px!important}}
+@media(min-width:601px) and (max-width:960px){.navicons{padding:8px 8px 10px;justify-content:center}.navicons button{font-size:.72rem;padding:5px 5px}}
+.navicons .genie-icon-only .kloud-mark{width:22px;height:22px;display:block}.navicons{align-items:center}@media(min-width:601px){.navicons button.genie-icon-only{min-width:0;min-height:0;padding:0 6px;align-self:center;line-height:0;margin-top:-4px}}
 .navicons button.genie-icon-only:focus-visible{outline:2px solid #2997ff;outline-offset:4px;border-radius:8px}
 .landing-hero-wrap{background:radial-gradient(ellipse 66% 50% at 50% 48%,#152747 0%,#060b15 45%,#000 74%)}
 .landing-hero-wrap:after{content:"";position:absolute;z-index:-1;width:min(62vw,670px);height:min(62vw,670px);border-radius:50%;left:50%;top:50%;transform:translate(-50%,-45%);background:radial-gradient(circle at 36% 30%,rgba(116,211,255,.9),rgba(41,151,255,.24) 34%,rgba(123,92,255,.2) 55%,transparent 70%);filter:blur(15px);opacity:.8}
@@ -575,6 +578,30 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 .cx-data .cx-chal p{font-size:1.45rem;line-height:1.4;color:#fff;font-weight:600;margin:0}
 .cx-trust{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 18px}.cx-trust div{text-align:center;background:rgba(94,231,197,.08);border:1px solid rgba(94,231,197,.25);border-radius:16px;padding:14px 8px;color:#fff;font-weight:600;font-size:.92rem}.cx-trust div i{display:block;font-style:normal;font-size:1.5rem;margin-bottom:6px}
 .cx-data p{color:#d2d2d7;line-height:1.6;margin:0}
+.cx-goals{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left}
+.cx-goal{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:26px 24px;display:flex;flex-direction:column;gap:12px}
+.cx-goal .cx-target{font-size:clamp(2.2rem,4vw,3rem);font-weight:800;letter-spacing:-.04em;background:linear-gradient(90deg,#ffcc4d,#ff9f43);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.cx-goal h4{margin:0;font-size:1.2rem;color:#fff}.cx-goal p{margin:0;color:#d2d2d7;line-height:1.55;font-size:.97rem;flex:1}
+.cx-meter{display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.cx-meter span{display:flex;gap:4px}.cx-meter span i{width:22px;height:8px;border-radius:4px;background:rgba(255,255,255,.12)}
+.cx-meter.strong{color:#5ee7c5}.cx-meter.strong span i{background:#5ee7c5}
+.cx-meter.ind{color:#ffcc4d}.cx-meter.ind span i:first-child{background:#ffcc4d}
+.cx-meter small{font-weight:500;letter-spacing:0;text-transform:none;color:#a1a1a6;font-size:.82rem}
+.cx-src{color:#86868b;font-size:.85rem;margin:14px 0 0}.cx-src a{color:#2997ff}
+.cx-reinvest{display:flex;gap:18px;align-items:center;text-align:left;margin-top:18px;padding:22px 26px;border-radius:22px;background:linear-gradient(135deg,rgba(94,231,197,.12),rgba(41,151,255,.1));border:1px solid rgba(94,231,197,.3)}
+.cx-reinvest i{font-style:normal;font-size:2.2rem}.cx-reinvest p{margin:0;color:#fff;font-size:1.08rem;line-height:1.5}.cx-reinvest p span{color:#a1a1a6;font-size:.9rem}
+.cx-init{display:grid;grid-template-columns:minmax(240px,340px) 1fr;gap:20px;text-align:left}
+.cx-init-tabs{display:flex;flex-direction:column;gap:8px}
+.cx-init-tabs button{text-align:left;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);color:#d2d2d7;border-radius:14px;padding:13px 16px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s}
+.cx-init-tabs button:hover{color:#fff;border-color:rgba(255,204,77,.5)}
+.cx-init-tabs button.on{color:#fff;border-color:#ffcc4d;background:rgba(255,204,77,.1);box-shadow:0 10px 28px rgba(255,204,77,.12)}
+.cx-init-panels{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:30px 32px}
+.cx-init-panels .cx-chips{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 16px}
+.cx-role{margin-top:18px;text-align:left;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:26px;padding:30px 32px}
+.cx-role .cx-badge{width:84px;height:84px;border-radius:24px;display:grid;place-items:center;font-size:2.4rem;background:linear-gradient(135deg,#0071e3,#8c5cff)}
+.cx-role p{color:#d2d2d7;line-height:1.65;margin:0 0 12px;font-size:1.04rem}.cx-role p strong{color:#fff}
+@media(max-width:860px){.cx-goals,.cx-init,.cx-role{grid-template-columns:1fr}}.cx-st-tabs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:6px 0 34px}.cx-st-tabs button{text-align:left;cursor:pointer;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:20px 22px;color:#d2d2d7;transition:all .2s;display:flex;gap:14px;align-items:center}.cx-st-tabs button b{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.1);color:#fff;font-size:1.1rem}.cx-st-tabs button span{display:block;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:#86868b;font-weight:700}.cx-st-tabs button strong{display:block;font-size:1.15rem;color:#fff;margin-top:2px}.cx-st-tabs button:hover{border-color:rgba(41,151,255,.5)}.cx-st-tabs button.on{border-color:#2997ff;background:linear-gradient(135deg,rgba(0,113,227,.2),rgba(140,92,255,.14));box-shadow:0 14px 34px rgba(0,113,227,.18)}.cx-st-tabs button.on b{background:linear-gradient(135deg,#0071e3,#8c5cff)}.cx-stmt{display:none}.cx-stmt.on{display:block;animation:cxFade .45s ease}@keyframes cxFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@media(max-width:700px){.cx-st-tabs{grid-template-columns:1fr}}
+@media(max-width:600px){.landing-hero-wrap{padding-top:230px!important}}
 .cx-pitch{margin:80px auto 0;max-width:900px;padding:40px 44px;border-radius:30px;background:linear-gradient(135deg,rgba(41,151,255,.16),rgba(184,107,255,.14));border:1px solid rgba(255,255,255,.14);font-size:clamp(1.25rem,2.2vw,1.6rem);line-height:1.5;color:#fff;font-weight:500;text-align:left}
 .cx-pitch strong{font-weight:800}.cx-pitch strong.s{color:#5ee7c5}.cx-pitch strong.f{color:#2997ff}.cx-pitch strong.a{color:#c99bff}
 .cx-pitch cite{display:block;margin-top:16px;font-size:.9rem;font-style:normal;color:#a1a1a6;letter-spacing:.1em;text-transform:uppercase}
@@ -750,7 +777,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">🔭</span>THE VISION</div>
-        <h2>One director agent.<br>Any <span>workflow</span> you need.</h2>
+        <h2>One Market. One Genie. One director agent.<br>Any <span>workflow</span> you need, based on your use case.</h2>
         <p>Kloud starts as a single front door. From there, you design the workflow — picking only the specialist agents the task actually needs.</p>
       </div>
     </div>
@@ -1773,8 +1800,15 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
   <section class="block reveal subview" id="connectionSection">
     <div class="cx-wrap">
       <div class="eyebrow-pill"><span class="dot">🔗</span>THE CONNECTION</div>
-      <h2>Kloud puts<br><span>Our Path to 2035</span> into practice.</h2>
-      <p class="cx-sub">Every agent in Kloud ties back to BI's 2035 ambition and its three principles. Pick an ambition to see how Kloud supports it.</p>
+      <h2>How Kloud <span>connects</span><br>to BI's strategy.</h2>
+      <p class="cx-sub">Two statements: Kloud puts Our Path to 2035 into practice, and Kloud supports delivery of the HighScore Initiative.</p>
+      <div class="cx-st-tabs" role="tablist" aria-label="Connection statements">
+        <button class="on" data-cx-st="p2035" role="tab"><b>1</b><div><span>Statement one</span><strong>Connect to the Path to 2035 Pillars</strong></div></button>
+        <button data-cx-st="highscore" role="tab"><b>2</b><div><span>Statement two</span><strong>Connect to the HighScore Initiative Delivery</strong></div></button>
+      </div>
+      <div class="cx-stmt on" data-cx-st-panel="p2035">
+      <h3 class="cx-h3" style="margin-top:0">Kloud puts Our Path to 2035 into practice.</h3>
+      <p>Every agent in Kloud ties back to BI's 2035 ambition and its three principles. Pick an ambition to see how Kloud supports it.</p>
 
       <div class="cx-amb">
         <div class="cx-amb-tabs" role="tablist" aria-label="Path to 2035 ambition">
@@ -1792,7 +1826,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           </div>
           <div class="cx-panel" data-cx-amb-panel="profit">
             <p class="cx-kicker">How Kloud supports it</p>
-            <h4>Agents replace contracted labor.</h4>
+            <h4>Agents support contracted labor.</h4>
             <p>Test data generation across our 20-study pilot:</p>
             <div class="cx-bars">
               <div class="cx-bar"><label>Contracted out <b>$1.2M – $2.4M</b></label><div class="cx-track"><div class="cx-fill red" style="--w:100%"></div></div></div>
@@ -1867,6 +1901,56 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         </div>
       </div>
 
+      </div>
+      <div class="cx-stmt" data-cx-st-panel="highscore">
+      <h3 class="cx-h3" style="margin-top:0">Kloud supports delivery of the HighScore Initiative.</h3>
+      <p>HighScore's targets for fast-track assets, by 2028, and how Kloud contributes to each.</p>
+      <div class="cx-goals">
+        <article class="cx-goal">
+          <div class="cx-target">30%</div><h4>Cost efficiency per NME</h4>
+          <p>Kloud supports contracted labor. Test data generation across 20 studies: <b>$1.2M–$2.4M</b> contracted vs. about <b>$72K–$132K</b> with the agent (planning estimate).</p>
+        </article>
+        <article class="cx-goal">
+          <div class="cx-target">#1</div><h4>Best-in-industry speed</h4>
+          <p>Faster study build with <button type="button" class="cx-chip" data-agent-jump="trial-builder">🏗️ Trial Builder</button> <button type="button" class="cx-chip" data-agent-jump="rule-builder">⚙️ Rule Builder</button> <button type="button" class="cx-chip" data-agent-jump="cql-harmonizer">📐 CQL Harmonizer/Builder</button> <button type="button" class="cx-chip" data-agent-jump="test-data-generator">🧪 Test Data Generator</button></p>
+        </article>
+        <article class="cx-goal">
+          <div class="cx-target">+20%</div><h4>Probability of technical &amp; regulatory success</h4>
+          <p><button type="button" class="cx-chip" data-agent-jump="protocol">📄 Consistency Review</button> catches Protocol/ICF/CRF/SAP conflicts early, and test data validates listings, which supports data quality and decision quality.</p>
+        </article>
+      </div>
+      <div class="cx-reinvest"><i>♻️</i><p><b>Savings fund the next agents.</b> HighScore plans to reinvest its cost savings into further HighScore Initiative initiatives. Kloud's savings can work the same way.<br><span>Sources: <a href="https://boehringer.sharepoint.com/sites/mybi_medicine/_layouts/15/Doc.aspx?sourcedoc=%7B4715A7EC-E00F-4B44-A682-DADF9D91D141%7D&amp;file=Highscore%20walking%20deck.pptx&amp;action=edit&amp;mobileredirect=true&amp;DefaultItemOpen=1" target="_blank" rel="noopener">HighScore walking deck</a> · <a href="https://boehringer.sharepoint.com/sites/mybi_medicine/SitePages/Home.aspx?web=1" target="_blank" rel="noopener">Global Medicine Home</a></span></p></div>
+
+      <h3 class="cx-h3">HighScore Initiative initiatives, matched to Kloud agents</h3>
+      <p>Pick an initiative to see which agents fit it.</p>
+      <div class="cx-init">
+        <div class="cx-init-tabs" role="tablist" aria-label="HighScore Initiative initiatives">
+          <button class="on" data-cx-init="sourcing" role="tab">Simplified clinical delivery &amp; sourcing model</button>
+          <button data-cx-init="protocol" role="tab">Protocol complexity</button>
+          <button data-cx-init="submission" role="tab">Submission &amp; close-out acceleration</button>
+          <button data-cx-init="data" role="tab">Data &amp; AI</button>
+          <button data-cx-init="setup" role="tab">Trial delivery &amp; setup</button>
+        </div>
+        <div class="cx-init-panels">
+          <div class="cx-panel on" data-cx-init-panel="sourcing"><p class="cx-kicker">Matching agents</p><div class="cx-chips"><button type="button" class="cx-chip" data-agent-jump="test-data-generator">🧪 Test Data Entry Generator</button><button type="button" class="cx-chip" data-agent-jump="cdb-tester">🖱️ CDB Listing Tester</button></div><p>Together they reduce the need to contract out work.</p></div>
+          <div class="cx-panel" data-cx-init-panel="protocol"><p class="cx-kicker">Matching agents</p><div class="cx-chips"><button type="button" class="cx-chip" data-agent-jump="protocol">📄 Clinical Trial Consistency Review</button><button type="button" class="cx-chip" data-agent-jump="trial-builder">🏗️ Trial Builder</button></div><p>Catch document conflicts early, then turn the protocol into a starting study design.</p></div>
+          <div class="cx-panel" data-cx-init-panel="submission"><p class="cx-kicker">Matching agents</p><div class="cx-chips"><button type="button" class="cx-chip" data-agent-jump="sdtm-creation">🧬 SDTM Creation</button><button type="button" class="cx-chip" data-agent-jump="test-data-generator">🧪 Test Data Generator</button></div><p>Test data supports UAT and SDTM programming.</p></div>
+          <div class="cx-panel" data-cx-init-panel="data"><p class="cx-kicker">Matching agents</p><div class="cx-chips"><button type="button" class="cx-chip" data-agent-jump="@genie">☁️ The whole Kloud platform</button></div><p>Governed, source-citing AI agents, reviewed by humans.</p></div>
+          <div class="cx-panel" data-cx-init-panel="setup"><p class="cx-kicker">Matching agents</p><div class="cx-chips"><button type="button" class="cx-chip" data-agent-jump="rule-builder">⚙️ Rule Builder</button><button type="button" class="cx-chip" data-agent-jump="cql-harmonizer">📐 CQL Harmonizer/Builder</button></div><p>Speed up database build.</p></div>
+        </div>
+      </div>
+
+      <h3 class="cx-h3">Experimental Medicine's role</h3>
+      <p>The bridge between ExpMED and Global Medicine.</p>
+      <div class="cx-role">
+        <div class="cx-badge">🤝</div>
+        <div>
+          <p>Kloud is built in <strong>ExpMED D&amp;A</strong>. HighScore depends on a smooth hand-off at proof of concept and <strong>strong clinical data foundations</strong> between Experimental Medicine and Global Medicine. Kloud supports that hand-off with shared, reusable agents both teams can use.</p>
+          <p>It supports HighScore's <strong>30% cost-efficiency</strong> target by supporting contracted test data and build work, and its <strong>speed</strong> target by cutting study build from weeks to hours. It also supports <strong>Data &amp; AI</strong> with governed, traceable agents already used across 20+ studies.</p>
+          <p><strong>Every dollar Kloud saves can be reinvested in HighScore, just as HighScore plans.</strong></p>
+        </div>
+      </div>
+      </div>
       <blockquote class="cx-pitch">“Kloud puts Our Path to 2035 into practice. It <strong class="s">simplifies</strong> with one front door and a shared governed library, <strong class="f">focuses</strong> on the asset with reusable agents across studies, and <strong class="a">accelerates</strong> the path from protocol to test data, so treatment reaches patients faster.”<cite>The pitch line</cite></blockquote>
     </div>
   </section>
@@ -2363,7 +2447,7 @@ const KNOWLEDGE = [
     text:'Governed knowledge sources, human review of every non-ready agent output, traceable outputs back to the source record, and no patient-identifiable data in the prototype.' },
   { id:'kb-roadmap', title:'Roadmap', nav:{view:'visionSection'}, text:'The Roadmap page covers what comes next for Kloud.' },
   { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example labeled "Test Data Generator - Use case: UAT" (the Test Data Entry Generator generating UAT test data), from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ potentially saved with one agent. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator and a use-case picker. Second use case on the same page: "Patient Story Teller - Use case: Patient stories". Assumptions: 80 contracted hours per study at $200/hour; agent covers 95% (76 hours), user handles 5% (4 hours); agent cost $500/year total ($25 per study across 20). One study: cost without the agent $16,000; user hours $800; agent $500; total with the agent $1,300; contractor cost avoided $15,200; net savings $14,700; ROI 2,940%; benefit-cost 30.4:1; 92% cost reduction; payback ~12 days. 20 studies: 1,600 contracted hours, cost without the agent $320,000; 80 user hours costing $16,000; agent $500; total with the agent $16,500; contractor cost avoided $304,000 (1,520 hrs); net savings $303,500; benefit-cost 608:1; 95% cost reduction; payback under 1 day. Pitch: contracting patient story work across the 20-study pilot would cost about $320,000; with the Patient Story Teller total cost is $16,500, a 95% reduction, $303,500 potentially saved with one agent (headline: $303K potentially saved with one agent).' },
-  { id:'kb-connection', title:'The Connection — Kloud and Our Path to 2035', nav:{view:'connectionSection'}, text:'The Connection page maps Kloud to Our Path to 2035. Ambition: faster study build supports growth above market; replacing contracted labor supports profitability (20-study test data: $1.2M–$2.4M contracted vs about $72K–$132K with the agent, planning estimates); experts spend less time on rework and treatment reaches patients faster; seven proven agents focus on the highest-effort work. Principles: Simplify (one front door, Model Tradeoff Analyst, planned governed MCP library), Focus (Consistency Review, Trial Builder used on trial 2030, reusable agents), Accelerate (Consistency Review → Trial Builder → Rule Builder → CQL → Mapping → Test Data → SDTM; 2015-0001 had 9,087 skipped records rebuilt into a clean package). Data-driven: trusted retrieval from approved, cited sources with human review.' },
+  { id:'kb-connection', title:'The Connection — Kloud and Our Path to 2035', nav:{view:'connectionSection'}, text:'The Connection page maps Kloud to Our Path to 2035. Ambition: faster study build supports growth above market; supporting contracted labor helps profitability (20-study test data: $1.2M–$2.4M contracted vs about $72K–$132K with the agent, planning estimates); experts spend less time on rework and treatment reaches patients faster; seven proven agents focus on the highest-effort work. Principles: Simplify (one front door, Model Tradeoff Analyst, planned governed MCP library), Focus (Consistency Review, Trial Builder used on trial 2030, reusable agents), Accelerate (Consistency Review → Trial Builder → Rule Builder → CQL → Mapping → Test Data → SDTM; 2015-0001 had 9,087 skipped records rebuilt into a clean package). Data-driven: trusted retrieval from approved, cited sources with human review.' },
   { id:'kb-decision', title:'The Decision', nav:{view:'decisionSection'}, text:'The Decision page is the ask: what support Kloud needs to move from prototype to a company capability.' },
   { id:'kb-install', title:'Install the Kloud app', nav:{page:'landing', anchor:'.landing-app'}, text:'Kloud installs like a phone app with no app store: scan the QR code on the Home page, then Add to Home Screen.' }
 ];
@@ -2827,8 +2911,8 @@ grid.querySelectorAll('.agent-card').forEach(function(card){card.addEventListene
 grid.querySelectorAll('.explore-agent').forEach(function(btn){btn.addEventListener('click',function(){var a=AGENTS.find(function(v){return v.id===btn.dataset.explore});askGenie('Tell me about '+a.name+'.')})});
 document.querySelectorAll('.arch-row .node,.lane').forEach(function(n){n.tabIndex=0;n.setAttribute('role','button');n.addEventListener('click',function(){if(n.classList.contains('hub'))askGenie();else goJourney('agents')});n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.click()}})});
 document.addEventListener('click',function(e){
-  var b=e.target.closest('[data-cx-amb],[data-cx-pr]');if(!b||e.target.closest('[data-agent-jump]'))return;
-  var k=b.hasAttribute('data-cx-amb')?'cx-amb':'cx-pr',v=b.getAttribute('data-'+k),sec=b.closest('section');
+  var b=e.target.closest('[data-cx-amb],[data-cx-pr],[data-cx-init],[data-cx-st]');if(!b||e.target.closest('[data-agent-jump]'))return;
+  var k=b.hasAttribute('data-cx-amb')?'cx-amb':b.hasAttribute('data-cx-init')?'cx-init':b.hasAttribute('data-cx-st')?'cx-st':'cx-pr',v=b.getAttribute('data-'+k),sec=b.closest('section');
   sec.querySelectorAll('[data-'+k+']').forEach(function(x){var on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-selected',on)});
   sec.querySelectorAll('[data-'+k+'-panel]').forEach(function(p){p.classList.toggle('on',p.getAttribute('data-'+k+'-panel')===v)});
 });
