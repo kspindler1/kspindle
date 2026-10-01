@@ -515,6 +515,10 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 
 /* The Impact: Apple-style interactive ROI */
 .imp-wrap{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,56px);border-radius:36px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.imp-usecase{display:flex;width:max-content;max-width:100%;align-items:center;gap:12px;margin:16px 0 6px;padding:10px 20px 10px 10px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(41,151,255,.45);box-shadow:0 8px 30px rgba(0,113,227,.18)}
+.imp-usecase-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#0071e3,#30d158);font-size:1.2rem}
+.imp-usecase b{display:block;font-size:1.05rem;color:#fff;letter-spacing:-.02em}
+.imp-usecase i{display:block;font-style:normal;font-size:.82rem;font-weight:600;color:#2997ff;letter-spacing:.02em}
 .imp-controls{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:34px}
 .imp-seg{display:inline-flex;padding:4px;border-radius:999px;background:rgba(118,118,128,.24);gap:2px;flex-wrap:wrap;justify-content:center}
 .imp-seg button{border:0;background:transparent;color:#d2d2d7;padding:9px 18px;border-radius:999px;font-size:.9rem;font-weight:600;transition:background .25s,color .25s,box-shadow .25s}
@@ -1507,8 +1511,9 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">💰</span>THE IMPACT</div>
+        <div class="imp-usecase"><span class="imp-usecase-icon">🧪</span><span><b>Test Data Generator</b><i>Use case: UAT</i></span></div>
         <h2>$1.1M+ saved.<br>On one <span>$12K license.</span></h2>
-        <p>An ROI example from the Test Data Entry Generator, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
+        <p>An ROI example for the Test Data Generator in its UAT use case, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
       </div>
     </div>
 
@@ -2118,7 +2123,7 @@ const KNOWLEDGE = [
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
     text:'Governed knowledge sources, human review of every non-ready agent output, traceable outputs back to the source record, and no patient-identifiable data in the prototype.' },
   { id:'kb-roadmap', title:'Roadmap', nav:{view:'visionSection'}, text:'The Roadmap page covers what comes next for Kloud.' },
-  { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example for the Test Data Entry Generator from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ saved on a $12K license. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator.' },
+  { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example labeled "Test Data Generator - Use case: UAT" (the Test Data Entry Generator generating UAT test data), from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ saved on a $12K license. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator.' },
   { id:'kb-decision', title:'The Decision', nav:{view:'decisionSection'}, text:'The Decision page is the ask: what support Kloud needs to move from prototype to a company capability.' },
   { id:'kb-install', title:'Install the Kloud app', nav:{page:'landing', anchor:'.landing-app'}, text:'Kloud installs like a phone app with no app store: scan the QR code on the Home page, then Add to Home Screen.' }
 ];
