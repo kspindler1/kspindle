@@ -512,6 +512,60 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 .journey-controls button{border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:11px 18px;background:rgba(255,255,255,.08);color:#fff;font-weight:600}.journey-controls .journey-next{background:#0071e3;border-color:#0071e3}.journey-controls button:hover{transform:translateY(-1px);filter:brightness(1.12)}
 .agent-card{cursor:pointer}.agent-card:focus-within,.agent-card:hover{outline:2px solid rgba(41,151,255,.55);outline-offset:2px}.agent-card .explore-agent{background:#0071e3;border-color:#0071e3}.route-hint{position:fixed;left:50%;top:136px;transform:translate(-50%,-16px);z-index:80;opacity:0;pointer-events:none;padding:8px 14px;border-radius:999px;background:rgba(18,18,20,.9);border:1px solid rgba(255,255,255,.2);font-size:.78rem;transition:.25s}.route-hint.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:600px){.journey-controls{margin-top:24px}.journey-controls button{font-size:.8rem;padding:10px 13px}}
+
+/* The Impact: Apple-style interactive ROI */
+.imp-wrap{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,56px);border-radius:36px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);box-shadow:0 30px 90px rgba(0,0,0,.35)}
+.imp-controls{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:34px}
+.imp-seg{display:inline-flex;padding:4px;border-radius:999px;background:rgba(118,118,128,.24);gap:2px;flex-wrap:wrap;justify-content:center}
+.imp-seg button{border:0;background:transparent;color:#d2d2d7;padding:9px 18px;border-radius:999px;font-size:.9rem;font-weight:600;transition:background .25s,color .25s,box-shadow .25s}
+.imp-seg button:hover{color:#fff}
+.imp-seg button.on{background:#f5f5f7;color:#1d1d1f;box-shadow:0 3px 10px rgba(0,0,0,.3)}
+.imp-seg-sm button{font-size:.82rem;padding:7px 15px}
+.imp-hero{text-align:center;margin-bottom:30px}
+.imp-kicker{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b}
+.imp-big{font-size:clamp(3.2rem,9vw,6.4rem);font-weight:800;letter-spacing:-.05em;line-height:1.05;background:linear-gradient(90deg,#79d8a1,#5fd3d6 45%,#2997ff);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.imp-sub{color:#a1a1a6;font-size:1.05rem;margin-top:6px}
+.imp-bars{display:grid;gap:16px;margin:0 auto 34px;max-width:860px}
+.imp-bar-label{display:flex;justify-content:space-between;font-size:.92rem;color:#d2d2d7;margin-bottom:7px}
+.imp-bar-label b{color:#fff;font-variant-numeric:tabular-nums}
+.imp-bar-track{height:14px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.imp-bar{height:100%;border-radius:999px;transition:width .8s cubic-bezier(.2,.8,.2,1);min-width:6px}
+.imp-bar-old{background:linear-gradient(90deg,#ff9f0a,#ff453a)}
+.imp-bar-new{background:linear-gradient(90deg,#30d158,#2997ff)}
+.imp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.imp-stat{padding:22px 18px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);text-align:center;transition:transform .3s}
+.imp-stat:hover{transform:translateY(-3px)}
+.imp-stat-n{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;letter-spacing:-.04em;color:#fff;font-variant-numeric:tabular-nums}
+.imp-stat-l{font-size:.8rem;color:#a1a1a6;margin-top:4px}
+.imp-tune{margin-top:26px;border-top:1px solid rgba(255,255,255,.12);padding-top:18px}
+.imp-tune summary{cursor:pointer;color:#2997ff;font-weight:600;font-size:.95rem;list-style:none;text-align:center}
+.imp-tune summary::-webkit-details-marker{display:none}
+.imp-tune summary:after{content:" ›";display:inline-block;transition:transform .25s}
+.imp-tune[open] summary:after{transform:rotate(90deg)}
+.imp-sliders{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 26px;margin-top:20px}
+.imp-sliders label{display:flex;flex-wrap:wrap;justify-content:space-between;font-size:.88rem;color:#d2d2d7;gap:8px}
+.imp-sliders output{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.imp-sliders input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:999px;background:rgba(255,255,255,.18);outline:none}
+.imp-sliders input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4);cursor:pointer}
+.imp-sliders input[type=range]::-moz-range-thumb{width:24px;height:24px;border:0;border-radius:50%;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.4);cursor:pointer}
+.imp-reset{align-self:end;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:10px 18px;font-weight:600;font-size:.85rem}
+.imp-reset:hover{background:rgba(255,255,255,.16)}
+.imp-cards{max-width:1100px;margin:26px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.imp-card{padding:30px;border-radius:28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.imp-card h3{font-size:1.3rem;margin:0 0 12px}
+.imp-card ul{margin:0;padding-left:20px;color:#d2d2d7;font-size:.95rem;display:grid;gap:10px}
+.imp-card b{color:#fff}
+.imp-quote{background:linear-gradient(135deg,#0b3c6f,#10234d);border-color:#2997ff}
+.imp-quote blockquote{margin:0;font-size:1.1rem;line-height:1.5;color:#f5f5f7;font-weight:500;letter-spacing:-.015em}
+.imp-caveats{max-width:1100px;margin:18px auto 0;background:linear-gradient(135deg,#221806,#3a2810)}
+.imp-tables{max-width:1100px;margin:34px auto 0;text-align:center}
+.imp-tables .imp-table{margin-top:16px;text-align:left}
+.imp-table th[data-col],.imp-table td{transition:background .3s,color .3s}
+.imp-table .hl{background:rgba(41,151,255,.18)!important;color:#fff!important}
+.imp-table th.hl{background:#2997ff!important;color:#fff!important}
+.imp-table tr.imp-strong td{font-weight:800;color:#fff}
+.imp-note{color:#86868b;font-size:.82rem;margin:12px auto 0;max-width:760px}
+@media(max-width:820px){.imp-stats{grid-template-columns:1fr 1fr}.imp-cards{grid-template-columns:1fr}.imp-tables{overflow-x:auto}}
 </style>
 </head>
 <body>
@@ -543,6 +597,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       </svg>
     </button>
     <button data-jump="visionSection"><span class="navicon-mark">🧭</span>Roadmap</button>
+    <button data-jump="impactSection"><span class="navicon-mark">💰</span>The Impact</button>
     <button data-jump="decisionSection"><span class="navicon-mark">🚀</span>The Decision</button>
   </div>
 </nav>
@@ -659,7 +714,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       </div>
     </div>
     <p style="color:var(--muted);font-size:.85rem;max-width:760px;margin-top:14px">This is just one example — swap, skip, or reorder agents for a different task, and Kloud designs the workflow around it.</p>
-  <div class="journey-controls"><button type="button" class="journey-prev" style="visibility:hidden">← </button><span>1 / 6</span><button type="button" class="journey-next">Architecture →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev" style="visibility:hidden">← </button><span>1 / 7</span><button type="button" class="journey-next">Architecture →</button></div></section>
 
   <section class="block reveal subview" id="archSection">
     <div class="head">
@@ -795,7 +850,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
             No patient-identifiable data enters the prototype.</p></div>
       </div>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← The Vision</button><span>2 / 6</span><button type="button" class="journey-next">Live Demo →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← The Vision</button><span>2 / 7</span><button type="button" class="journey-next">Live Demo →</button></div></section>
 
   <section class="block reveal subview" id="flagship">
     <div class="head">
@@ -857,7 +912,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         </div>
       </article>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Architecture</button><span>3 / 6</span><button type="button" class="journey-next">Specialists →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Architecture</button><span>3 / 7</span><button type="button" class="journey-next">Specialists →</button></div></section>
 
   <section class="block reveal subview" id="agents">
     <div class="head">
@@ -1399,7 +1454,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <button class="explore-agent" data-explore="protocol">Explore agent →</button>
     </div>
   </article></div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Live Demo</button><span>4 / 6</span><button type="button" class="journey-next">Roadmap →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Live Demo</button><span>4 / 7</span><button type="button" class="journey-next">Roadmap →</button></div></section>
 
   <section class="block reveal subview" id="visionSection">
     <div class="head">
@@ -1446,7 +1501,124 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         from the architecture page, and the unified work/chat flow above, before this is rolled out beyond the teams
         already using it today.</p>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Specialists</button><span>5 / 6</span><button type="button" class="journey-next">The Decision →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Specialists</button><span>5 / 7</span><button type="button" class="journey-next">The Impact →</button></div></section>
+
+  <section class="block reveal subview" id="impactSection">
+    <div class="head">
+      <div>
+        <div class="eyebrow-pill"><span class="dot">💰</span>THE IMPACT</div>
+        <h2>$1.1M+ saved.<br>On one <span>$12K license.</span></h2>
+        <p>An ROI example from the Test Data Entry Generator, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
+      </div>
+    </div>
+
+    <div class="imp-wrap">
+      <div class="imp-controls">
+        <div class="imp-seg" id="impScale" role="tablist" aria-label="Scale">
+          <button type="button" data-studies="1">One study</button>
+          <button type="button" data-studies="20" class="on">20 studies (pilot)</button>
+        </div>
+        <div class="imp-seg" id="impTier" role="tablist" aria-label="Contracted rate">
+          <button type="button" data-rate="150" class="on">Low · $150/hr</button>
+          <button type="button" data-rate="225">Mid · $225/hr</button>
+          <button type="button" data-rate="300">High · $300/hr</button>
+        </div>
+      </div>
+
+      <div class="imp-hero">
+        <div class="imp-kicker">Net savings</div>
+        <div class="imp-big" id="impNet">$1,128,000</div>
+        <div class="imp-sub" id="impSubline">across 20 studies at $150/hr — vs. contracting it out</div>
+      </div>
+
+      <div class="imp-bars">
+        <div class="imp-bar-row">
+          <div class="imp-bar-label">Without the agent<b id="impWithout">$1,200,000</b></div>
+          <div class="imp-bar-track"><div class="imp-bar imp-bar-old" id="impBarOld" style="width:100%"></div></div>
+        </div>
+        <div class="imp-bar-row">
+          <div class="imp-bar-label">With the agent<b id="impWith">$72,000</b></div>
+          <div class="imp-bar-track"><div class="imp-bar imp-bar-new" id="impBarNew" style="width:6%"></div></div>
+        </div>
+      </div>
+
+      <div class="imp-stats">
+        <div class="imp-stat"><div class="imp-stat-n" id="impReduction">94%</div><div class="imp-stat-l">Cost reduction vs. contracting</div></div>
+        <div class="imp-stat"><div class="imp-stat-n" id="impPayback">&lt; 1 week</div><div class="imp-stat-l">Payback</div></div>
+        <div class="imp-stat"><div class="imp-stat-n" id="impHours">7,600</div><div class="imp-stat-l">Contracted hours replaced</div></div>
+        <div class="imp-stat"><div class="imp-stat-n" id="impBcr">95:1</div><div class="imp-stat-l">Benefit-cost ratio (on agent cost)</div></div>
+      </div>
+
+      <details class="imp-tune">
+        <summary>Fine-tune the assumptions</summary>
+        <div class="imp-sliders">
+          <label>Studies <output id="impStudiesOut">20</output><input type="range" id="impStudies" min="1" max="40" step="1" value="20"></label>
+          <label>Contracted rate <output id="impRateOut">$150/hr</output><input type="range" id="impRate" min="100" max="400" step="5" value="150"></label>
+          <label>Hours per study <output id="impHrsOut">400</output><input type="range" id="impHrs" min="100" max="800" step="10" value="400"></label>
+          <label>Agent coverage <output id="impCovOut">95%</output><input type="range" id="impCov" min="50" max="100" step="1" value="95"></label>
+          <label>License years <output id="impYearsOut">1 ($12,000)</output><input type="range" id="impYears" min="1" max="3" step="1" value="1"></label>
+          <button type="button" class="imp-reset" id="impReset">Reset to pilot assumptions</button>
+        </div>
+      </details>
+    </div>
+
+    <div class="imp-cards">
+      <div class="imp-card">
+        <h3>Assumptions</h3>
+        <ul>
+          <li><b>Contracted labor:</b> 400 hours per study at $150–$300/hour.</li>
+          <li><b>Agent coverage:</b> 95% of the work (380 hours per study). The user handles the other 5% (20 hours per study): providing source files, importing into the EDC, and troubleshooting.</li>
+          <li><b>Agent cost:</b> $12,000/year in total, not per study. Across 20 studies, that's $600 per study.</li>
+        </ul>
+      </div>
+      <div class="imp-card imp-quote">
+        <h3>Pitch line</h3>
+        <blockquote>"For a single study, contracting out test data generation costs $60,000 to $120,000. Across the 20+ studies in our pilot, that would be $1.2 to $2.4 million. With the Test Data Entry Generator, BI's total cost drops to $72,000 to $132,000, saving more than $1.1 million at the lowest contracted rate, all on one $12,000 license."</blockquote>
+      </div>
+    </div>
+
+    <div class="imp-tables">
+      <div class="imp-seg imp-seg-sm" id="impTableTabs">
+        <button type="button" data-table="impT1">One study</button>
+        <button type="button" data-table="impT20" class="on">20 studies (pilot scale)</button>
+      </div>
+      <table class="facts-table imp-table" id="impT1" hidden>
+        <thead><tr><th></th><th data-col="150">Low ($150/hr)</th><th data-col="225">Mid ($225/hr)</th><th data-col="300">High ($300/hr)</th></tr></thead>
+        <tbody>
+          <tr><td>Cost without the agent (400 hrs)</td><td>$60,000</td><td>$90,000</td><td>$120,000</td></tr>
+          <tr><td>Total cost with the agent (agent + 20 user hours)</td><td>$15,000</td><td>$16,500</td><td>$18,000</td></tr>
+          <tr class="imp-strong"><td>Net savings</td><td>$45,000</td><td>$73,500</td><td>$102,000</td></tr>
+          <tr><td>Benefit-cost ratio</td><td>4.75:1</td><td>7.1:1</td><td>9.5:1</td></tr>
+          <tr><td>Payback</td><td>2.5 months</td><td>1.7 months</td><td>1.3 months</td></tr>
+        </tbody>
+      </table>
+      <table class="facts-table imp-table" id="impT20">
+        <thead><tr><th></th><th data-col="150">Low ($150/hr)</th><th data-col="225">Mid ($225/hr)</th><th data-col="300">High ($300/hr)</th></tr></thead>
+        <tbody>
+          <tr><td>Contracted hours without the agent</td><td>8,000</td><td>8,000</td><td>8,000</td></tr>
+          <tr><td>Cost without the agent</td><td>$1,200,000</td><td>$1,800,000</td><td>$2,400,000</td></tr>
+          <tr><td>User hours with the agent (5%)</td><td>400</td><td>400</td><td>400</td></tr>
+          <tr><td>Cost of user hours</td><td>$60,000</td><td>$90,000</td><td>$120,000</td></tr>
+          <tr><td>Agent cost (one fixed license)</td><td>$12,000</td><td>$12,000</td><td>$12,000</td></tr>
+          <tr class="imp-strong"><td>Total cost with the agent</td><td>$72,000</td><td>$102,000</td><td>$132,000</td></tr>
+          <tr class="imp-strong"><td>Net savings</td><td>$1,128,000</td><td>$1,698,000</td><td>$2,268,000</td></tr>
+          <tr><td>Benefit-cost ratio (on the agent cost)</td><td>95:1</td><td>142.5:1</td><td>190:1</td></tr>
+          <tr><td>Cost reduction vs. contracting</td><td>94%</td><td>94%</td><td>94.5%</td></tr>
+          <tr><td>Payback</td><td>Under 1 week</td><td>Under 1 week</td><td>Under 1 week</td></tr>
+        </tbody>
+      </table>
+      <p class="imp-note">The one-study view charges the full $12,000 license to a single study — the conservative case. Spread across 20 studies, the license is only $600 per study.</p>
+    </div>
+
+    <div class="imp-card imp-caveats">
+      <h3>Caveats to state up front</h3>
+      <ul>
+        <li><b>400 hours per study is an assumption.</b> Studies differ in size and complexity. Before presenting, confirm it with one or two real examples, such as 2012-0001 or 2015-0001.</li>
+        <li><b>The 20+ studies may not all fall in one year.</b> If they span two years, the agent cost becomes $24,000. That barely changes the result.</li>
+        <li><b>Lead with dollar savings, not ROI percentages.</b> Ratios like 190:1 can sound too good to be true to leaders. "$1.1M+ saved on a $12K license" is easier to trust.</li>
+      </ul>
+    </div>
+  <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>6 / 7</span><button type="button" class="journey-next">The Decision →</button></div></section>
 
   <section class="decision reveal subview" id="decisionSection">
     <div class="eyebrow-pill"><span class="dot">🚀</span>THE DECISION</div>
@@ -1456,7 +1628,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <button class="white-pill" data-jump="flagship">See the live demos</button>
       <button class="outline-pill" data-jump="archSection">Review the architecture</button>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>6 / 6</span><button type="button" class="journey-next">Start over →</button></div></section>
+  <div class="journey-controls"><button type="button" class="journey-prev">← The Impact</button><span>7 / 7</span><button type="button" class="journey-next">Start over →</button></div></section>
 </div>
 
 <!-- ================= PAGE 3: INTERACTIVE DEMO ================= -->
@@ -1946,6 +2118,7 @@ const KNOWLEDGE = [
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
     text:'Governed knowledge sources, human review of every non-ready agent output, traceable outputs back to the source record, and no patient-identifiable data in the prototype.' },
   { id:'kb-roadmap', title:'Roadmap', nav:{view:'visionSection'}, text:'The Roadmap page covers what comes next for Kloud.' },
+  { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example for the Test Data Entry Generator from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ saved on a $12K license. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator.' },
   { id:'kb-decision', title:'The Decision', nav:{view:'decisionSection'}, text:'The Decision page is the ask: what support Kloud needs to move from prototype to a company capability.' },
   { id:'kb-install', title:'Install the Kloud app', nav:{page:'landing', anchor:'.landing-app'}, text:'Kloud installs like a phone app with no app store: scan the QR code on the Home page, then Add to Home Screen.' }
 ];
@@ -2180,6 +2353,7 @@ const NAV_ROUTES = [
   { re:/consistency|protocol|icf|sap\b/, nav:{demo:'protocol'}, label:'Clinical Trial Consistency Review dashboard', needsDemoWord:true },
   { re:/harmoni[sz]er|mode a/, nav:{demo:'cql-harmonizer'}, label:'CQL Harmonizer video', needsDemoWord:true },
   { re:/builder video|cql builder|mode b|construction/, nav:{demo:'cql-builder'}, label:'CQL Builder video', needsDemoWord:true },
+  { re:/\bthe impact\b|\bimpact\b|\broi\b|savings|save money|cost.?benefit|payback|business case/, nav:{view:'impactSection'}, label:'The Impact' },
   { re:/\brag\b|retrieval|llm|model|trusted|testbed/, nav:{view:'archSection', anchor:'.rag-testbed'}, label:'Trusted RAG testbed' },
   { re:/demo|dashboard|video/, nav:{view:'flagship'}, label:'Live Demos' },
   { re:/director agent|design (my|your|a|the) workflow|which agents (do|should) i (need|use)|\bthe vision\b/, nav:{view:'directorAgentSection'}, label:'The Vision' },
@@ -2235,7 +2409,7 @@ async function askNavGenie(raw){
   }
   navBusy = true;
   const thinking = navBubble('<i>Checking the Kloud library…</i>', 'kloud thinking');
-  const r = await ragAnswer(q, {history: navHistory, extra:'You are also a site guide: when useful, tell the user which page of the site (The Vision, Architecture, Live Demos, Specialists, Roadmap, The Decision) has more.'});
+  const r = await ragAnswer(q, {history: navHistory, extra:'You are also a site guide: when useful, tell the user which page of the site (The Vision, Architecture, Live Demos, Specialists, Roadmap, The Impact, The Decision) has more.'});
   thinking.classList.remove('thinking');
   const orderActions = isWorkflowOrderQuestion(q) ? workflowReviewButtons() : '';
   thinking.innerHTML = formatAnswer(r.text) + citeLine(r) + orderActions + (r.docs.length && !isWorkflowOrderQuestion(q) ? '<div>' + navButtons(r.docs) + '</div>' : '') + followupSuggestions();
@@ -2391,8 +2565,8 @@ function showToast(msg){
 </script>
 <script>
 /* Connected app-style navigation */
-const JOURNEY=['directorAgentSection','archSection','flagship','agents','visionSection','decisionSection'];
-const LABELS={directorAgentSection:'The Vision',archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',decisionSection:'The Decision'};
+const JOURNEY=['directorAgentSection','archSection','flagship','agents','visionSection','impactSection','decisionSection'];
+const LABELS={directorAgentSection:'The Vision',archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',impactSection:'The Impact',decisionSection:'The Decision'};
 const hint=document.createElement('div');hint.className='route-hint';document.body.appendChild(hint);
 function announceRoute(id){hint.textContent='Now viewing: '+LABELS[id];hint.classList.add('show');clearTimeout(announceRoute.t);announceRoute.t=setTimeout(function(){hint.classList.remove('show')},1500)}
 function updateRoute(id){
@@ -2412,6 +2586,61 @@ grid.querySelectorAll('.agent-card').forEach(function(card){card.addEventListene
 grid.querySelectorAll('.explore-agent').forEach(function(btn){btn.addEventListener('click',function(){var a=AGENTS.find(function(v){return v.id===btn.dataset.explore});askGenie('Tell me about '+a.name+'.')})});
 document.querySelectorAll('.arch-row .node,.lane').forEach(function(n){n.tabIndex=0;n.setAttribute('role','button');n.addEventListener('click',function(){if(n.classList.contains('hub'))askGenie();else goJourney('agents')});n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.click()}})});
 document.addEventListener('keydown',function(e){if(e.target.matches('input,textarea'))return;if(e.altKey&&e.key==='ArrowRight'){var i=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(i+1)%JOURNEY.length])}if(e.altKey&&e.key==='ArrowLeft'){var j=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(j+JOURNEY.length-1)%JOURNEY.length])}});
+
+/* The Impact: interactive ROI calculator */
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  if(!$('impactSection'))return;
+  var LICENSE=12000, DEF={studies:20,rate:150,hrs:400,cov:95,years:1};
+  var el={studies:$('impStudies'),rate:$('impRate'),hrs:$('impHrs'),cov:$('impCov'),years:$('impYears')};
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var money=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+  var trim=function(x,d){return String(Number(x.toFixed(d)))};
+  var ratio=function(x){return (x>=10||Math.abs(x*4-Math.round(x*4))>1e-9?trim(x,1):trim(x,2))+':1'};
+  var payback=function(m){var days=m*30.4;if(days<7)return 'Under 1 week';if(m<1)return '~'+Math.ceil(days/7)+' weeks';return trim(m,1)+' months'};
+  var shown={};
+  function tween(id,to,fmt){
+    var node=$(id),from=shown[id]==null?to:shown[id];shown[id]=to;
+    if(reduce||from===to){node.textContent=fmt(to);return}
+    var t0=performance.now(),dur=650;
+    cancelAnimationFrame(node._raf);
+    (function step(t){var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);node.textContent=fmt(from+(to-from)*e);if(p<1)node._raf=requestAnimationFrame(step)})(t0);
+  }
+  function syncSeg(segId,attr,val){document.querySelectorAll('#'+segId+' button').forEach(function(b){b.classList.toggle('on',Number(b.dataset[attr])===val)})}
+  function showTable(id){
+    document.querySelectorAll('#impTableTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.table===id)});
+    ['impT1','impT20'].forEach(function(t){$(t).hidden=(t!==id)});
+  }
+  function calc(){
+    var S=+el.studies.value,R=+el.rate.value,H=+el.hrs.value,C=+el.cov.value/100,Y=+el.years.value;
+    var lic=LICENSE*Y,without=S*H*R,userHrs=S*H*(1-C),withAgent=lic+userHrs*R,net=without-withAgent;
+    var laborSaved=S*H*C*R,bcr=laborSaved/lic,months=lic/(laborSaved/(12*Y));
+    $('impStudiesOut').textContent=S;$('impRateOut').textContent='$'+R+'/hr';$('impHrsOut').textContent=H;
+    $('impCovOut').textContent=Math.round(C*100)+'%';$('impYearsOut').textContent=Y+' ('+money(lic)+')';
+    tween('impNet',net,function(v){return (v<0?'-':'')+money(Math.abs(v))});
+    tween('impWithout',without,money);tween('impWith',withAgent,money);
+    tween('impHours',S*H*C,function(v){return Math.round(v).toLocaleString('en-US')});
+    $('impReduction').textContent=without>0?trim(net/without*100,1)+'%':'—';
+    $('impPayback').textContent=payback(months);
+    $('impBcr').textContent=ratio(bcr);
+    $('impSubline').textContent=(S===1?'for one study':'across '+S+' studies')+' at $'+R+'/hr — vs. contracting it out';
+    $('impBarOld').style.width='100%';
+    $('impBarNew').style.width=Math.max(1,Math.min(100,withAgent/without*100))+'%';
+    syncSeg('impScale','studies',S);syncSeg('impTier','rate',R);
+    document.querySelectorAll('.imp-table [data-col], .imp-table td').forEach(function(c){c.classList.remove('hl')});
+    document.querySelectorAll('.imp-table').forEach(function(tb){
+      var ths=[].slice.call(tb.querySelectorAll('th[data-col]')),idx=ths.findIndex(function(th){return +th.dataset.col===R});
+      if(idx<0)return;ths[idx].classList.add('hl');
+      tb.querySelectorAll('tbody tr').forEach(function(tr){var td=tr.children[idx+1];if(td)td.classList.add('hl')});
+    });
+  }
+  document.querySelectorAll('#impScale button').forEach(function(b){b.addEventListener('click',function(){el.studies.value=b.dataset.studies;showTable(b.dataset.studies==='1'?'impT1':'impT20');calc()})});
+  document.querySelectorAll('#impTier button').forEach(function(b){b.addEventListener('click',function(){el.rate.value=b.dataset.rate;calc()})});
+  document.querySelectorAll('#impTableTabs button').forEach(function(b){b.addEventListener('click',function(){showTable(b.dataset.table)})});
+  Object.keys(el).forEach(function(k){el[k].addEventListener('input',calc)});
+  $('impReset').addEventListener('click',function(){Object.keys(DEF).forEach(function(k){el[k].value=DEF[k]});showTable('impT20');calc()});
+  calc();
+})();
 </script><div class="route-hint"></div>
 
 </body></html>
