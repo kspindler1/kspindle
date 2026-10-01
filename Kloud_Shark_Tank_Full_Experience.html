@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" href="https://kspindler1.github.io/kspindle/icon-192.png">
 <link rel="icon" href="https://kspindler1.github.io/kspindle/icon.svg" type="image/svg+xml">
 <link rel="icon" href="https://kspindler1.github.io/kspindle/icon-192.png" type="image/png">
-<script src="qrcode-lib.js"></script>
+<script src="qrcode-lib.js" onerror="var s=document.createElement('script');s.src='https://kspindler1.github.io/kspindle/qrcode-lib.js';s.onload=function(){window.dispatchEvent(new Event('qrlib-ready'))};document.head.appendChild(s)"></script>
 <style>
 /* ---- requested base styling ---- */
 a{ text-decoration:none; color:#464feb; }
@@ -515,7 +515,13 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 
 /* The Impact: Apple-style interactive ROI */
 .imp-wrap{max-width:1100px;margin:0 auto;padding:clamp(28px,5vw,56px);border-radius:36px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(20px);box-shadow:0 30px 90px rgba(0,0,0,.35)}
-.imp-usecase{display:flex;width:max-content;max-width:100%;align-items:center;gap:12px;margin:16px 0 6px;padding:10px 20px 10px 10px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(41,151,255,.45);box-shadow:0 8px 30px rgba(0,113,227,.18)}
+.imp-ucs{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0 6px}
+.imp-usecase{display:flex;width:max-content;max-width:100%;align-items:center;gap:12px;padding:10px 20px 10px 10px;border-radius:18px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.14);text-align:left;color:inherit;font:inherit;cursor:pointer;opacity:.6;transition:opacity .25s,border-color .25s,box-shadow .25s,transform .25s}
+.imp-usecase:hover{opacity:.9;transform:translateY(-1px)}
+.imp-usecase.on{opacity:1;background:rgba(255,255,255,.07);border-color:rgba(41,151,255,.6);box-shadow:0 8px 30px rgba(0,113,227,.22)}
+.imp-usecase-icon.pst{background:linear-gradient(135deg,#bf5af2,#ff375f)}
+.imp-seg button:disabled{cursor:default}
+[data-ucpanel][hidden]{display:none!important}
 .imp-usecase-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#0071e3,#30d158);font-size:1.2rem}
 .imp-usecase b{display:block;font-size:1.05rem;color:#fff;letter-spacing:-.02em}
 .imp-usecase i{display:block;font-style:normal;font-size:.82rem;font-weight:600;color:#2997ff;letter-spacing:.02em}
@@ -1511,9 +1517,14 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="head">
       <div>
         <div class="eyebrow-pill"><span class="dot">💰</span>THE IMPACT</div>
-        <div class="imp-usecase"><span class="imp-usecase-icon">🧪</span><span><b>Test Data Generator</b><i>Use case: UAT</i></span></div>
-        <h2>$1.1M+ saved.<br>On one <span>$12K license.</span></h2>
-        <p>An ROI example for the Test Data Generator in its UAT use case, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
+        <div class="imp-ucs" id="impUseCase" role="tablist" aria-label="Use case">
+          <button type="button" class="imp-usecase on" data-uc="tdg"><span class="imp-usecase-icon">🧪</span><span><b>Test Data Generator</b><i>Use case: UAT</i></span></button>
+          <button type="button" class="imp-usecase" data-uc="pst"><span class="imp-usecase-icon pst">📖</span><span><b>Patient Story Teller</b><i>Use case: Patient stories</i></span></button>
+        </div>
+        <h2 data-ucpanel="tdg">$1.1M+ potentially saved<br>with <span>one agent.</span></h2>
+        <h2 data-ucpanel="pst" hidden>$303K potentially saved<br>with <span>one agent.</span></h2>
+        <p data-ucpanel="tdg">An ROI example for the Test Data Generator in its UAT use case, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
+        <p data-ucpanel="pst" hidden>An ROI example for the Patient Story Teller, based on the pilot (~20 studies). The agent cost doesn't go up with each study — so the savings multiply while the cost stays flat.</p>
       </div>
     </div>
 
@@ -1523,7 +1534,8 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <button type="button" data-studies="1">One study</button>
           <button type="button" data-studies="20" class="on">20 studies (pilot)</button>
         </div>
-        <div class="imp-seg" id="impTier" role="tablist" aria-label="Contracted rate">
+        <div class="imp-seg" data-ucpanel="pst" hidden><button type="button" class="on" disabled>Contracted · $200/hr</button></div>
+        <div class="imp-seg" id="impTier" data-ucpanel="tdg" role="tablist" aria-label="Contracted rate">
           <button type="button" data-rate="150" class="on">Low · $150/hr</button>
           <button type="button" data-rate="225">Mid · $225/hr</button>
           <button type="button" data-rate="300">High · $300/hr</button>
@@ -1559,15 +1571,15 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="imp-sliders">
           <label>Studies <output id="impStudiesOut">20</output><input type="range" id="impStudies" min="1" max="40" step="1" value="20"></label>
           <label>Contracted rate <output id="impRateOut">$150/hr</output><input type="range" id="impRate" min="100" max="400" step="5" value="150"></label>
-          <label>Hours per study <output id="impHrsOut">400</output><input type="range" id="impHrs" min="100" max="800" step="10" value="400"></label>
+          <label>Hours per study <output id="impHrsOut">400</output><input type="range" id="impHrs" min="40" max="800" step="10" value="400"></label>
           <label>Agent coverage <output id="impCovOut">95%</output><input type="range" id="impCov" min="50" max="100" step="1" value="95"></label>
-          <label>License years <output id="impYearsOut">1 ($12,000)</output><input type="range" id="impYears" min="1" max="3" step="1" value="1"></label>
+          <label>Agent years <output id="impYearsOut">1 ($12,000)</output><input type="range" id="impYears" min="1" max="3" step="1" value="1"></label>
           <button type="button" class="imp-reset" id="impReset">Reset to pilot assumptions</button>
         </div>
       </details>
     </div>
 
-    <div class="imp-cards">
+    <div class="imp-cards" data-ucpanel="tdg">
       <div class="imp-card">
         <h3>Assumptions</h3>
         <ul>
@@ -1578,16 +1590,30 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       </div>
       <div class="imp-card imp-quote">
         <h3>Pitch line</h3>
-        <blockquote>"For a single study, contracting out test data generation costs $60,000 to $120,000. Across the 20+ studies in our pilot, that would be $1.2 to $2.4 million. With the Test Data Entry Generator, BI's total cost drops to $72,000 to $132,000, saving more than $1.1 million at the lowest contracted rate, all on one $12,000 license."</blockquote>
+        <blockquote>"For a single study, contracting out test data generation costs $60,000 to $120,000. Across the 20+ studies in our pilot, that would be $1.2 to $2.4 million. With the Test Data Entry Generator, BI's total cost drops to $72,000 to $132,000, saving more than $1.1 million at the lowest contracted rate, all with one agent."</blockquote>
+      </div>
+    </div>
+    <div class="imp-cards" data-ucpanel="pst" hidden>
+      <div class="imp-card">
+        <h3>Assumptions</h3>
+        <ul>
+          <li><b>Contracted labor:</b> 80 hours per study at $200/hour.</li>
+          <li><b>Agent coverage:</b> 95% of the work (76 hours per study). The user handles the other 5% (4 hours per study).</li>
+          <li><b>Agent cost:</b> $500/year in total, not per study. Across 20 studies, that's $25 per study.</li>
+        </ul>
+      </div>
+      <div class="imp-card imp-quote">
+        <h3>Pitch line</h3>
+        <blockquote>"Contracting out patient story work across our 20-study pilot would cost about $320,000. With the Patient Story Teller, BI's total cost is $16,500, a 95% reduction, and $303,500 potentially saved with one agent."</blockquote>
       </div>
     </div>
 
     <div class="imp-tables">
       <div class="imp-seg imp-seg-sm" id="impTableTabs">
-        <button type="button" data-table="impT1">One study</button>
-        <button type="button" data-table="impT20" class="on">20 studies (pilot scale)</button>
+        <button type="button" data-table="1">One study</button>
+        <button type="button" data-table="20" class="on">20 studies (pilot scale)</button>
       </div>
-      <table class="facts-table imp-table" id="impT1" hidden>
+      <table class="facts-table imp-table" id="impT1" data-ucpanel="tdg" data-scale="1" hidden>
         <thead><tr><th></th><th data-col="150">Low ($150/hr)</th><th data-col="225">Mid ($225/hr)</th><th data-col="300">High ($300/hr)</th></tr></thead>
         <tbody>
           <tr><td>Cost without the agent (400 hrs)</td><td>$60,000</td><td>$90,000</td><td>$120,000</td></tr>
@@ -1597,14 +1623,14 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <tr><td>Payback</td><td>2.5 months</td><td>1.7 months</td><td>1.3 months</td></tr>
         </tbody>
       </table>
-      <table class="facts-table imp-table" id="impT20">
+      <table class="facts-table imp-table" id="impT20" data-ucpanel="tdg" data-scale="20">
         <thead><tr><th></th><th data-col="150">Low ($150/hr)</th><th data-col="225">Mid ($225/hr)</th><th data-col="300">High ($300/hr)</th></tr></thead>
         <tbody>
           <tr><td>Contracted hours without the agent</td><td>8,000</td><td>8,000</td><td>8,000</td></tr>
           <tr><td>Cost without the agent</td><td>$1,200,000</td><td>$1,800,000</td><td>$2,400,000</td></tr>
           <tr><td>User hours with the agent (5%)</td><td>400</td><td>400</td><td>400</td></tr>
           <tr><td>Cost of user hours</td><td>$60,000</td><td>$90,000</td><td>$120,000</td></tr>
-          <tr><td>Agent cost (one fixed license)</td><td>$12,000</td><td>$12,000</td><td>$12,000</td></tr>
+          <tr><td>Agent cost (one fixed annual cost)</td><td>$12,000</td><td>$12,000</td><td>$12,000</td></tr>
           <tr class="imp-strong"><td>Total cost with the agent</td><td>$72,000</td><td>$102,000</td><td>$132,000</td></tr>
           <tr class="imp-strong"><td>Net savings</td><td>$1,128,000</td><td>$1,698,000</td><td>$2,268,000</td></tr>
           <tr><td>Benefit-cost ratio (on the agent cost)</td><td>95:1</td><td>142.5:1</td><td>190:1</td></tr>
@@ -1612,15 +1638,47 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <tr><td>Payback</td><td>Under 1 week</td><td>Under 1 week</td><td>Under 1 week</td></tr>
         </tbody>
       </table>
-      <p class="imp-note">The one-study view charges the full $12,000 license to a single study — the conservative case. Spread across 20 studies, the license is only $600 per study.</p>
+      <table class="facts-table imp-table" id="impP1" data-ucpanel="pst" data-scale="1" hidden>
+        <thead><tr><th></th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Cost without the agent (80 hrs × $200)</td><td>$16,000</td></tr>
+          <tr><td>User hours (4 hrs × $200)</td><td>$800</td></tr>
+          <tr><td>Agent cost (annual)</td><td><b>$500</b></td></tr>
+          <tr class="imp-strong"><td>Total cost with the agent</td><td>$1,300</td></tr>
+          <tr><td>Contractor cost avoided (76 hrs)</td><td>$15,200</td></tr>
+          <tr class="imp-strong"><td>Net savings</td><td>$14,700</td></tr>
+          <tr><td>ROI</td><td>2,940%</td></tr>
+          <tr><td>Benefit-cost ratio</td><td>30.4:1</td></tr>
+          <tr><td>Cost reduction vs. contracting</td><td>92%</td></tr>
+          <tr><td>Payback</td><td>~12 days</td></tr>
+        </tbody>
+      </table>
+      <table class="facts-table imp-table" id="impP20" data-ucpanel="pst" data-scale="20" hidden>
+        <thead><tr><th></th><th>Amount</th></tr></thead>
+        <tbody>
+          <tr><td>Contracted hours without the agent</td><td>1,600</td></tr>
+          <tr><td>Cost without the agent</td><td>$320,000</td></tr>
+          <tr><td>User hours with the agent (5%)</td><td>80</td></tr>
+          <tr><td>Cost of user hours</td><td>$16,000</td></tr>
+          <tr><td>Agent cost (one fixed annual cost)</td><td><b>$500</b></td></tr>
+          <tr class="imp-strong"><td>Total cost with the agent</td><td>$16,500</td></tr>
+          <tr><td>Contractor cost avoided (1,520 hrs)</td><td>$304,000</td></tr>
+          <tr class="imp-strong"><td>Net savings</td><td>$303,500</td></tr>
+          <tr><td>Benefit-cost ratio (on the agent cost)</td><td>608:1</td></tr>
+          <tr><td>Cost reduction vs. contracting</td><td>95%</td></tr>
+          <tr><td>Payback</td><td>Under 1 day</td></tr>
+        </tbody>
+      </table>
+      <p class="imp-note" data-ucpanel="tdg">The one-study view charges the full $12,000 agent cost to a single study — the conservative case. Spread across 20 studies, the agent costs only $600 per study.</p>
+      <p class="imp-note" data-ucpanel="pst" hidden>Spread across 20 studies, the agent costs <b>$25 per study</b>.</p>
     </div>
 
-    <div class="imp-card imp-caveats">
+    <div class="imp-card imp-caveats" data-ucpanel="tdg">
       <h3>Caveats to state up front</h3>
       <ul>
         <li><b>400 hours per study is an assumption.</b> Studies differ in size and complexity. Before presenting, confirm it with one or two real examples, such as 2012-0001 or 2015-0001.</li>
         <li><b>The 20+ studies may not all fall in one year.</b> If they span two years, the agent cost becomes $24,000. That barely changes the result.</li>
-        <li><b>Lead with dollar savings, not ROI percentages.</b> Ratios like 190:1 can sound too good to be true to leaders. "$1.1M+ saved on a $12K license" is easier to trust.</li>
+        <li><b>Lead with dollar savings, not ROI percentages.</b> Ratios like 190:1 can sound too good to be true to leaders. "$1.1M+ potentially saved with one agent" is easier to trust.</li>
       </ul>
     </div>
   <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>6 / 7</span><button type="button" class="journey-next">The Decision →</button></div></section>
@@ -2123,7 +2181,7 @@ const KNOWLEDGE = [
   { id:'kb-trust', title:'Governance and human oversight', nav:{view:'archSection'},
     text:'Governed knowledge sources, human review of every non-ready agent output, traceable outputs back to the source record, and no patient-identifiable data in the prototype.' },
   { id:'kb-roadmap', title:'Roadmap', nav:{view:'visionSection'}, text:'The Roadmap page covers what comes next for Kloud.' },
-  { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example labeled "Test Data Generator - Use case: UAT" (the Test Data Entry Generator generating UAT test data), from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ saved on a $12K license. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator.' },
+  { id:'kb-impact', title:'The Impact (ROI example)', nav:{view:'impactSection'}, text:'The Impact page shows an ROI example labeled "Test Data Generator - Use case: UAT" (the Test Data Entry Generator generating UAT test data), from the pilot (~20 studies). Assumptions: 400 contracted hours per study at $150-$300/hour; the agent covers 95% of the work (380 hours) and the user handles 5% (20 hours: source files, EDC import, troubleshooting); agent cost is $12,000/year total, not per study ($600 per study across 20). One study: cost without the agent $60,000 / $90,000 / $120,000 (low/mid/high); with the agent $15,000 / $16,500 / $18,000; net savings $45,000 / $73,500 / $102,000; benefit-cost 4.75:1 / 7.1:1 / 9.5:1; payback 2.5 / 1.7 / 1.3 months. 20 studies: 8,000 contracted hours, cost without the agent $1.2M / $1.8M / $2.4M; total with the agent $72,000 / $102,000 / $132,000; net savings $1,128,000 / $1,698,000 / $2,268,000; 94-94.5% cost reduction; payback under 1 week. Headline: $1.1M+ potentially saved with one agent. Caveats: 400 hours per study is an assumption to confirm with real studies (e.g. 2012-0001, 2015-0001); if studies span two years the agent cost is $24,000; lead with dollar savings, not ratios. The page has an interactive calculator and a use-case picker. Second use case on the same page: "Patient Story Teller - Use case: Patient stories". Assumptions: 80 contracted hours per study at $200/hour; agent covers 95% (76 hours), user handles 5% (4 hours); agent cost $500/year total ($25 per study across 20). One study: cost without the agent $16,000; user hours $800; agent $500; total with the agent $1,300; contractor cost avoided $15,200; net savings $14,700; ROI 2,940%; benefit-cost 30.4:1; 92% cost reduction; payback ~12 days. 20 studies: 1,600 contracted hours, cost without the agent $320,000; 80 user hours costing $16,000; agent $500; total with the agent $16,500; contractor cost avoided $304,000 (1,520 hrs); net savings $303,500; benefit-cost 608:1; 95% cost reduction; payback under 1 day. Pitch: contracting patient story work across the 20-study pilot would cost about $320,000; with the Patient Story Teller total cost is $16,500, a 95% reduction, $303,500 potentially saved with one agent (headline: $303K potentially saved with one agent).' },
   { id:'kb-decision', title:'The Decision', nav:{view:'decisionSection'}, text:'The Decision page is the ask: what support Kloud needs to move from prototype to a company capability.' },
   { id:'kb-install', title:'Install the Kloud app', nav:{page:'landing', anchor:'.landing-app'}, text:'Kloud installs like a phone app with no app store: scan the QR code on the Home page, then Add to Home Screen.' }
 ];
@@ -2514,15 +2572,9 @@ function showToast(msg){
   const isFileProtocol = location.protocol === 'file:';
   const STORAGE_KEY = 'kloudAppHostedUrl';
 
+  const LIVE_URL = 'https://kspindler1.github.io/kspindle/Kloud_Shark_Tank_Full_Experience.html';
   const savedUrl = localStorage.getItem(STORAGE_KEY);
-  if(savedUrl){
-    input.value = savedUrl;
-  } else if(!isFileProtocol){
-    input.value = location.href.split('#')[0];
-  }
-  if(isFileProtocol && !savedUrl){
-    hint.textContent = "This copy is open from your local file system — a QR code can't point a phone at a file:// path. Paste the real hosted link above once this is uploaded somewhere reachable, and the code below will update (it's remembered next time you open this page).";
-  }
+  input.value = savedUrl || (isFileProtocol ? LIVE_URL : location.origin + location.pathname);
 
   function renderQR(url){
     qrHost.innerHTML = '';
@@ -2537,6 +2589,7 @@ function showToast(msg){
     }
   }
   renderQR(input.value);
+  window.addEventListener('qrlib-ready', ()=>renderQR(input.value.trim()));
   input.addEventListener('input', ()=>{
     const v = input.value.trim();
     if(v) hint.textContent = '';
@@ -2596,13 +2649,16 @@ document.addEventListener('keydown',function(e){if(e.target.matches('input,texta
 (function(){
   var $=function(id){return document.getElementById(id)};
   if(!$('impactSection'))return;
-  var LICENSE=12000, DEF={studies:20,rate:150,hrs:400,cov:95,years:1};
+  var UC={
+    tdg:{license:12000,redDec:1,def:{studies:20,rate:150,hrs:400,cov:95,years:1},payback:function(m){var days=m*30.4;if(days<7)return 'Under 1 week';if(m<1)return '~'+Math.ceil(days/7)+' weeks';return trim(m,1)+' months'}},
+    pst:{license:500,redDec:0,def:{studies:20,rate:200,hrs:80,cov:95,years:1},payback:function(m){var days=m*30.4;if(days<1)return 'Under 1 day';if(days<60)return '~'+Math.round(days)+' days';return trim(m,1)+' months'}}
+  };
+  var uc='tdg',scale='20';
   var el={studies:$('impStudies'),rate:$('impRate'),hrs:$('impHrs'),cov:$('impCov'),years:$('impYears')};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var money=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
   var trim=function(x,d){return String(Number(x.toFixed(d)))};
   var ratio=function(x){return (x>=10||Math.abs(x*4-Math.round(x*4))>1e-9?trim(x,1):trim(x,2))+':1'};
-  var payback=function(m){var days=m*30.4;if(days<7)return 'Under 1 week';if(m<1)return '~'+Math.ceil(days/7)+' weeks';return trim(m,1)+' months'};
   var shown={};
   function tween(id,to,fmt){
     var node=$(id),from=shown[id]==null?to:shown[id];shown[id]=to;
@@ -2612,21 +2668,30 @@ document.addEventListener('keydown',function(e){if(e.target.matches('input,texta
     (function step(t){var p=Math.min(1,(t-t0)/dur),e=1-Math.pow(1-p,3);node.textContent=fmt(from+(to-from)*e);if(p<1)node._raf=requestAnimationFrame(step)})(t0);
   }
   function syncSeg(segId,attr,val){document.querySelectorAll('#'+segId+' button').forEach(function(b){b.classList.toggle('on',Number(b.dataset[attr])===val)})}
-  function showTable(id){
-    document.querySelectorAll('#impTableTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.table===id)});
-    ['impT1','impT20'].forEach(function(t){$(t).hidden=(t!==id)});
+  function showTable(s){
+    scale=s;
+    document.querySelectorAll('#impTableTabs button').forEach(function(b){b.classList.toggle('on',b.dataset.table===s)});
+    document.querySelectorAll('#impactSection .imp-table').forEach(function(t){t.hidden=!(t.dataset.ucpanel===uc&&t.dataset.scale===s)});
+  }
+  function setUseCase(id){
+    uc=id;
+    document.querySelectorAll('#impUseCase button').forEach(function(b){var on=b.dataset.uc===id;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)});
+    document.querySelectorAll('#impactSection [data-ucpanel]:not(.imp-table)').forEach(function(n){n.hidden=n.dataset.ucpanel!==id});
+    var d=UC[id].def;Object.keys(d).forEach(function(k){el[k].value=d[k]});
+    el.studies.value=scale;showTable(scale);calc();
   }
   function calc(){
+    var cfg=UC[uc];
     var S=+el.studies.value,R=+el.rate.value,H=+el.hrs.value,C=+el.cov.value/100,Y=+el.years.value;
-    var lic=LICENSE*Y,without=S*H*R,userHrs=S*H*(1-C),withAgent=lic+userHrs*R,net=without-withAgent;
+    var lic=cfg.license*Y,without=S*H*R,userHrs=S*H*(1-C),withAgent=lic+userHrs*R,net=without-withAgent;
     var laborSaved=S*H*C*R,bcr=laborSaved/lic,months=lic/(laborSaved/(12*Y));
     $('impStudiesOut').textContent=S;$('impRateOut').textContent='$'+R+'/hr';$('impHrsOut').textContent=H;
     $('impCovOut').textContent=Math.round(C*100)+'%';$('impYearsOut').textContent=Y+' ('+money(lic)+')';
     tween('impNet',net,function(v){return (v<0?'-':'')+money(Math.abs(v))});
     tween('impWithout',without,money);tween('impWith',withAgent,money);
     tween('impHours',S*H*C,function(v){return Math.round(v).toLocaleString('en-US')});
-    $('impReduction').textContent=without>0?trim(net/without*100,1)+'%':'—';
-    $('impPayback').textContent=payback(months);
+    $('impReduction').textContent=without>0?trim(net/without*100,cfg.redDec)+'%':'—';
+    $('impPayback').textContent=cfg.payback(months);
     $('impBcr').textContent=ratio(bcr);
     $('impSubline').textContent=(S===1?'for one study':'across '+S+' studies')+' at $'+R+'/hr — vs. contracting it out';
     $('impBarOld').style.width='100%';
@@ -2639,11 +2704,12 @@ document.addEventListener('keydown',function(e){if(e.target.matches('input,texta
       tb.querySelectorAll('tbody tr').forEach(function(tr){var td=tr.children[idx+1];if(td)td.classList.add('hl')});
     });
   }
-  document.querySelectorAll('#impScale button').forEach(function(b){b.addEventListener('click',function(){el.studies.value=b.dataset.studies;showTable(b.dataset.studies==='1'?'impT1':'impT20');calc()})});
+  document.querySelectorAll('#impScale button').forEach(function(b){b.addEventListener('click',function(){el.studies.value=b.dataset.studies;showTable(b.dataset.studies);calc()})});
   document.querySelectorAll('#impTier button').forEach(function(b){b.addEventListener('click',function(){el.rate.value=b.dataset.rate;calc()})});
   document.querySelectorAll('#impTableTabs button').forEach(function(b){b.addEventListener('click',function(){showTable(b.dataset.table)})});
+  document.querySelectorAll('#impUseCase button').forEach(function(b){b.addEventListener('click',function(){setUseCase(b.dataset.uc)})});
   Object.keys(el).forEach(function(k){el[k].addEventListener('input',calc)});
-  $('impReset').addEventListener('click',function(){Object.keys(DEF).forEach(function(k){el[k].value=DEF[k]});showTable('impT20');calc()});
+  $('impReset').addEventListener('click',function(){scale='20';setUseCase(uc)});
   calc();
 })();
 </script><div class="route-hint"></div>
