@@ -531,6 +531,16 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
 .imp-seg button:hover{color:#fff}
 .imp-seg button.on{background:#f5f5f7;color:#1d1d1f;box-shadow:0 3px 10px rgba(0,0,0,.3)}
 .imp-seg-sm button{font-size:.82rem;padding:7px 15px}
+.ask-wrap{max-width:1100px;margin:0 auto;text-align:center}
+.ask-wrap h2{font-size:clamp(2.8rem,6vw,5.4rem);line-height:1.02;letter-spacing:-.055em;margin:28px 0 36px}
+.ask-wrap h2 span{color:#ffcc4d;text-shadow:0 0 40px rgba(255,190,60,.45)}
+.ask-evil{margin:22px auto 0;max-width:520px}
+.ask-evil img{width:100%;border-radius:28px;box-shadow:0 30px 80px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.12)}
+.ask-evil figcaption{margin-top:14px;color:#a1a1a6;font-style:italic;font-size:1.1rem}
+.ask-jackpot{margin:0 auto;max-width:1100px}
+.ask-jackpot img{width:100%;border-radius:32px;box-shadow:0 40px 120px rgba(255,170,40,.25),0 0 0 1px rgba(255,210,120,.25)}
+[data-agent-jump]{cursor:pointer}
+.node[data-agent-jump]:hover,.lane li[data-agent-jump]:hover{outline:2px solid #2997ff;outline-offset:3px;border-radius:12px}
 .imp-hero{text-align:center;margin-bottom:30px}
 .imp-kicker{font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#86868b}
 .imp-big{font-size:clamp(3.2rem,9vw,6.4rem);font-weight:800;letter-spacing:-.05em;line-height:1.05;background:linear-gradient(90deg,#79d8a1,#5fd3d6 45%,#2997ff);-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
@@ -608,6 +618,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     </button>
     <button data-jump="visionSection"><span class="navicon-mark">🧭</span>Roadmap</button>
     <button data-jump="impactSection"><span class="navicon-mark">💰</span>The Impact</button>
+    <button data-jump="askSection"><span class="navicon-mark">🪙</span>The Ask</button>
     <button data-jump="decisionSection"><span class="navicon-mark">🚀</span>The Decision</button>
   </div>
 </nav>
@@ -723,8 +734,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="node pipe hub"><div class="pipe-icon">🧬</div><b>SDTM Creation</b><small>Final SDTM programming output</small></div>
       </div>
     </div>
-    <p style="color:var(--muted);font-size:.85rem;max-width:760px;margin-top:14px">This is just one example — swap, skip, or reorder agents for a different task, and Kloud designs the workflow around it.</p>
-  <div class="journey-controls"><button type="button" class="journey-prev" style="visibility:hidden">← </button><span>1 / 7</span><button type="button" class="journey-next">Architecture →</button></div></section>
+    <p style="color:var(--muted);font-size:.85rem;max-width:760px;margin-top:14px">This is just one example — swap, skip, or reorder agents for a different task, and Kloud designs the workflow around it.</p></section>
 
   <section class="block reveal subview" id="archSection">
     <div class="head">
@@ -859,8 +869,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <p>Every answer shows its sources, is checked against a golden question set, and still needs human review before use.
             No patient-identifiable data enters the prototype.</p></div>
       </div>
-    </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← The Vision</button><span>2 / 7</span><button type="button" class="journey-next">Live Demo →</button></div></section>
+    </div></section>
 
   <section class="block reveal subview" id="flagship">
     <div class="head">
@@ -921,8 +930,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
           <button class="outline-pill" data-genie-ask="Tell me about CQL Builder">Ask Kloud Genie about it</button>
         </div>
       </article>
-    </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Architecture</button><span>3 / 7</span><button type="button" class="journey-next">Specialists →</button></div></section>
+    </div></section>
 
   <section class="block reveal subview" id="agents">
     <div class="head">
@@ -945,7 +953,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="market-lane clin">
           <div class="lane-title">🩺 Clinical team</div>
           <small>Protocol, medical review, patient safety</small>
-          <div class="lane-chips" data-lane="clin"><button type="button" class="lane-chip" data-jump="protocol">📄 Clinical Trial Consistency Review</button><button type="button" class="lane-chip" data-jump="patient-profile-tool">🗂️ Patient Profile Tool</button><button type="button" class="lane-chip" data-jump="patient-story">🩺 Patient Story Teller</button><button type="button" class="lane-chip" data-jump="trial-builder">🏗️ Trial Builder</button></div>
+          <div class="lane-chips" data-lane="clin"></div>
         </div>
         <div class="market-hub">
           <div class="hub-core">☁ Shared orchestration<br><small>Trusted RAG library · shared standards · audit trail</small></div>
@@ -954,7 +962,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <div class="market-lane dm">
           <div class="lane-title">🗄️ Data management</div>
           <small>Study build, edit checks, listings, SDTM</small>
-          <div class="lane-chips" data-lane="dm"><button type="button" class="lane-chip" data-jump="trial-builder">🏗️ Trial Builder</button><button type="button" class="lane-chip" data-jump="rule-builder">⚙️ Rule Builder</button><button type="button" class="lane-chip" data-jump="dts-cp">🗂️ DTS CP Domain Creation</button><button type="button" class="lane-chip" data-jump="cql-harmonizer">📐 CQL Harmonizer</button><button type="button" class="lane-chip" data-jump="cql-builder">🧱 CQL Builder</button><button type="button" class="lane-chip" data-jump="sample-subject-export-mapping">🗺️ Sample Subject Export Mapping</button><button type="button" class="lane-chip" data-jump="patient-dashboard-mapping">📊 Patient Dashboard Mapping Agent</button><button type="button" class="lane-chip" data-jump="test-data-generator">🧪 Test Data Entry Generator</button><button type="button" class="lane-chip" data-jump="cdb-tester">🖱️ CDB Listing Tester (Computer-Using Agent)</button><button type="button" class="lane-chip" data-jump="sdtm-creation">🧬 SDTM Creation</button></div>
+          <div class="lane-chips" data-lane="dm"></div>
         </div>
       </div>
       <ol class="market-steps">
@@ -965,7 +973,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <li><b>Validate</b>Test Data Entry Generator creates test data; CDB Listing Tester checks it before real patient data arrives.</li>
         <li><b>Review</b>Patient Profile Tool and Patient Story Teller give clinicians traceable patient views; SDTM Creation packages it for submission.</li>
       </ol>
-      <div class="lane-chips" data-lane="platform" style="justify-content:center"><span class="lane-label">Platform agents that keep the marketplace healthy:</span><button type="button" class="lane-chip" data-jump="model-tradeoff">⚖️ Model Tradeoff Analyst</button><button type="button" class="lane-chip" data-jump="yaml-troubleshooter">🛠️ YAML Agent Troubleshooter</button><button type="button" class="lane-chip" data-jump="html-agent">🌐 HTML Agent</button><button type="button" class="lane-chip" data-jump="chaos-coordinator">🌀 Chaos Coordinator</button></div>
+      <div class="lane-chips" data-lane="platform" style="justify-content:center"><span class="lane-label">Platform agents that keep the marketplace healthy:</span></div>
       <p class="market-foot">Why it's a marketplace: new agents plug into the same backbone, any study team can reuse them, and each one
         carries its spec, risk level and status — so teams pick proven tools instead of rebuilding them. End to end, that means a faster path to treatment for patients.</p>
     </div>
@@ -1463,8 +1471,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
       <button class="primary-action" data-launch="protocol">Launch Interactive Demo</button>
       <button class="explore-agent" data-explore="protocol">Explore agent →</button>
     </div>
-  </article></div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Live Demo</button><span>4 / 7</span><button type="button" class="journey-next">Roadmap →</button></div></section>
+  </article></div></section>
 
   <section class="block reveal subview" id="visionSection">
     <div class="head">
@@ -1510,8 +1517,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         "enterprise-scalable" is the actual next milestone — more rigorous testing, the shared Databricks/MCP library
         from the architecture page, and the unified work/chat flow above, before this is rolled out beyond the teams
         already using it today.</p>
-    </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Specialists</button><span>5 / 7</span><button type="button" class="journey-next">The Impact →</button></div></section>
+    </div></section>
 
   <section class="block reveal subview" id="impactSection">
     <div class="head">
@@ -1680,8 +1686,21 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
         <li><b>The 20+ studies may not all fall in one year.</b> If they span two years, the agent cost becomes $24,000. That barely changes the result.</li>
         <li><b>Lead with dollar savings, not ROI percentages.</b> Ratios like 190:1 can sound too good to be true to leaders. "$1.1M+ potentially saved with one agent" is easier to trust.</li>
       </ul>
+    </div></section>
+
+  <section class="block reveal subview" id="askSection">
+    <div class="ask-wrap">
+      <div class="eyebrow-pill"><span class="dot">🪙</span>THE ASK</div>
+      <figure class="ask-evil">
+        <img src="the-ask-dr-evil.png" alt="Dr. Evil with his pinky to his mouth">
+        <figcaption>"One... million... tokens."</figcaption>
+      </figure>
+      <h2>1M tokens<br>for <span>BDS departmental use.</span></h2>
+      <figure class="ask-jackpot">
+        <img src="the-ask-token-jackpot.png" alt="Tokens spilling out of a golden Kloud pyramid labeled The Token Jackpot">
+      </figure>
     </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← Roadmap</button><span>6 / 7</span><button type="button" class="journey-next">The Decision →</button></div></section>
+  </section>
 
   <section class="decision reveal subview" id="decisionSection">
     <div class="eyebrow-pill"><span class="dot">🚀</span>THE DECISION</div>
@@ -1690,8 +1709,7 @@ section.block{padding:112px max(6vw,32px)}.head{max-width:1100px;margin:0 auto 3
     <div class="cta-row" style="justify-content:center;margin-top:28px">
       <button class="white-pill" data-jump="flagship">See the live demos</button>
       <button class="outline-pill" data-jump="archSection">Review the architecture</button>
-    </div>
-  <div class="journey-controls"><button type="button" class="journey-prev">← The Impact</button><span>7 / 7</span><button type="button" class="journey-next">Start over →</button></div></section>
+    </div></section>
 </div>
 
 <!-- ================= PAGE 3: INTERACTIVE DEMO ================= -->
@@ -1952,15 +1970,10 @@ const MARKET_LANES = {
 document.querySelectorAll('.lane-chips[data-lane]').forEach(box=>{
   box.insertAdjacentHTML('beforeend', MARKET_LANES[box.dataset.lane].map(id=>{
     const a = AGENTS.find(x=>x.id === id);
-    return a ? `<button type="button" class="lane-chip" data-jump="${a.id}">${a.icon} ${a.name}</button>` : '';
+    return a ? `<button type="button" class="lane-chip" data-agent-jump="${a.id}">${a.icon} ${a.name}</button>` : '';
   }).join(''));
 });
-document.querySelector('.market-explain').addEventListener('click', e=>{
-  const b = e.target.closest('[data-jump]'); if(!b) return;
-  const card = document.querySelector(`.agent-card[data-agent="${b.dataset.jump}"]`); if(!card) return;
-  card.scrollIntoView({behavior:'smooth', block:'center'});
-  card.classList.add('flash'); setTimeout(()=>card.classList.remove('flash'), 1800);
-});
+
 grid.innerHTML = AGENTS.map(a => `
   <article class="agent-card${a.protocol ? ' protocol' : ''}" data-agent="${a.id}">
     ${a.evidence ? `<button type="button" class="evidence-icon" data-evidence="${a.id}" title="View screenshot evidence" aria-label="View screenshot evidence for ${a.name}">📸</button>` : ''}
@@ -2623,8 +2636,8 @@ function showToast(msg){
 </script>
 <script>
 /* Connected app-style navigation */
-const JOURNEY=['directorAgentSection','archSection','flagship','agents','visionSection','impactSection','decisionSection'];
-const LABELS={directorAgentSection:'The Vision',archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',impactSection:'The Impact',decisionSection:'The Decision'};
+const JOURNEY=['directorAgentSection','archSection','flagship','agents','visionSection','impactSection','askSection','decisionSection'];
+const LABELS={directorAgentSection:'The Vision',archSection:'Architecture',flagship:'Live Demo',agents:'Specialists',visionSection:'Roadmap',impactSection:'The Impact',askSection:'The Ask',decisionSection:'The Decision'};
 const hint=document.createElement('div');hint.className='route-hint';document.body.appendChild(hint);
 function announceRoute(id){hint.textContent='Now viewing: '+LABELS[id];hint.classList.add('show');clearTimeout(announceRoute.t);announceRoute.t=setTimeout(function(){hint.classList.remove('show')},1500)}
 function updateRoute(id){
@@ -2643,7 +2656,22 @@ if(location.hash){
 grid.querySelectorAll('.agent-card').forEach(function(card){card.addEventListener('click',function(e){if(e.target.closest('[data-toggle],.explore-agent'))return;var b=card.querySelector('[data-toggle]');b.click()})});
 grid.querySelectorAll('.explore-agent').forEach(function(btn){btn.addEventListener('click',function(){var a=AGENTS.find(function(v){return v.id===btn.dataset.explore});askGenie('Tell me about '+a.name+'.')})});
 document.querySelectorAll('.arch-row .node,.lane').forEach(function(n){n.tabIndex=0;n.setAttribute('role','button');n.addEventListener('click',function(){if(n.classList.contains('hub'))askGenie();else goJourney('agents')});n.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();n.click()}})});
-document.addEventListener('keydown',function(e){if(e.target.matches('input,textarea'))return;if(e.altKey&&e.key==='ArrowRight'){var i=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(i+1)%JOURNEY.length])}if(e.altKey&&e.key==='ArrowLeft'){var j=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(j+JOURNEY.length-1)%JOURNEY.length])}});
+/* Every clickable agent (chips, pipeline nodes, lane items) opens that agent's card on Specialists. */
+(function(){
+  var ALIAS={'kloud':'@genie','kloud (director agent)':'@genie','kloud genie':'@genie','model tradeoff':'model-tradeoff','cql harmonizer/builder':'cql-harmonizer','cql harmonizer / cql builder':'cql-harmonizer','mapping agent':'sample-subject-export-mapping','test data generator':'test-data-generator','yaml agent troubleshooter':'yaml-troubleshooter'};
+  function norm(s){return (s||'').replace(/^[^A-Za-z0-9]+/,'').replace(/\s*·.*$/,'').replace(/\s+/g,' ').trim().toLowerCase()}
+  function resolve(txt){var n=norm(txt);if(!n)return null;if(ALIAS[n])return ALIAS[n];var a=AGENTS.find(function(x){return x.name.toLowerCase()===n})||AGENTS.find(function(x){var m=x.name.toLowerCase();return n.length>5&&(m.indexOf(n)===0||n.indexOf(m)===0)});return a?a.id:null}
+  document.querySelectorAll('.node, #laneApollo li, #laneCopilot li, .lane li').forEach(function(el){
+    if(el.dataset.agentJump)return;var b=el.querySelector('b');var id=resolve(b?b.textContent:'');
+    if(id){el.dataset.agentJump=id;el.tabIndex=0;el.setAttribute('role','button');el.title=id==='@genie'?'Ask Kloud Genie':'Open on Specialists'}
+  });
+  function openAgent(id){
+    if(id==='@genie'){askGenie();return}
+    goTo({view:'agents',agent:id});updateRoute('agents');announceRoute('agents');
+  }
+  document.addEventListener('click',function(e){var el=e.target.closest('[data-agent-jump]');if(!el)return;e.preventDefault();e.stopPropagation();openAgent(el.dataset.agentJump)},true);
+  document.addEventListener('keydown',function(e){if(e.key!=='Enter'&&e.key!==' ')return;var el=e.target.closest&&e.target.closest('[data-agent-jump]');if(!el)return;e.preventDefault();e.stopPropagation();openAgent(el.dataset.agentJump)},true);
+})();document.addEventListener('keydown',function(e){if(e.target.matches('input,textarea'))return;if(e.altKey&&e.key==='ArrowRight'){var i=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(i+1)%JOURNEY.length])}if(e.altKey&&e.key==='ArrowLeft'){var j=JOURNEY.indexOf(currentSubview);goJourney(JOURNEY[(j+JOURNEY.length-1)%JOURNEY.length])}});
 
 /* The Impact: interactive ROI calculator */
 (function(){
